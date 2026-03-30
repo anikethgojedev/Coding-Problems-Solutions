@@ -7,3 +7,20 @@ It includes solutions from various platforms, concepts, and topics that I practi
 ## 💻 Language Used
 - **C++**
 - **Java Sometimes**
+
+## Problem I am solving
+I categorized the problems into easy, medium and hard.
+
+## Easy 
+- P1 ->  
+- P2 -> 
+- P3 -> 
+
+## Medium 
+- P1 ->  
+- P2 -> 
+- P3 ->
+
+## Hard 
+- P1 ->
+- P2 -> 
