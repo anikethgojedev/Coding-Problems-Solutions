@@ -1,6 +1,6 @@
 # Easy Problems 
 
-1q
+1Q
 # Find the Largest Element in an Array
 
 ## 🔹 Problem Summary  
@@ -115,7 +115,7 @@ public class Main {
 | **Optimal (Linear Scan)** | $O(N)$ | $O(1)$ | **Best for Interviews.** |
 
 --- 
-2q
+2Q
 # Find Second Smallest and Second Largest Element in an array
 
 ## 🔹 Problem Summary  
@@ -325,7 +325,7 @@ public class Main {
 | **Better** | $O(N)$ | $O(1)$ | Two Passes |
 | **Optimal** | $O(N)$ | $O(1)$ | **Single Pass** |
 ---
-3q
+3Q
 
 # Check if an Array is Sorted
 
@@ -440,7 +440,7 @@ public class Main {
 | **Brute Force** | $O(N^2)$ | $O(1)$ | Basic pair-wise comparison. |
 | **Optimal** | $O(N)$ | $O(1)$ | **Reduces comparisons to a single pass.** |
 ---
-4q 
+4Q 
 # Remove Duplicates in-place from Sorted Array
 
 ## 🔹 Problem Summary  
@@ -586,7 +586,7 @@ public class Main {
 | **Brute Force** | $O(N)$ | $O(N)$ | HashSet for uniqueness |
 | **Optimal** | $O(N)$ | $O(1)$ | **Two Pointers ($i, j$)** |
 ---
-5q
+5Q
 # Left Rotate the Array by One
 
 ## 🔹 Problem Summary  
@@ -703,7 +703,7 @@ class Main {
 | **Brute Force** | $O(N)$ | $O(N)$ | Uses extra space/dummy array. |
 | **Optimal** | $O(N)$ | $O(1)$ | **Modifies the original array in-place.** |
 ---
-6q
+6Q
 # Rotate Array by K Elements
 
 ## 🔹 Problem Summary  
@@ -895,7 +895,7 @@ public class Main {
 | **Brute Force** | $O(n)$ | $O(k)$ | Temporary array and shifting |
 | **Optimal** | $O(n)$ | $O(1)$ | **Reversal Algorithm** |
 ---
-7q
+7Q
 # Move all Zeros to the end of the array
 
 ## 🔹 Problem Summary  
@@ -1052,7 +1052,7 @@ public class Main {
 | **Brute Force** | $O(N)$ | $O(N)$ | Temporary array |
 | **Optimal** | $O(N)$ | $O(1)$ | **Two Pointers / In-place Swap** |
 ---
-8q
+8Q
 # Linear Search
 
 ## 🔹 Problem Summary  
@@ -1135,7 +1135,7 @@ class Solution {
 | :--- | :--- | :--- | :--- |
 | **Linear Search** | $O(N)$ | $O(1)$ | $O(1)$ (Element at index 0) |
 ---
-9q
+9Q
 # Union of Two Sorted Arrays
 
 ## 🔹 Problem Summary  
@@ -1299,7 +1299,7 @@ class Solution {
 | **Using Set** | $O((m+n) \log(m+n))$ | $O(m+n)$ | Cleanest syntax, same complexity as Map. |
 | **Two Pointers** | $O(m+n)$ | $O(m+n)$ | **Most efficient; uses sorted property.** |
 ---
-10q
+10Q
 # The Missing Number - gfg
 
 ## 🔹 Problem Summary
@@ -1502,7 +1502,7 @@ class GfG {
 | **XOR Operation** | $O(n)$ | $O(1)$ | **Most Optimal** (No overflow risk). |
 ---
 
-11q
+11Q
 # Count Maximum Consecutive One's in the array
 
 ## 🔹 Problem Summary  
@@ -1597,7 +1597,7 @@ public class Main {
 | :--- | :--- | :--- | :--- |
 | **Optimal (Single Pass)** | $O(N)$ | $O(1)$ | Use a counter and a global maximum variable. |
 ---
-12q
+12Q
 # Find the number that appears once, and the other numbers twice
 
 ## 🔹 Problem Summary  
@@ -1769,7 +1769,7 @@ public class Solution {
 | **Optimal (XOR)** | $O(N)$ | $O(1)$ | **Most efficient in both time and space.** |
 ---
 
-13q 
+13Q 
 # Longest Subarray with given Sum K (Positives)
 
 ## 🔹 Problem Summary  
@@ -1960,7 +1960,7 @@ public class Main {
 | **Hashing** | $O(N)$ | $O(N)$ | Arrays with **Negatives** |
 | **Two Pointers** | $O(N)$ | $O(1)$ | Arrays with **Positives only** |
 ---
-14q 
+14Q 
 # Length of the Longest Subarray with Zero Sum
 
 ## 🔹 Problem Summary  
@@ -2092,7 +2092,7 @@ class Solution {
 ---
 ...
 # Medium Problems 
-1q
+1Q
 # [Two Sum: Check if a pair with given sum exists in Array](https://takeuforward.org/data-structure/two-sum-check-if-a-pair-with-given-sum-exists-in-array?mode=track&sheet=a2z-dsa)
 
 ## 🔹 Problem Summary
@@ -2347,7 +2347,7 @@ public class Main {
 | **Better (Hashing)** | $O(N)$ | $O(N)$ |
 | **Optimal (Two Pointers)** | $O(N \log N)$ | $O(N)$ |
 ---
-2q
+2Q
 # [Sort an array of 0s, 1s and 2s](https://takeuforward.org/data-structure/sort-an-array-of-0s-1s-and-2s?mode=track&sheet=a2z-dsa)
 
 ## 🔹 Problem Summary  
@@ -2532,7 +2532,7 @@ class Main {
 | **Better (Counting)** | $O(N)$ | $O(1)$ | 2 |
 | **Optimal (DNF)** | $O(N)$ | $O(1)$ | **1** |
 ---
-3q
+3Q
 
 # [Find the Majority Element that occurs more than N/2 times](https://takeuforward.org/data-structure/find-the-majority-element-that-occurs-more-than-n-2-times?mode=track&sheet=a2z-dsa)
 
@@ -2726,7 +2726,7 @@ public class Main {
 | **Moore's Voting** | $O(N)$ | $O(1)$ | **Optimal solution for interviews.** |
 
 --- 
-4q
+4Q
 
 # [Kadane's Algorithm : Maximum Subarray Sum in an Array](https://takeuforward.org/data-structure/kadanes-algorithm-maximum-subarray-sum-in-an-array?mode=track&sheet=a2z-dsa)
 
@@ -2904,12 +2904,12 @@ public class Main {
 | **Optimal** | $O(N)$ | $O(1)$ | **Kadane's (Single Pass)** |
 
 ---
-5q
+5Q
 
 Kadani's algo extended verison - The extended version of Kadane's Algorithm not only calculates the maximum subarray sum but also tracks and returns the starting and ending indices to identify the actual elements that make up that maximum sum.
 
 --- 
-6q
+6Q
 
 # [Stock Buy And Sell](https://takeuforward.org/data-structure/stock-buy-and-sell?mode=track&sheet=a2z-dsa)
 
@@ -3027,7 +3027,7 @@ class Main {
 
 --- 
 
-7q
+7Q
 
 # [Rearrange Array Elements by Sign](https://takeuforward.org/arrays/rearrange-array-elements-by-sign?mode=track&sheet=a2z-dsa)
 
@@ -3172,7 +3172,7 @@ public class ArrayManipulator {
 
 ---
 
-8q
+8Q
 
 # [next_permutation : find next lexicographically greater permutation](https://takeuforward.org/data-structure/next_permutation-find-next-lexicographically-greater-permutation?mode=track&sheet=a2z-dsa)
 
@@ -3355,7 +3355,7 @@ public class t u f {
 
 ---
 
-9q
+9Q
 
 # [Leaders in an Array](https://takeuforward.org/data-structure/leaders-in-an-array?mode=track&sheet=a2z-dsa)
 
@@ -3507,7 +3507,7 @@ class Main {
 
 ---
 
-10q
+10Q
 
 # [Longest Consecutive Sequence in an Array](https://takeuforward.org/data-structure/longest-consecutive-sequence-in-an-array?mode=track&sheet=a2z-dsa)
 
@@ -3703,7 +3703,7 @@ public class Main {
 
 ---
 
-11q
+11Q
 
 # [Set Matrix Zero](https://takeuforward.org/data-structure/set-matrix-zero?mode=track&sheet=a2z-dsa)
 
@@ -3952,7 +3952,7 @@ public class Main {
 | **Optimal** | $O(m \times n)$ | $O(1)$ | Use first row/col as markers |
 
 ---
-12q
+12Q
 
 # [Rotate Image by 90 degree](https://takeuforward.org/data-structure/rotate-image-by-90-degree?mode=track&sheet=a2z-dsa)
 
@@ -4075,7 +4075,7 @@ class TUF {
 | **Brute Force** | $O(N^2)$ | $O(N^2)$ | Use extra dummy matrix. |
 | **Optimal** | $O(N^2)$ | $O(1)$ | **Transpose** then **Reverse Rows**. |
 ---
-13q
+13Q
 
 # [Spiral Traversal of Matrix](https://takeuforward.org/data-structure/spiral-traversal-of-matrix?mode=track&sheet=a2z-dsa)
 
@@ -4201,7 +4201,7 @@ public class Main {
 
 ---
 
-14q 
+14Q 
 # [Count Subarrays with Given Sum](https://takeuforward.org/arrays/count-subarray-sum-equals-k?mode=track&sheet=a2z-dsa)
 
 ## 1. 🔹 Problem Summary  
@@ -4379,4 +4379,4 @@ public class Main {
 ---
 ...
 # Hard Problems 
-1q
+1Q
