@@ -1,4 +1,3 @@
-...
 # Easy Problems 
 
 1q
@@ -2093,7 +2092,7 @@ class Solution {
 ---
 ...
 # Medium Problems 
-1a
+1q
 # [Two Sum: Check if a pair with given sum exists in Array](https://takeuforward.org/data-structure/two-sum-check-if-a-pair-with-given-sum-exists-in-array?mode=track&sheet=a2z-dsa)
 
 ## 🔹 Problem Summary
@@ -2348,7 +2347,7 @@ public class Main {
 | **Better (Hashing)** | $O(N)$ | $O(N)$ |
 | **Optimal (Two Pointers)** | $O(N \log N)$ | $O(N)$ |
 ---
-2a 
+2q
 # [Sort an array of 0s, 1s and 2s](https://takeuforward.org/data-structure/sort-an-array-of-0s-1s-and-2s?mode=track&sheet=a2z-dsa)
 
 ## 🔹 Problem Summary  
@@ -2533,7 +2532,7 @@ class Main {
 | **Better (Counting)** | $O(N)$ | $O(1)$ | 2 |
 | **Optimal (DNF)** | $O(N)$ | $O(1)$ | **1** |
 ---
-3a
+3q
 
 # [Find the Majority Element that occurs more than N/2 times](https://takeuforward.org/data-structure/find-the-majority-element-that-occurs-more-than-n-2-times?mode=track&sheet=a2z-dsa)
 
@@ -2727,7 +2726,7 @@ public class Main {
 | **Moore's Voting** | $O(N)$ | $O(1)$ | **Optimal solution for interviews.** |
 
 --- 
-4a
+4q
 
 # [Kadane's Algorithm : Maximum Subarray Sum in an Array](https://takeuforward.org/data-structure/kadanes-algorithm-maximum-subarray-sum-in-an-array?mode=track&sheet=a2z-dsa)
 
@@ -2905,12 +2904,12 @@ public class Main {
 | **Optimal** | $O(N)$ | $O(1)$ | **Kadane's (Single Pass)** |
 
 ---
-5a
+5q
 
 Kadani's algo extended verison - The extended version of Kadane's Algorithm not only calculates the maximum subarray sum but also tracks and returns the starting and ending indices to identify the actual elements that make up that maximum sum.
 
 --- 
-6a
+6q
 
 # [Stock Buy And Sell](https://takeuforward.org/data-structure/stock-buy-and-sell?mode=track&sheet=a2z-dsa)
 
@@ -4380,4 +4379,4 @@ public class Main {
 ---
 ...
 # Hard Problems 
-1a
+1q
