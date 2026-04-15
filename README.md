@@ -1,26 +1,16 @@
 # 🚀 C++ Problem Solving Journey
 
-This repository contains all the problems I am solving in **C++** during my problem-solving journey.
+This repository contains an archive of all the problems I am solving during my problem-solving journey.
 
-It includes solutions from various platforms, concepts, and topics that I practiced while improving my **Data Structures, Algorithms, and Competitive Programming skills**.
+It includes solutions from various platforms, concepts, and topics that I have been solving. 
 
 ## 💻 Language Used
-- **C++**
-- **Java Sometimes**
 
-## Problem I am solving
-I categorized the problems into easy, medium and hard.
+- **Java**
+- **C++ sometimes**
 
-## Easy 
-- P1 ->  
-- P2 -> 
-- P3 -> 
+## The Repository
 
-## Medium 
-- P1 ->  
-- P2 -> 
-- P3 ->
+I documented all the problems into easy, medium and hard problems. 
 
-## Hard 
-- P1 ->
-- P2 -> 
+A seperate folder is maintained for Striver A to Z sheet revision. 
