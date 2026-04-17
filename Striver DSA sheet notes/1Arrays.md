@@ -28,23 +28,27 @@ The goal is to identify the maximum value present within a given array of intege
 import java.util.Arrays;
 
 class Solution {
+
     // Function to sort the array and return the largest element
-    public static int sortArr ( int [] arr) {
+    public static int sortArr(int[] arr) {
         // Sort the array in ascending order
         Arrays.sort(arr);
+        
         // Return the last element (largest element) after sorting
-        return arr[arr.length - 1 ];
+        return arr[arr.length - 1];
     }
 }
 
 public class Main {
-    public static void main (String[] args) {
+
+    public static void main(String[] args) {
         // Initialize arrays
-        int [] arr1 = { 2 , 5 , 1 , 3 , 0 };
-        int [] arr2 = { 8 , 10 , 5 , 7 , 9 };
+        int[] arr1 = {2, 5, 1, 3, 0};
+        int[] arr2 = {8, 10, 5, 7, 9};
+        
         // Find and output the largest element in both arrays
-        System.out.println( "The Largest element in the array is: " + Solution.sortArr(arr1));
-        System.out.println( "The Largest element in the array is: " + Solution.sortArr(arr2));
+        System.out.println("The Largest element in the array is: " + Solution.sortArr(arr1));
+        System.out.println("The Largest element in the array is: " + Solution.sortArr(arr2));
     }
 }
 ```
@@ -60,33 +64,36 @@ public class Main {
 **Java Code:**
 ```java
 class Solution {
+
     // Function to find the largest element in the array
-    public static int findLargestElement ( int [] arr, int n) {
-        int max = arr[ 0 ]; // Initialize max with the first element in the array
+    public static int findLargestElement(int[] arr, int n) {
+        int max = arr[0];  // Initialize max with the first element in the array
+
         // Iterate through the array to find the maximum element
-        for ( int i = 1 ; i < n; i++) {
-            if (arr[i] > max) {
-                // If the current element is greater than max, update max
+        for (int i = 1; i < n; i++) {
+            if (arr[i] > max) {  // If the current element is greater than max, update max
                 max = arr[i];
             }
         }
-        return max; // Return the largest element found
+
+        return max;  // Return the largest element found
     }
 }
 
 public class Main {
-    public static void main (String[] args) {
+
+    public static void main(String[] args) {
         // Array 1
-        int [] arr1 = { 2 , 5 , 1 , 3 , 0 };
-        int n = arr1.length; // Size of the array
-        int max = Solution.findLargestElement(arr1, n); // Call the function to find the largest element
-        System.out.println( "The largest element in the array is: " + max); // Output the result
-        
+        int[] arr1 = {2, 5, 1, 3, 0};
+        int n = arr1.length;  // Size of the array
+        int max = Solution.findLargestElement(arr1, n);  // Call the function to find the largest element
+        System.out.println("The largest element in the array is: " + max);  // Output the result
+
         // Array 2
-        int [] arr2 = { 8 , 10 , 5 , 7 , 9 };
-        n = arr2.length; // Size of the array
-        max = Solution.findLargestElement(arr2, n); // Call the function to find the largest element
-        System.out.println( "The largest element in the array is: " + max); // Output the result
+        int[] arr2 = {8, 10, 5, 7, 9};
+        n = arr2.length;  // Size of the array
+        max = Solution.findLargestElement(arr2, n);  // Call the function to find the largest element
+        System.out.println("The largest element in the array is: " + max);  // Output the result
     }
 }
 ```
@@ -144,31 +151,41 @@ Given an array of integers, the task is to find the **second smallest** and the 
 import java.util.Arrays;
 
 class Solution {
+
     // Method to find the second smallest and second largest elements in the array
-    public static void getElements ( int [] arr, int n) {
+    public static void getElements(int[] arr, int n) {
+        
         // Edge case: when the array has less than 2 elements
-        if (n == 0 || n == 1 ) {
-            System.out.println(- 1 + " " + - 1 ); // Print -1 for both second smallest and second largest
-            return ;
+        if (n == 0 || n == 1) {
+            System.out.println(-1 + " " + -1);  // Print -1 for both second smallest and second largest
+            return;
         }
+
         // Sort the array to easily find the second smallest and second largest elements
         Arrays.sort(arr);
+
         // Second smallest element is at index 1 after sorting
-        int small = arr[ 1 ];
+        int small = arr[1];
+
         // Second largest element is at index n-2 after sorting
-        int large = arr[n - 2 ];
+        int large = arr[n - 2];
+
         // Output the second smallest and second largest elements
-        System.out.println( "Second smallest is " + small);
-        System.out.println( "Second largest is " + large);
+        System.out.println("Second smallest is " + small);
+        System.out.println("Second largest is " + large);
     }
 }
 
 public class Main {
-    public static void main (String[] args) {
+
+    public static void main(String[] args) {
+        
         // Initialize the array with elements
-        int [] arr = { 1 , 2 , 4 , 6 , 7 , 5 };
+        int[] arr = {1, 2, 4, 6, 7, 5};
+        
         // Calculate the size of the array
         int n = arr.length;
+        
         // Call the method to find and print the second smallest and second largest elements
         Solution.getElements(arr, n);
     }
@@ -190,41 +207,50 @@ import java.util.*;
 
 // Class to solve the problem of finding the second smallest and second largest elements
 class Solution {
+
     // Method to find the second smallest and second largest elements in the array
-    public static void getElements ( int [] arr, int n) {
+    public static void getElements(int[] arr, int n) {
+
         // Edge case: when the array has less than 2 elements
-        if (n == 0 || n == 1 ) {
-            System.out.println(- 1 + " " + - 1 ); // Print -1 for both second smallest and second largest
-            return ;
+        if (n == 0 || n == 1) {
+            System.out.println(-1 + " " + -1);  // Print -1 for both second smallest and second largest
+            return;
         }
+
         // Initialize variables to track the smallest, second smallest, largest, and second largest elements
         int small = Integer.MAX_VALUE, second_small = Integer.MAX_VALUE;
         int large = Integer.MIN_VALUE, second_large = Integer.MIN_VALUE;
+
         // Find the smallest and largest elements in the array
-        for ( int i = 0 ; i < n; i++) {
-            small = Math.min(small, arr[i]); // Update the smallest element
-            large = Math.max(large, arr[i]); // Update the largest element
+        for (int i = 0; i < n; i++) {
+            small = Math.min(small, arr[i]);  // Update the smallest element
+            large = Math.max(large, arr[i]);  // Update the largest element
         }
+
         // Find the second smallest and second largest elements
-        for ( int i = 0 ; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             if (arr[i] < second_small && arr[i] != small) {
-                second_small = arr[i]; // Update second smallest if a smaller element is found
+                second_small = arr[i];  // Update second smallest if a smaller element is found
             }
             if (arr[i] > second_large && arr[i] != large) {
-                second_large = arr[i]; // Update second largest if a larger element is found
+                second_large = arr[i];  // Update second largest if a larger element is found
             }
         }
+
         // Output the second smallest and second largest elements
-        System.out.println( "Second smallest is " + second_small);
-        System.out.println( "Second largest is " + second_large);
+        System.out.println("Second smallest is " + second_small);
+        System.out.println("Second largest is " + second_large);
     }
 }
 
 public class Main {
-    public static void main (String[] args) {
+
+    public static void main(String[] args) {
+
         // Driver code
-        int n = 6 ;
-        int [] arr = { 1 , 2 , 4 , 6 , 7 , 5 }; // Array of elements
+        int n = 6;
+        int[] arr = {1, 2, 4, 6, 7, 5};  // Array of elements
+
         // Call the function to find and print the second smallest and second largest elements
         Solution.getElements(arr, n);
     }
@@ -248,19 +274,24 @@ public class Main {
 import java.util.*;
 
 class Solution {
+
     // Function to find the second smallest element in the array
-    public static int secondSmallest ( int [] arr, int n) {
+    public static int secondSmallest(int[] arr, int n) {
         // Edge case: if the array has fewer than 2 elements
-        if (n < 2 ) return - 1 ;
+        if (n < 2)
+            return -1;
+
         int small = Integer.MAX_VALUE;
         int second_small = Integer.MAX_VALUE;
+
         // Loop through the array to find the second smallest element
-        for ( int i = 0 ; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             // Update the smallest and second smallest values
             if (arr[i] < small) {
                 second_small = small;
                 small = arr[i];
-            } else if (arr[i] < second_small && arr[i] != small) {
+            } 
+            else if (arr[i] < second_small && arr[i] != small) {
                 second_small = arr[i];
             }
         }
@@ -268,17 +299,21 @@ class Solution {
     }
 
     // Function to find the second largest element in the array
-    public static int secondLargest ( int [] arr, int n) {
+    public static int secondLargest(int[] arr, int n) {
         // Edge case: if the array has fewer than 2 elements
-        if (n < 2 ) return - 1 ;
+        if (n < 2)
+            return -1;
+
         int large = Integer.MIN_VALUE, second_large = Integer.MIN_VALUE;
+
         // Loop through the array to find the second largest element
-        for ( int i = 0 ; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             // Update the largest and second largest values
             if (arr[i] > large) {
                 second_large = large;
                 large = arr[i];
-            } else if (arr[i] > second_large && arr[i] != large) {
+            } 
+            else if (arr[i] > second_large && arr[i] != large) {
                 second_large = arr[i];
             }
         }
@@ -287,17 +322,21 @@ class Solution {
 }
 
 public class Main {
-    public static void main (String[] args) {
+
+    public static void main(String[] args) {
         // Array of elements
-        int [] arr = { 1 , 2 , 4 , 7 , 7 , 5 };
+        int[] arr = {1, 2, 4, 7, 7, 5};
+
         // Calculate the size of the array
         int n = arr.length;
+
         // Find the second smallest and second largest elements
         int sS = Solution.secondSmallest(arr, n);
         int sL = Solution.secondLargest(arr, n);
+
         // Output the results
-        System.out.println( "Second smallest is " + sS);
-        System.out.println( "Second largest is " + sL);
+        System.out.println("Second smallest is " + sS);
+        System.out.println("Second largest is " + sL);
     }
 }
 ```
@@ -357,11 +396,10 @@ class Solution {
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
                 // If any element is smaller than the previous one, return false
-                if (arr[j] < arr[i])
+                if (arr[j] < arr[i]) 
                     return false;
             }
         }
-
         return true; // Return true if no unsorted elements are found
     }
 }
@@ -371,11 +409,13 @@ public class Main {
         int[] arr = {1, 2, 3, 4, 5};
         int n = 5;
         Solution obj = new Solution();
+        
         boolean ans = obj.isSorted(arr, n);
+        
         // Output result
-        if (ans)
+        if (ans) 
             System.out.println("True");
-        else
+        else 
             System.out.println("False");
     }
 }
@@ -397,12 +437,10 @@ class Solution {
     // Function to check if the array is sorted
     public boolean isSorted(int[] arr, int n) {
         for (int i = 1; i < n; i++) {
-            if (arr[i] < arr[i - 1])
-                // If any element is smaller than the previous one, return false
+            if (arr[i] < arr[i - 1])  // If any element is smaller than the previous one, return false
                 return false;
         }
-
-        return true; // Return true if the array is sorted
+        return true;  // Return true if the array is sorted
     }
 }
 
@@ -411,6 +449,7 @@ public class Main {
         int[] arr = {1, 2, 3, 4, 5};
         int n = arr.length;
         Solution obj = new Solution();
+        
         // Output result
         System.out.println(obj.isSorted(arr, n) ? "True" : "False");
     }
@@ -473,16 +512,20 @@ class Solution {
     public int removeDuplicates(int[] nums) {
         // HashSet to store unique elements we have seen
         HashSet<Integer> seen = new HashSet<>();
+
         // Position to overwrite next unique element
         int index = 0;
+
         // Loop over each number in nums
         for (int num : nums) {
             // If num is not in the set, it is unique
             if (!seen.contains(num)) {
                 // Add num to the set
                 seen.add(num);
+
                 // Write num at current index position
                 nums[index] = num;
+
                 // Move index forward
                 index++;
             }
@@ -494,7 +537,8 @@ class Solution {
 
 public class Main {
     public static void main(String[] args) {
-        int[] nums = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
+        int[] nums = {0,0,1,1,1,2,2,3,3,4};
+
         Solution sol = new Solution();
         int k = sol.removeDuplicates(nums);
 
@@ -529,10 +573,10 @@ class Solution {
     public int removeDuplicates(int[] nums) {
         // If array is empty, return 0
         if (nums.length == 0) return 0;
-        
+
         // Pointer for last unique element
         int i = 0;
-        
+
         // Start from second element
         for (int j = 1; j < nums.length; j++) {
             // If new unique element is found
@@ -543,6 +587,7 @@ class Solution {
                 nums[i] = nums[j];
             }
         }
+
         // i is last index of unique element, count = i + 1
         return i + 1;
     }
@@ -550,7 +595,8 @@ class Solution {
 
 public class Main {
     public static void main(String[] args) {
-        int[] nums = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
+        int[] nums = {0,0,1,1,1,2,2,3,3,4};
+
         Solution sol = new Solution();
         int k = sol.removeDuplicates(nums);
 
@@ -613,17 +659,20 @@ Given an integer array, rotate its elements to the left by one position. This me
 ```java
 // Class containing the solve method
 class Solution {
+
     // Function to solve and shift array elements left by one position
-    public static void solve ( int [] arr, int n) {
-        int [] temp = new int [n]; // Temporary array to store shifted elements
+    public static void solve(int[] arr, int n) {
+        int[] temp = new int[n];  // Temporary array to store shifted elements
+
         // Shift elements to the left by one position
-        for ( int i = 1 ; i < n; i++) {
-            temp[i - 1 ] = arr[i];
+        for (int i = 1; i < n; i++) {
+            temp[i - 1] = arr[i];
         }
-        temp[n - 1 ] = arr[ 0 ]; // First element moves to the last position
+        temp[n - 1] = arr[0];  // First element moves to the last position
+
         // Print the rotated array
-        for ( int i = 0 ; i < n; i++) {
-            System.out.print(temp[i] + " " );
+        for (int i = 0; i < n; i++) {
+            System.out.print(temp[i] + " ");
         }
         System.out.println();
     }
@@ -631,10 +680,11 @@ class Solution {
 
 // Main class
 public class Main {
-    public static void main (String[] args) {
-        int n = 5 ; // Size of the array
-        int [] arr = { 1 , 2 , 3 , 4 , 5 }; // Original array
-        Solution.solve(arr, n); // Call the solve function from Solution class
+    public static void main(String[] args) {
+        int n = 5;  // Size of the array
+        int[] arr = {1, 2, 3, 4, 5};  // Original array
+
+        Solution.solve(arr, n);  // Call the solve function from Solution class
     }
 }
 ```
@@ -655,27 +705,30 @@ public class Main {
 **Java Code:**
 ```java
 class Solution {
-    public void rotateArrayByOne ( int [] nums) {
+    public void rotateArrayByOne(int[] nums) {
         // Store the first element in a temporary variable
-        int temp = nums[ 0 ];
+        int temp = nums[0];
+        
         // Shift elements to the left
-        for ( int i = 1 ; i < nums.length; i++) {
-            nums[i - 1 ] = nums[i];
+        for (int i = 1; i < nums.length; i++) {
+            nums[i - 1] = nums[i];
         }
+
         // Place the first element at the end
-        nums[nums.length - 1 ] = temp;
+        nums[nums.length - 1] = temp;
     }
 }
 
 class Main {
-    public static void main (String[] args) {
-        Solution solution = new Solution ();
-        int [] nums = { 1 , 2 , 3 , 4 , 5 };
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        int[] nums = {1, 2, 3, 4, 5};
 
         solution.rotateArrayByOne(nums);
+
         // Output the rotated array
-        for ( int num : nums) {
-            System.out.print(num + " " );
+        for (int num : nums) {
+            System.out.print(num + " ");
         }
     }
 }
@@ -739,12 +792,15 @@ class Solution {
         if (n == 0) return;
 
         k = k % n;
+
         // Store last k elements
         int[] temp = Arrays.copyOfRange(arr, n - k, n);
+
         // Shift the remaining elements to the right
         for (int i = n - k - 1; i >= 0; i--) {
             arr[i + k] = arr[i];
         }
+
         // Copy the stored elements to the front
         for (int i = 0; i < k; i++) {
             arr[i] = temp[i];
@@ -757,12 +813,15 @@ class Solution {
         if (n == 0) return;
 
         k = k % n;
+
         // Store first k elements
         int[] temp = Arrays.copyOfRange(arr, 0, k);
+
         // Shift remaining elements to the left
         for (int i = k; i < n; i++) {
             arr[i - k] = arr[i];
         }
+
         // Copy stored elements to the end
         for (int i = 0; i < k; i++) {
             arr[n - k + i] = temp[i];
@@ -771,6 +830,7 @@ class Solution {
 
     public static void main(String[] args) {
         Solution sol = new Solution();
+
         int[] arr = {1, 2, 3, 4, 5, 6, 7};
         int k = 2;
 
@@ -823,8 +883,10 @@ class Solution {
     public int[] rotateArray(int[] nums, int k, String direction) {
         // Get array length
         int n = nums.length;
+
         // Edge case: do nothing if array is empty or k is 0
         if (n == 0 || k == 0) return nums;
+
         // Normalize k if greater than n
         k = k % n;
 
@@ -832,20 +894,25 @@ class Solution {
         if (direction.equals("right")) {
             // Step 1: reverse entire array
             reverseArray(nums, 0, n - 1);
+
             // Step 2: reverse first k elements
             reverseArray(nums, 0, k - 1);
+
             // Step 3: reverse remaining n-k elements
             reverseArray(nums, k, n - 1);
-        }
+        } 
         // If rotation is to the left
         else if (direction.equals("left")) {
             // Step 1: reverse first k elements
             reverseArray(nums, 0, k - 1);
+
             // Step 2: reverse remaining n-k elements
             reverseArray(nums, k, n - 1);
+
             // Step 3: reverse entire array
             reverseArray(nums, 0, n - 1);
         }
+
         // Return the rotated array
         return nums;
     }
@@ -856,6 +923,7 @@ public class Main {
     public static void main(String[] args) {
         // Create instance of Solution
         Solution sol = new Solution();
+
         // Input array and parameters
         int[] nums = {1, 2, 3, 4, 5, 6, 7};
         int k = 2;
@@ -931,8 +999,10 @@ class Solution {
     public int[] moveZeroes(int[] arr) {
         // Create temp array
         int[] temp = new int[arr.length];
+
         // Pointer for temp
         int index = 0;
+
         // Traverse input array
         for (int i = 0; i < arr.length; i++) {
             // If non-zero, copy to temp
@@ -941,10 +1011,12 @@ class Solution {
                 index++;
             }
         }
+
         // Copy temp back to original
         for (int i = 0; i < arr.length; i++) {
             arr[i] = temp[i];
         }
+
         // Return updated array
         return arr;
     }
@@ -955,10 +1027,13 @@ public class Main {
     public static void main(String[] args) {
         // Input array
         int[] arr = {0, 1, 0, 3, 12};
+
         // Solution object
         Solution sol = new Solution();
+
         // Call the function
         int[] result = sol.moveZeroes(arr);
+
         // Print the result
         System.out.print("Array after moving zeroes: ");
         for (int num : result) {
@@ -992,6 +1067,7 @@ class Solution {
     public void moveZeroes(int[] nums) {
         // Pointer to the first zero
         int j = -1;
+
         // Find the first zero
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] == 0) {
@@ -999,6 +1075,7 @@ class Solution {
                 break;
             }
         }
+
         // If no zero found, return
         if (j == -1) return;
 
@@ -1022,6 +1099,7 @@ public class Main {
         Solution sol = new Solution();
         int[] nums = {0, 1, 0, 3, 12};
         sol.moveZeroes(nums);
+
         // Print the result
         for (int num : nums)
             System.out.print(num + " ");
@@ -1162,26 +1240,48 @@ The task is to find the **union** of two sorted arrays, `arr1` and `arr2`. The u
 ```java
 import java.util.*;
 
+// Define the Solution class
 class Solution {
-    // Function to return a list containing the union of the two arrays.
-    public static ArrayList<Integer> findUnion(int arr1[], int arr2[], int n, int m) {
-        // TreeMap stores elements in sorted order and handles duplicates
+    // Function to find union of two arrays
+    public List<Integer> FindUnion(int[] arr1, int[] arr2, int n, int m) {
+        // Create TreeMap to store elements in sorted order
         TreeMap<Integer, Integer> freq = new TreeMap<>();
-        ArrayList<Integer> Union = new ArrayList<>();
-
-        // Add elements of arr1 to map
+        // Loop through first array and store frequency
         for (int i = 0; i < n; i++)
             freq.put(arr1[i], freq.getOrDefault(arr1[i], 0) + 1);
-
-        // Add elements of arr2 to map
+        // Loop through second array and store frequency
         for (int i = 0; i < m; i++)
             freq.put(arr2[i], freq.getOrDefault(arr2[i], 0) + 1);
-
-        // Extract keys from map (they are already sorted)
-        for (int it : freq.keySet())
-            Union.add(it);
-
+        // Create a list to store union result
+        List<Integer> Union = new ArrayList<>();
+        // Traverse map keys and add to union list
+        for (int key : freq.keySet())
+            Union.add(key);
+        // Return the union list
         return Union;
+    }
+}
+
+// Driver class
+public class Main {
+    public static void main(String[] args) {
+        // Define size of first array
+        int n = 10;
+        // Define size of second array
+        int m = 7;
+        // Initialize first array
+        int[] arr1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        // Initialize second array
+        int[] arr2 = {2, 3, 4, 4, 5, 11, 12};
+        // Create object of Solution class
+        Solution obj = new Solution();
+        // Call FindUnion method
+        List<Integer> Union = obj.FindUnion(arr1, arr2, n, m);
+        // Print output message
+        System.out.println("Union of arr1 and arr2 is ");
+        // Print all elements of union
+        for (int val : Union)
+            System.out.print(val + " ");
     }
 }
 ```
@@ -1199,24 +1299,38 @@ class Solution {
 import java.util.*;
 
 class Solution {
-    static ArrayList<Integer> FindUnion(int arr1[], int arr2[], int n, int m) {
-        // TreeSet maintains unique elements in sorted order
-        TreeSet<Integer> s = new TreeSet<>();
-        ArrayList<Integer> Union = new ArrayList<>();
+    // Function to find the union of two arrays using set
+    public List<Integer> findUnion(int[] arr1, int[] arr2) {
+        // Create a TreeSet to store unique sorted elements
+        Set<Integer> st = new TreeSet<>();
 
-        // Insert all elements of arr1
-        for (int i = 0; i < n; i++)
-            s.add(arr1[i]);
+        // Insert elements from first array
+        for (int num : arr1) {
+            st.add(num);
+        }
 
-        // Insert all elements of arr2
-        for (int i = 0; i < m; i++)
-            s.add(arr2[i]);
+        // Insert elements from second array
+        for (int num : arr2) {
+            st.add(num);
+        }
 
-        // Add set elements to result list
-        for (int it : s)
-            Union.add(it);
+        // Convert set to list
+        return new ArrayList<>(st);
+    }
+}
 
-        return Union;
+public class Main {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int[] arr2 = {2, 3, 4, 4, 5, 11, 12};
+
+        Solution obj = new Solution();
+        List<Integer> result = obj.findUnion(arr1, arr2);
+
+        System.out.print("Union of arr1 and arr2 is: ");
+        for (int val : result) {
+            System.out.print(val + " ");
+        }
     }
 }
 ```
@@ -1240,38 +1354,68 @@ class Solution {
 import java.util.*;
 
 class Solution {
-    // Function to return a list containing the union of the two arrays.
-    public static ArrayList<Integer> findUnion(int arr1[], int arr2[], int n, int m) {
-        int i = 0, j = 0; // Pointers
-        ArrayList<Integer> Union = new ArrayList<>(); // Result list
+    // Function to find union of two sorted arrays using two pointers
+    public List<Integer> findUnion(int[] arr1, int[] arr2, int n, int m) {
+        // List to store union elements
+        List<Integer> Union = new ArrayList<>();
 
+        // Initialize pointers
+        int i = 0, j = 0;
+
+        // Iterate while both arrays have elements
         while (i < n && j < m) {
-            if (arr1[i] <= arr2[j]) { // Case 1 and 2
-                if (Union.size() == 0 || Union.get(Union.size() - 1) != arr1[i])
+            // If element in arr1 is smaller
+            if (arr1[i] < arr2[j]) {
+                // Add if empty or not duplicate
+                if (Union.isEmpty() || Union.get(Union.size() - 1) != arr1[i])
                     Union.add(arr1[i]);
-                i++;
-            } else { // Case 3
-                if (Union.size() == 0 || Union.get(Union.size() - 1) != arr2[j])
+                i++;  // Move pointer in arr1
+            }
+            // If element in arr2 is smaller
+            else if (arr2[j] < arr1[i]) {
+                // Add if empty or not duplicate
+                if (Union.isEmpty() || Union.get(Union.size() - 1) != arr2[j])
                     Union.add(arr2[j]);
-                j++;
+                j++;  // Move pointer in arr2
+            }
+            else {
+                // Elements are equal, add once if not duplicate
+                if (Union.isEmpty() || Union.get(Union.size() - 1) != arr1[i])
+                    Union.add(arr1[i]);
+                i++; j++;  // Move both pointers
             }
         }
 
-        // Add remaining elements of arr1
+        // Append remaining elements from arr1
         while (i < n) {
-            if (Union.get(Union.size() - 1) != arr1[i])
+            if (Union.isEmpty() || Union.get(Union.size() - 1) != arr1[i])
                 Union.add(arr1[i]);
             i++;
         }
 
-        // Add remaining elements of arr2
+        // Append remaining elements from arr2
         while (j < m) {
-            if (Union.get(Union.size() - 1) != arr2[j])
+            if (Union.isEmpty() || Union.get(Union.size() - 1) != arr2[j])
                 Union.add(arr2[j]);
             j++;
         }
 
+        // Return the union list
         return Union;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int[] arr2 = {2, 3, 4, 4, 5, 11, 12};
+        int n = arr1.length, m = arr2.length;
+
+        Solution obj = new Solution();
+        List<Integer> result = obj.findUnion(arr1, arr2, n, m);
+
+        System.out.print("Union of arr1 and arr2 is: ");
+        for (int val : result) System.out.print(val + " ");
     }
 }
 ```
@@ -1325,33 +1469,38 @@ Given an array `arr[]` of size $n-1$ containing distinct integers in the range $
 
 **Java Code:**
 ```java
-// Java program to find the missing number using brute force
 import java.util.*;
 
-class GfG {
-    static int missingNum(int[] arr) {
-        int n = arr.length + 1;
-
-        // Iterate from 1 to n and check
-        // if the current number is present
-        for (int i = 1; i <= n; i++) {
+class Solution {
+    // Function to find the missing number from 1 to N
+    public int missingNumber(int[] a, int N) {
+        // Check each number from 1 to N
+        for (int i = 1; i <= N; i++) {
             boolean found = false;
-            for (int j = 0; j < n - 1; j++) {
-                if (arr[j] == i) {
+
+            // Check if i exists in the array using linear search
+            for (int j = 0; j < N - 1; j++) {
+                if (a[j] == i) {
                     found = true;
                     break;
                 }
             }
 
-            // If the current number is not present
+            // If not found, return it as the missing number
             if (!found) return i;
         }
+
+        // This line should not be reached
         return -1;
     }
 
     public static void main(String[] args) {
-        int[] arr = { 8, 2, 4, 5, 3, 7, 1 };
-        System.out.println(missingNum(arr));
+        int[] a = {1, 2, 4, 5};
+        int N = 5;
+
+        Solution obj = new Solution();
+        int ans = obj.missingNumber(a, N);
+        System.out.println("The missing number is: " + ans);
     }
 }
 ```
@@ -1367,33 +1516,31 @@ class GfG {
 
 **Java Code:**
 ```java
-// Java program to find the missing number using hashing
 import java.util.*;
 
-class GfG {
-    static int missingNum(int[] arr) {
-        int n = arr.length + 1;
+class Solution {
+    // Function to find the missing number using sum formula
+    public int missingNumber(int[] a, int N) {
+        // Calculate the sum of first N natural numbers
+        int sum = (N * (N + 1)) / 2;
 
-        // Create hash array of size n+1
-        int[] hash = new int[n + 1];
-
-        // Store frequencies of elements
-        for (int i = 0; i < n - 1; i++) {
-            hash[arr[i]]++;
+        // Calculate the sum of elements in the array
+        int actualSum = 0;
+        for (int i = 0; i < N - 1; i++) {
+            actualSum += a[i];
         }
 
-        // Find the missing number
-        for (int i = 1; i <= n; i++) {
-            if (hash[i] == 0) {
-                return i;
-            }
-        }
-        return -1;
+        // Missing number is the difference
+        return sum - actualSum;
     }
 
     public static void main(String[] args) {
-        int[] arr = { 8, 2, 4, 5, 3, 7, 1 };
-        System.out.println(missingNum(arr));
+        int[] a = {1, 2, 4, 5};
+        int N = 5;
+
+        Solution obj = new Solution();
+        int ans = obj.missingNumber(a, N);
+        System.out.println("The missing number is: " + ans);
     }
 }
 ```
@@ -1409,29 +1556,30 @@ class GfG {
 
 **Java Code:**
 ```java
-// Java program to find the missing number using sum formula
-import java.util.*;
+class Solution {
+    // Function to find the missing number using XOR approach
+    public int missingNumber(int[] a, int N) {
+        int xor1 = 0, xor2 = 0;
 
-class GfG {
-    static int missingNum(int[] arr) {
-        int n = arr.length + 1;
-
-        // Calculate the sum of array elements
-        int sum = 0;
-        for (int i = 0; i < n - 1; i++) {
-            sum += arr[i];
+        // XOR all the elements and numbers from 1 to N-1
+        for (int i = 0; i < N - 1; i++) {
+            xor2 ^= a[i];        // XOR of array elements
+            xor1 ^= (i + 1);     // XOR of numbers from 1 to N-1
         }
 
-        // Calculate the expected sum
-        long expSum = (long)n * (n + 1) / 2;
+        xor1 ^= N; // Include N in the XOR
 
-        // Return the missing number
-        return (int)(expSum - sum);
+        // XOR of xor1 and xor2 gives the missing number
+        return xor1 ^ xor2;
     }
 
     public static void main(String[] args) {
-        int[] arr = { 8, 2, 4, 5, 3, 7, 1 };
-        System.out.println(missingNum(arr));
+        int[] a = {1, 2, 4, 5};
+        int N = 5;
+
+        Solution obj = new Solution();
+        int ans = obj.missingNumber(a, N);
+        System.out.println("The missing number is: " + ans);
     }
 }
 ```
@@ -1543,6 +1691,7 @@ class Solution {
         int cnt = 0;
         // Variable to store maximum consecutive 1's
         int maxi = 0;
+
         // Traverse the array
         for (int i = 0; i < nums.length; i++) {
             // If current element is 1, increment count
@@ -1556,6 +1705,7 @@ class Solution {
             // Update maximum if current count is greater
             maxi = Math.max(maxi, cnt);
         }
+
         // Return maximum consecutive 1's
         return maxi;
     }
@@ -1564,11 +1714,14 @@ class Solution {
 public class Main {
     public static void main(String[] args) {
         // Input array
-        int nums[] = {1, 1, 0, 1, 1, 1};
+        int[] nums = {1, 1, 0, 1, 1, 1};
+
         // Create Solution object
         Solution obj = new Solution();
+
         // Get answer
         int ans = obj.findMaxConsecutiveOnes(nums);
+
         // Print result
         System.out.println("The maximum consecutive 1's are " + ans);
     }
@@ -1622,36 +1775,34 @@ Given a non-empty array of integers, every element appears twice except for one.
 
 **Java Code:**
 ```java
-import java.util.*;
-
-public class Solution {
-    public static int getSingleElement(int []arr) {
-        // Size of the array:
+class Solution {
+    // Function to find the single element using brute force
+    public int getSingleElement(int[] arr) {
         int n = arr.length;
 
-        // Run a loop for selecting elements:
         for (int i = 0; i < n; i++) {
-            int num = arr[i]; // selected element
-            int cnt = 0;
+            int num = arr[i];
+            int count = 0;
 
-            // Iterating the entire array to find occurrences:
+            // Count how many times num occurs
             for (int j = 0; j < n; j++) {
                 if (arr[j] == num)
-                    cnt++;
+                    count++;
             }
 
-            // If occurrences is 1, return the number:
-            if (cnt == 1) return num;
+            // If only once, return it
+            if (count == 1) return num;
         }
 
-        // The following line will never execute 
-        // if the condition is guaranteed:
-        return -1;
+        return -1; // fallback, won't be hit if array has a single element
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         int[] arr = {4, 1, 2, 1, 2};
-        int ans = getSingleElement(arr);
+
+        Solution obj = new Solution();
+        int ans = obj.getSingleElement(arr);
+
         System.out.println("The single element is: " + ans);
     }
 }
@@ -1670,38 +1821,38 @@ public class Solution {
 ```java
 import java.util.*;
 
-public class Solution {
-    public static int getSingleElement(int []arr) {
-        // Size of the array:
+class Solution {
+    // Function to find the single element using a hash array
+    public int getSingleElement(int[] arr) {
         int n = arr.length;
 
-        // Find the maximum element:
+        // Step 1: Find maximum element
         int maxi = arr[0];
         for (int i = 0; i < n; i++) {
             maxi = Math.max(maxi, arr[i]);
         }
 
-        // Declare hash array of size maxi+1
-        // And hash the elements:
+        // Step 2: Create frequency array of size maxi+1
         int[] hash = new int[maxi + 1];
+
+        // Step 3: Count frequencies
         for (int i = 0; i < n; i++) {
             hash[arr[i]]++;
         }
 
-        // Find the single element:
+        // Step 4: Find element with frequency = 1
         for (int i = 0; i < n; i++) {
             if (hash[arr[i]] == 1)
                 return arr[i];
         }
 
-        // This line will never execute
-        // if the condition is guaranteed:
-        return -1;
+        return -1; // fallback
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         int[] arr = {4, 1, 2, 1, 2};
-        int ans = getSingleElement(arr);
+        Solution obj = new Solution();
+        int ans = obj.getSingleElement(arr);
         System.out.println("The single element is: " + ans);
     }
 }
@@ -1722,24 +1873,24 @@ By XORing every element in the array, all pairs will become zero, and $0 \oplus 
 
 **Java Code:**
 ```java
-import java.util.*;
-
-public class Solution {
-    public static int getSingleElement(int []arr) {
-        // Size of the array:
-        int n = arr.length;
-
-        // XOR all the elements:
+class Solution {
+    // Function to find the element that appears once using XOR
+    public int getSingleElement(int[] arr) {
         int xorr = 0;
-        for (int i = 0; i < n; i++) {
-            xorr = xorr ^ arr[i];
+
+        // XOR all elements — duplicates cancel each other out
+        for (int num : arr) {
+            xorr ^= num;
         }
+
         return xorr;
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         int[] arr = {4, 1, 2, 1, 2};
-        int ans = getSingleElement(arr);
+
+        Solution obj = new Solution();
+        int ans = obj.getSingleElement(arr);
         System.out.println("The single element is: " + ans);
     }
 }
@@ -1794,32 +1945,47 @@ Given an array `nums` of size `n` and an integer `k`, find the length of the **l
 
 **Java Code:**
 ```java
+// GFG.java
 import java.util.*;
 
-public class Main {
-    public static int getLongestSubarray(int []a, long k) {
-        int n = a.length; // size of the array.
+class Solution {
 
-        int len = 0;
-        for (int i = 0; i < n; i++) { // starting index
-            for (int j = i; j < n; j++) { // ending index
-                // add all the elements of subarray = a[i...j]:
-                long s = 0;
-                for (int K = i; K <= j; K++) {
-                    s += a[K];
+    public int longestSubarray(int[] nums, int k) {
+        int n = nums.length;
+        int maxLength = 0;
+
+        // starting index
+        for (int startIndex = 0; startIndex < n; startIndex++) {
+            // ending index
+            for (int endIndex = startIndex; endIndex < n; endIndex++) {
+
+                /* add all the elements of
+                   subarray = nums[startIndex...endIndex] */
+                int currentSum = 0;
+                for (int i = startIndex; i <= endIndex; i++) {
+                    currentSum += nums[i];
                 }
 
-                if (s == k)
-                    len = Math.max(len, j - i + 1);
+                if (currentSum == k) {
+                    maxLength = Math.max(maxLength, endIndex - startIndex + 1);
+                }
             }
         }
-        return len;
+        return maxLength;
     }
+}
 
+public class Main {
     public static void main(String[] args) {
-        int[] a = {2, 3, 5, 1, 9};
-        long k = 10;
-        int len = getLongestSubarray(a, k);
+        int[] a = { -1, 1, 1 };
+        int k = 1;
+
+        // Create an instance of the Solution class
+        Solution solution = new Solution();
+
+        // Function call to get the result
+        int len = solution.longestSubarray(a, k);
+
         System.out.println("The length of the longest subarray is: " + len);
     }
 }
@@ -1839,45 +2005,59 @@ public class Main {
 ```java
 import java.util.*;
 
-public class Main {
-    public static int getLongestSubarray(int []a, long k) {
-        int n = a.length; // size of the array.
+// Class containing the sliding window algorithm
+class Solution {
+    public int longestSubarray(int[] nums, int k) {
+        int n = nums.length;
 
-        Map<Long, Integer> preSumMap = new HashMap<>();
-        long sum = 0;
+        // To store the maximum length of the subarray
         int maxLen = 0;
-        for (int i = 0; i < n; i++) {
-            //calculate the prefix sum till index i:
-            sum += a[i];
 
-            // if the sum = k, update the maxLen:
+        // Pointers for sliding window
+        int left = 0, right = 0;
+
+        // Sum of the current window
+        int sum = nums[0];
+
+        // Traverse through the array
+        while (right < n) {
+
+            // Shrink the window if sum exceeds k
+            while (left <= right && sum > k) {
+                sum -= nums[left];
+                left++;
+            }
+
+            // Update max length if sum equals k
             if (sum == k) {
-                maxLen = Math.max(maxLen, i + 1);
+                maxLen = Math.max(maxLen, right - left + 1);
             }
 
-            // calculate the value of remaining portion i.e. x-k:
-            long rem = sum - k;
-
-            //Calculate the length and update maxLen:
-            if (preSumMap.containsKey(rem)) {
-                int len = i - preSumMap.get(rem);
-                maxLen = Math.max(maxLen, len);
-            }
-
-            //Finally, update the map checking the conditions:
-            if (!preSumMap.containsKey(sum)) {
-                preSumMap.put(sum, i);
+            // Expand the window to the right
+            right++;
+            if (right < n) {
+                sum += nums[right];
             }
         }
 
         return maxLen;
     }
+}
 
+// Separate class containing only the main method
+public class Main {
     public static void main(String[] args) {
-        int[] a = {2, 3, 5, 1, 9};
-        long k = 10;
-        int len = getLongestSubarray(a, k);
-        System.out.println("The length of the longest subarray is: " + len);
+        int[] nums = {10, 5, 2, 7, 1, 9};
+        int k = 15;
+
+        // Create Solution object
+        Solution sol = new Solution();
+
+        // Function call to find the result
+        int ans = sol.longestSubarray(nums, k);
+
+        // Output the result
+        System.out.println("The length of longest subarray having sum k is: " + ans);
     }
 }
 ```
@@ -1987,26 +2167,40 @@ Given an array containing both positive and negative integers, the task is to fi
 ```java
 import java.util.*;
 
-class Solution {
-    // Brute force approach to find the longest subarray with sum 0
-    static int solve(int a[], int n) {
-        int maxLen = 0;
+class SubarraySolver {
+    // Method to find the longest subarray with sum equal to k
+    public int getLongestSubarray(int[] a, int k) {
+        int n = a.length;
+        int len = 0;
+
+        // Loop for starting index
         for (int i = 0; i < n; i++) {
-            int sum = 0;
+            // Loop for ending index
             for (int j = i; j < n; j++) {
-                sum += a[j];
-                if (sum == 0) {
-                    maxLen = Math.max(maxLen, j - i + 1);
+                int sum = 0;
+
+                // Calculate sum of elements between i and j
+                for (int idx = i; idx <= j; idx++) {
+                    sum += a[idx];
+                }
+
+                // If sum equals k, update max length
+                if (sum == k) {
+                    len = Math.max(len, j - i + 1);
                 }
             }
         }
-        return maxLen;
+        return len;
     }
 
-    public static void main(String args[]) {
-        int a[] = {9, -3, 3, -1, 6, -5};
-        int n = a.length;
-        System.out.println(solve(a, n));
+    public static void main(String[] args) {
+        int[] a = { -1, 1, 1 };
+        int k = 1;
+
+        SubarraySolver solver = new SubarraySolver();
+        int len = solver.getLongestSubarray(a, k);
+
+        System.out.println("The length of the longest subarray is: " + len);
     }
 }
 ```
@@ -2031,38 +2225,42 @@ class Solution {
 **Java Code:**
 ```java
 import java.util.*;
+class SubarraySolver {
+// Method to find the longest subarray whose sum equals k
+    public int getLongestSubarray(int[] a, int k) {
+        int n = a.length; // Total number of elements in the array
+        int maxLen = 0;   // Variable to store the maximum length found
 
-class Solution {
-    // Optimal approach using HashMap
-    static int maxLen(int A[], int n) {
-        // HashMap to store (prefix_sum, index)
-        HashMap<Integer, Integer> mpp = new HashMap<Integer, Integer>();
-
-        int maxi = 0;
-        int sum = 0;
-
+        // Outer loop to select the starting index of the subarray
         for (int i = 0; i < n; i++) {
-            sum += A[i];
+            int sum = 0; // Reset sum for each new starting index
 
-            if (sum == 0) {
-                maxi = i + 1;
-            } else {
-                if (mpp.get(sum) != null) {
-                    // If sum seen before, update maxi
-                    maxi = Math.max(maxi, i - mpp.get(sum));
-                } else {
-                    // If sum seen for the first time, store it
-                    mpp.put(sum, i);
+            // Inner loop to extend the subarray from the starting index 'i'
+            for (int j = i; j < n; j++) {
+                sum += a[j]; // Incrementally add elements to the sum
+
+                // If the current subarray sum equals k
+                if (sum == k) {
+                    // Calculate the length of the subarray (j - i + 1)
+                    // Update maxLen if this subarray is longer
+                    maxLen = Math.max(maxLen, j - i + 1);
                 }
             }
         }
-        return maxi;
+
+        return maxLen; // Return the maximum length found
     }
 
-    public static void main(String args[]) {
-        int a[] = {9, -3, 3, -1, 6, -5};
-        int n = a.length;
-        System.out.println(maxLen(a, n));
+    // Main method to test the implementation
+    public static void main(String[] args) {
+        int[] a = { -1, 1, 1 }; // Sample input array
+        int k = 1; // Target sum
+
+        SubarraySolver solver = new SubarraySolver(); // Create an instance of the solver
+        int len = solver.getLongestSubarray(a, k); // Call the method to find the result
+
+        // Print the length of the longest subarray
+        System.out.println("The length of the longest subarray is: " + len);
     }
 }
 ```
@@ -2119,54 +2317,56 @@ Given an array of integers `arr[]` and an integer `target`, identify if there ar
 
 **Java Code:**
 ```java
-import java.util.*;
-
+import.java.util.*;
 class Solution {
     // Function to check if any two numbers sum up to target (variant 1)
-    public String twoSumExists ( int [] arr, int target) {
+    public String twoSumExists(int[] arr, int target) {
         int n = arr.length;
         // Outer loop picks one element at a time
-        for ( int i = 0 ; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             // Inner loop searches for another element that complements arr[i]
-            for ( int j = i + 1 ; j < n; j++) {
+            for (int j = i + 1; j < n; j++) {
                 // If sum equals target, return "YES"
                 if (arr[i] + arr[j] == target) {
-                    return "YES" ;
+                    return "YES";
                 }
             }
         }
         // No pair found that sums to target
-        return "NO" ;
+        return "NO";
     }
 
     // Function to return indices of two numbers that sum to target (variant 2)
-    public int [] twoSumIndices( int [] arr, int target) {
+    public int[] twoSumIndices(int[] arr, int target) {
         int n = arr.length;
         // Outer loop picks one element at a time
-        for ( int i = 0 ; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             // Inner loop searches for another element that complements arr[i]
-            for ( int j = i + 1 ; j < n; j++) {
+            for (int j = i + 1; j < n; j++) {
                 // If sum equals target, return the pair of indices
                 if (arr[i] + arr[j] == target) {
-                    return new int []{i, j};
+                    return new int[]{i, j};
                 }
             }
         }
         // No such pair found
-        return new int []{- 1 , - 1 };
+        return new int[]{-1, -1};
     }
 }
 
 public class Main {
-    public static void main (String[] args) {
-        Solution sol = new Solution ();
-        int [] arr = { 2 , 6 , 5 , 8 , 11 };
-        int target = 14 ;
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        int[] arr = {2, 6, 5, 8, 11};
+        int target = 14;
+
         // Variant 1
         System.out.println(sol.twoSumExists(arr, target));
+
         // Variant 2
-        int [] res = sol.twoSumIndices(arr, target);
-        System.out.println( "[" + res[ 0 ] + ", " + res[ 1 ] + "]" );
+        int[] res = sol.twoSumIndices(arr, target);
+        System.out.println("[" + res[0] + ", " + res[1] + "]");
     }
 }
 ```
@@ -2186,48 +2386,48 @@ import java.util.HashMap;
 
 class Solution {
     // Variant 1: Check if two numbers sum to target using hashing
-    public String twoSumExists ( int [] arr, int target) {
-        HashMap<Integer, Integer> map = new HashMap <>();
+    public String twoSumExists(int[] arr, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
         // Iterate over all elements
-        for ( int i = 0 ; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             int complement = target - arr[i];
             // Check if complement exists in map
             if (map.containsKey(complement)) {
-                return "YES" ; // Pair found
+                return "YES";  // Pair found
             }
             // Store current element and its index
             map.put(arr[i], i);
         }
         // No pair found
-        return "NO" ;
+        return "NO";
     }
 
     // Variant 2: Return indices of two numbers that sum to target using hashing
-    public int [] twoSumIndices( int [] arr, int target) {
-        HashMap<Integer, Integer> map = new HashMap <>();
-        for ( int i = 0 ; i < arr.length; i++) {
+    public int[] twoSumIndices(int[] arr, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
             int complement = target - arr[i];
             // If complement found, return indices
             if (map.containsKey(complement)) {
-                return new int [] { map.get(complement), i };
+                return new int[] { map.get(complement), i };
             }
             // Store current element and index
             map.put(arr[i], i);
         }
         // No pair found
-        return new int [] { - 1 , - 1 };
+        return new int[] { -1, -1 };
     }
 }
 
 public class Main {
-    public static void main (String[] args) {
-        Solution sol = new Solution ();
-        int [] arr = { 2 , 6 , 5 , 8 , 11 };
-        int target = 14 ;
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        int[] arr = {2, 6, 5, 8, 11};
+        int target = 14;
 
         System.out.println(sol.twoSumExists(arr, target));
-        int [] res = sol.twoSumIndices(arr, target);
-        System.out.println( "[" + res[ 0 ] + ", " + res[ 1 ] + "]" );
+        int[] res = sol.twoSumIndices(arr, target);
+        System.out.println("[" + res[0] + ", " + res[1] + "]");
     }
 }
 ```
@@ -2249,26 +2449,32 @@ import java.util.Arrays;
 
 class Solution {
     // Variant 1: Check if two numbers sum to target using two-pointer approach
-    public String twoSumExists ( int [] arr, int target) {
+    public String twoSumExists(int[] arr, int target) {
         int n = arr.length;
+        
         // Create an array of pairs [value, original_index]
-        int [][] numsWithIndex = new int [n][ 2 ];
+        int[][] numsWithIndex = new int[n][2];
+        
         // Store each element with its original index
-        for ( int i = 0 ; i < n; i++) {
-            numsWithIndex[i][ 0 ] = arr[i]; // value
-            numsWithIndex[i][ 1 ] = i;      // original index
+        for (int i = 0; i < n; i++) {
+            numsWithIndex[i][0] = arr[i]; // value
+            numsWithIndex[i][1] = i;      // original index
         }
+        
         // Sort the array based on the value, not index
-        Arrays.sort(numsWithIndex, (a, b) -> Integer.compare(a[ 0 ], b[ 0 ]));
+        Arrays.sort(numsWithIndex, (a, b) -> Integer.compare(a[0], b[0]));
+
         // Initialize two pointers: one at start, one at end
-        int left = 0 , right = n - 1 ;
+        int left = 0, right = n - 1;
+        
         // Run loop until pointers cross
         while (left < right) {
             // Calculate the sum of values at pointers
-            int sum = numsWithIndex[left][ 0 ] + numsWithIndex[right][ 0 ];
+            int sum = numsWithIndex[left][0] + numsWithIndex[right][0];
+            
             if (sum == target) {
                 // Found the pair, return "YES"
-                return "YES" ;
+                return "YES";
             } else if (sum < target) {
                 // Sum is less than target, so move left pointer right to increase sum
                 left++;
@@ -2277,27 +2483,31 @@ class Solution {
                 right--;
             }
         }
+        
         // If loop ends without returning, no pair found
-        return "NO" ;
+        return "NO";
     }
 
     // Variant 2: Return indices of two numbers that sum to target
-    public int [] twoSumIndices( int [] arr, int target) {
+    public int[] twoSumIndices(int[] arr, int target) {
         int n = arr.length;
-        int [][] numsWithIndex = new int [n][ 2 ];
+        int[][] numsWithIndex = new int[n][2];
+        
         // Store element with original index
-        for ( int i = 0 ; i < n; i++) {
-            numsWithIndex[i][ 0 ] = arr[i];
-            numsWithIndex[i][ 1 ] = i;
+        for (int i = 0; i < n; i++) {
+            numsWithIndex[i][0] = arr[i];
+            numsWithIndex[i][1] = i;
         }
+        
         // Sort by the value to apply two-pointer
-        Arrays.sort(numsWithIndex, (a, b) -> Integer.compare(a[ 0 ], b[ 0 ]));
-        int left = 0 , right = n - 1 ;
+        Arrays.sort(numsWithIndex, (a, b) -> Integer.compare(a[0], b[0]));
+
+        int left = 0, right = n - 1;
         while (left < right) {
-            int sum = numsWithIndex[left][ 0 ] + numsWithIndex[right][ 0 ];
+            int sum = numsWithIndex[left][0] + numsWithIndex[right][0];
             if (sum == target) {
                 // Return original indices of the two numbers found
-                return new int [] {numsWithIndex[left][ 1 ], numsWithIndex[right][ 1 ]};
+                return new int[] {numsWithIndex[left][1], numsWithIndex[right][1]};
             } else if (sum < target) {
                 // Increase sum by moving left pointer forward
                 left++;
@@ -2306,20 +2516,21 @@ class Solution {
                 right--;
             }
         }
+        
         // No pair found
-        return new int [] {- 1 , - 1 };
+        return new int[] {-1, -1};
     }
 }
 
 public class Main {
-    public static void main (String[] args) {
-        Solution sol = new Solution ();
-        int [] arr = { 2 , 6 , 5 , 8 , 11 };
-        int target = 14 ;
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        int[] arr = {2, 6, 5, 8, 11};
+        int target = 14;
 
         System.out.println(sol.twoSumExists(arr, target)); // Output: YES
-        int [] res = sol.twoSumIndices(arr, target);
-        System.out.println( "[" + res[ 0 ] + ", " + res[ 1 ] + "]" ); // Output: [1, 3]
+        int[] res = sol.twoSumIndices(arr, target);
+        System.out.println("[" + res[0] + ", " + res[1] + "]"); // Output: [1, 3]
     }
 }
 ```
@@ -2375,9 +2586,49 @@ Given an array `nums` consisting only of 0s, 1s, or 2s, sort the array in non-de
 import java.util.*;
 
 class Solution {
+    // Function to sort the array containing only 0s, 1s and 2s
     public void sortZeroOneTwo(int[] nums) {
-        // Using built-in sort as a brute force approach
-        Arrays.sort(nums);
+        // Initialize count variables for 0s, 1s, and 2s
+        int count0 = 0, count1 = 0, count2 = 0;
+
+        // Count the frequency of 0s, 1s, and 2s
+        for(int num : nums) {
+            if(num == 0) count0++;
+            else if(num == 1) count1++;
+            else count2++;
+        }
+
+        // Overwrite the array with sorted values
+        int index = 0;
+
+        // Fill with 0s
+        while(count0-- > 0) {
+            nums[index++] = 0;
+        }
+
+        // Fill with 1s
+        while(count1-- > 0) {
+            nums[index++] = 1;
+        }
+
+        // Fill with 2s
+        while(count2-- > 0) {
+            nums[index++] = 2;
+        }
+    }
+}
+
+// Driver class
+class Main {
+    public static void main(String[] args) {
+        int[] nums = {1, 0, 2, 1, 0};
+
+        Solution obj = new Solution();
+        obj.sortZeroOneTwo(nums);
+
+        for(int num : nums) {
+            System.out.print(num + " ");
+        }
     }
 }
 ```
@@ -2396,45 +2647,46 @@ class Solution {
 import java.util.*;
 
 class Solution {
-    // Function to sort the array containing only 0s, 1s and 2s
+    // Function to sort an array containing only 0s, 1s, and 2s
     public void sortZeroOneTwo(int[] nums) {
-        // Initialize count variables for 0s, 1s, and 2s
-        int count0 = 0, count1 = 0, count2 = 0;
+        // Count of 0s, 1s, and 2s
+        int cnt0 = 0, cnt1 = 0, cnt2 = 0;
 
-        // Count the frequency of 0s, 1s, and 2s
+        // First pass: Count the number of 0s, 1s, and 2s
         for (int num : nums) {
-            if (num == 0) count0++;
-            else if (num == 1) count1++;
-            else count2++;
+            if (num == 0) cnt0++;
+            else if (num == 1) cnt1++;
+            else cnt2++;
         }
 
-        // Overwrite the array with sorted values
-        int index = 0;
+        // Second pass: Fill the array with 0s, then 1s, then 2s
 
-        // Fill with 0s
-        while (count0-- > 0) {
-            nums[index++] = 0;
+        // Fill the first 'cnt0' elements with 0
+        for (int i = 0; i < cnt0; i++) {
+            nums[i] = 0;
         }
 
-        // Fill with 1s
-        while (count1-- > 0) {
-            nums[index++] = 1;
+        // Fill the next 'cnt1' elements with 1
+        for (int i = cnt0; i < cnt0 + cnt1; i++) {
+            nums[i] = 1;
         }
 
-        // Fill with 2s
-        while (count2-- > 0) {
-            nums[index++] = 2;
+        // Fill the remaining elements with 2
+        for (int i = cnt0 + cnt1; i < nums.length; i++) {
+            nums[i] = 2;
         }
     }
 }
 
-// Driver class
+// Driver code
 class Main {
     public static void main(String[] args) {
-        int[] nums = {1, 0, 2, 1, 0};
-        Solution obj = new Solution();
-        obj.sortZeroOneTwo(nums);
+        int[] nums = {0, 2, 1, 2, 0, 1};
 
+        Solution sol = new Solution();
+        sol.sortZeroOneTwo(nums);
+
+        System.out.println("After sorting:");
         for (int num : nums) {
             System.out.print(num + " ");
         }
@@ -2466,39 +2718,42 @@ class Main {
 import java.util.*;
 
 class Solution {
-    // Function to sort the array using the Dutch National Flag algorithm
+    // Function to sort array containing 0s, 1s, and 2s using Dutch National Flag Algorithm
     public void sortZeroOneTwo(int[] nums) {
+        // Initialize three pointers: low and mid at 0, high at the end
         int low = 0, mid = 0, high = nums.length - 1;
 
+        // Continue processing until mid crosses high
         while (mid <= high) {
+            // If current element is 0, swap with low and move both low and mid forward
             if (nums[mid] == 0) {
-                // Swap nums[low] and nums[mid]
                 int temp = nums[low];
                 nums[low] = nums[mid];
                 nums[mid] = temp;
-
                 low++;
                 mid++;
-            } else if (nums[mid] == 1) {
-                // Move mid pointer
+            }
+            // If current element is 1, just move mid forward
+            else if (nums[mid] == 1) {
                 mid++;
-            } else {
-                // Swap nums[mid] and nums[high]
+            }
+            // If current element is 2, swap with high and move only high backward
+            else {
                 int temp = nums[mid];
                 nums[mid] = nums[high];
                 nums[high] = temp;
-
                 high--;
             }
         }
     }
 }
 
-// Driver class
+// Driver code
 class Main {
     public static void main(String[] args) {
-        int[] nums = {1, 0, 2, 1, 0};
         Solution obj = new Solution();
+        int[] nums = {2, 0, 2, 1, 1, 0};
+
         obj.sortZeroOneTwo(nums);
 
         for (int num : nums) {
@@ -2560,32 +2815,50 @@ Given an array of **N** integers, write a program to return the **majority eleme
 ```java
 import java.util.*;
 
-public class Main {
-    public static int majorityElement(int []v) {
-        //size of the given array:
-        int n = v.length;
-
+// Class containing the majority element logic
+class Solution {
+    // Function to find the majority element in an array
+    public int majorityElement(int[] nums) {
+        
+        // Size of the given array
+        int n = nums.length;
+        
+        // Iterate through each element of the array
         for (int i = 0; i < n; i++) {
-            //selected element is v[i]
-            int cnt = 0;
+            
+            // Counter to count occurrences of nums[i]
+            int cnt = 0; 
+            
+            // Count the frequency of nums[i] in the array
             for (int j = 0; j < n; j++) {
-                // counting the frequency of v[i]
-                if (v[j] == v[i]) {
+                if (nums[j] == nums[i]) {
                     cnt++;
                 }
             }
-
-            // check if frquency is greater than n/2:
-            if (cnt > (n / 2))
-                return v[i];
+            
+            // Check if frequency of nums[i] is greater than n/2
+            if (cnt > (n / 2)) {
+                // Return the majority element
+                return nums[i]; 
+            }
         }
-
-        return -1;
+        
+        // Return -1 if no majority element is found
+        return -1; 
     }
+}
 
-    public static void main(String args[]) {
+// Separate class containing only the main method
+public class Main {
+    public static void main(String[] args) {
         int[] arr = {2, 2, 1, 1, 1, 2, 2};
-        int ans = majorityElement(arr);
+        
+        // Create an instance of Solution class
+        Solution sol = new Solution();
+ 
+        int ans = sol.majorityElement(arr);
+        
+        // Print the majority element found
         System.out.println("The majority element is: " + ans);
     }
 }
@@ -2604,33 +2877,46 @@ public class Main {
 ```java
 import java.util.*;
 
-public class Main {
-    public static int majorityElement(int []v) {
-        //size of the given array:
-        int n = v.length;
-
-        //declaring a map:
-        HashMap<Integer, Integer> mpp = new HashMap<>();
-
-        //storing the elements with its occurence:
-        for (int i = 0; i < n; i++) {
-            int value = mpp.getOrDefault(v[i], 0);
-            mpp.put(v[i], value + 1);
+// Class containing the majority element logic
+class Solution {
+    // Function to find the majority element in an array
+    public int majorityElement(int[] nums) {
+        
+        // Size of the given array
+        int n = nums.length;
+        
+        // Hash map to store element counts
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        // Count occurrences of each element
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
-
-        //searching for the majority element:
-        for (Map.Entry<Integer, Integer> it : mpp.entrySet()) {
-            if (it.getValue() > (n / 2)) {
-                return it.getKey();
+        
+        /* Iterate through the map to
+           find the majority element */
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() > n / 2) {
+                return entry.getKey();
             }
         }
-
+        
+        // Return -1 if no majority element is found
         return -1;
     }
+}
 
-    public static void main(String args[]) {
+// Separate class containing only the main method
+public class Main {
+    public static void main(String[] args) {
         int[] arr = {2, 2, 1, 1, 1, 2, 2};
-        int ans = majorityElement(arr);
+        
+        // Create an instance of Solution class
+        Solution sol = new Solution();
+ 
+        int ans = sol.majorityElement(arr);
+        
+        // Print the majority element found
         System.out.println("The majority element is: " + ans);
     }
 }
@@ -2656,30 +2942,45 @@ public class Main {
 ```java
 import java.util.*;
 
-public class Solution {
-    public static int majorityElement(int []v) {
-        //size of the given array:
-        int n = v.length;
-        int cnt = 0; // count
-        int el = 0; // Element
-
-        //applying the algorithm:
+// Class containing the majority element logic
+class Solution {
+    // Function to find the majority element in an array
+    public int majorityElement(int[] nums) {
+        // Size of the given array
+        int n = nums.length;
+        
+        // Count variable
+        int cnt = 0;
+        
+        // Candidate element
+        int el = 0;
+        
+        // Step 1: Find the potential majority element
         for (int i = 0; i < n; i++) {
             if (cnt == 0) {
                 cnt = 1;
-                el = v[i];
-            } else if (el == v[i]) cnt++;
-            else cnt--;
+                el = nums[i];
+            } else if (el == nums[i]) {
+                cnt++;
+            } else {
+                cnt--;
+            }
         }
-
-        //checking if the stored element
-        // is the majority element:
+        
+        // Step 2: Verify the candidate
         int cnt1 = 0;
         for (int i = 0; i < n; i++) {
-            if (v[i] == el) cnt1++;
+            if (nums[i] == el) {
+                cnt1++;
+            }
         }
-
-        if (cnt1 > (n / 2)) return el;
+        
+        // Return the element if it's a majority
+        if (cnt1 > (n / 2)) {
+            return el;
+        }
+        
+        // No majority found
         return -1;
     }
 }
@@ -2688,13 +2989,13 @@ public class Solution {
 public class Main {
     public static void main(String[] args) {
         int[] arr = {2, 2, 1, 1, 1, 2, 2};
-
+        
         // Create an instance of Solution class
         Solution sol = new Solution();
 
         // Call the majorityElement function
         int ans = sol.majorityElement(arr);
-
+        
         // Print the majority element
         System.out.println("The majority element is: " + ans);
     }
@@ -2754,31 +3055,52 @@ Given an integer array `nums`, find the contiguous subarray (containing at least
 ```java
 import java.util.*;
 
-public class Main {
-    public static int maxSubarraySum(int[] arr, int n) {
-        int maxi = Integer.MIN_VALUE; // maximum sum
+class Solution {
+    // Function to find maximum sum of subarrays
+    public int maxSubArray(int[] nums) {
+        
+        /* Initialize maximum sum with
+           the smallest possible integer */
+        int maxi = Integer.MIN_VALUE;
 
-        for (int i = 0; i < n; i++) {
-            for (int j = i; j < n; j++) {
-                // subarray = arr[i..j]
+        // Iterate over each starting index of subarrays
+        for (int i = 0; i < nums.length; i++) {
+            
+            /* Iterate over each ending index
+               of subarrays starting from i */
+            for (int j = i; j < nums.length; j++) {
+                
+                /* Variable to store the sum
+                   of the current subarray */
                 int sum = 0;
 
-                //add all the elements of subarray:
+                // Calculate the sum of subarray nums[i...j]
                 for (int k = i; k <= j; k++) {
-                    sum += arr[k];
+                    sum += nums[k];
                 }
 
+                /* Update maxi with the maximum of its current
+                   value and the sum of the current subarray */
                 maxi = Math.max(maxi, sum);
             }
         }
 
+        // Return the maximum subarray sum found
         return maxi;
     }
+}
 
-    public static void main(String args[]) {
-        int[] arr = { -2, 1, -3, 4, -1, 2, 1, -5, 4};
-        int n = arr.length;
-        int maxSum = maxSubarraySum(arr, n);
+// Separate Main class
+public class Main {
+    public static void main(String[] args) {
+        int[] arr = { -2, 1, -3, 4, -1, 2, 1, -5, 4 };
+
+        // Create an instance of Solution class
+        Solution sol = new Solution();
+
+        int maxSum = sol.maxSubArray(arr);
+
+        // Print the max subarray sum
         System.out.println("The maximum subarray sum is: " + maxSum);
     }
 }
@@ -2797,30 +3119,51 @@ public class Main {
 ```java
 import java.util.*;
 
-public class Main {
-    public static int maxSubarraySum(int[] arr, int n) {
-        int maxi = Integer.MIN_VALUE; // maximum sum
+class Solution {
+    // Function to find maximum sum of subarrays
+    public int maxSubArray(int[] nums) {
+        
+        /* Initialize maximum sum with
+           the smallest possible integer */
+        int maxi = Integer.MIN_VALUE;
 
-        for (int i = 0; i < n; i++) {
-            int sum = 0;
-            for (int j = i; j < n; j++) {
-                // current subarray = arr[i.....j]
+        // Iterate over each starting index of subarrays
+        for (int i = 0; i < nums.length; i++) {
+            
+            /* Variable to store the sum
+               of the current subarray */
+            int sum = 0; 
+            
+            /* Iterate over each ending index
+               of subarrays starting from i */
+            for (int j = i; j < nums.length; j++) {
+                
+                /* Add the current element nums[j] to
+                   the sum i.e. sum of nums[i...j-1] */
+                sum += nums[j];
 
-                //add the current element arr[j]
-                // to the sum i.e. sum of arr[i...j-1]
-                sum += arr[j];
-
+                /* Update maxi with the maximum of its current
+                   value and the sum of the current subarray */
                 maxi = Math.max(maxi, sum);
             }
         }
 
+        // Return the maximum subarray sum found
         return maxi;
     }
+}
 
-    public static void main(String args[]) {
-        int[] arr = { -2, 1, -3, 4, -1, 2, 1, -5, 4};
-        int n = arr.length;
-        int maxSum = maxSubarraySum(arr, n);
+// Separate Main class in the same file
+public class Main {
+    public static void main(String[] args) {
+        int[] arr = { -2, 1, -3, 4, -1, 2, 1, -5, 4 };
+
+        // Create an instance of Solution class
+        Solution sol = new Solution();
+
+        int maxSum = sol.maxSubArray(arr);
+
+        // Print the max subarray sum
         System.out.println("The maximum subarray sum is: " + maxSum);
     }
 }
@@ -2843,37 +3186,49 @@ public class Main {
 ```java
 import java.util.*;
 
-public class Main {
-    public static long maxSubarraySum(int[] arr, int n) {
-        long maxi = Long.MIN_VALUE; // maximum sum
-        long sum = 0;
-
-        for (int i = 0; i < n; i++) {
-
-            sum += arr[i];
-
+class Solution {
+    // Function to find maximum sum of subarrays
+    public int maxSubArray(int[] nums) {
+        
+        // Maximum sum
+        long maxi = Long.MIN_VALUE; 
+        
+        // Current sum of subarray 
+        long sum = 0; 
+        
+        // Iterate through the array
+        for (int i = 0; i < nums.length; i++) {
+            
+            // Add current element to the sum
+            sum += nums[i]; 
+            
+            // Update maxi if current sum is greater
             if (sum > maxi) {
-                maxi = sum;
+                maxi = sum; 
             }
-
-            // If sum < 0: discard the sum calculated
+            
+            // Reset sum to 0 if it becomes negative
             if (sum < 0) {
-                sum = 0;
+                sum = 0; 
             }
         }
-
-        // To consider the sum of the empty subarray
-        // uncomment the following check:
-
-        //if (maxi < 0) maxi = 0;
-
-        return maxi;
+        
+        // Return the maximum subarray sum found
+        return (int) maxi;
     }
+}
 
-    public static void main(String args[]) {
-        int[] arr = { -2, 1, -3, 4, -1, 2, 1, -5, 4};
-        int n = arr.length;
-        long maxSum = maxSubarraySum(arr, n);
+// Separate Main class in same file
+public class Main {
+    public static void main(String[] args) {
+        int[] arr = { -2, 1, -3, 4, -1, 2, 1, -5, 4 };
+
+        // Create an instance of Solution class
+        Solution sol = new Solution();
+
+        int maxSum = sol.maxSubArray(arr);
+
+        // Print the max subarray sum
         System.out.println("The maximum subarray sum is: " + maxSum);
     }
 }
@@ -2935,24 +3290,35 @@ You are given an array of prices where `prices[i]` is the price of a given stock
 
 **Java Code:**
 ```java
-import java.util.*;
+class Solution {
+    // Function to calculate max profit using brute force
+    public int stockbuySell(int[] prices) {
+        // Initialize max profit to 0
+        int maxProfit = 0;
 
-public class Main {
-    public static int maxProfit(int[] arr) {
-    int maxPro = 0;
-    for (int i = 0; i < arr.length; i++) {
-        for (int j = i + 1; j < arr.length; j++) {
-            if (arr[j] > arr[i]) {
-            maxPro = Math.max(arr[j] - arr[i], maxPro);
+        // Loop through each day as a potential buy day
+        for (int i = 0; i < prices.length; i++) {
+            // Loop through each future day as a potential sell day
+            for (int j = i + 1; j < prices.length; j++) {
+                // Calculate profit
+                int profit = prices[j] - prices[i];
+
+                // Update max profit if higher
+                maxProfit = Math.max(maxProfit, profit);
             }
         }
+
+        // Return the maximum profit
+        return maxProfit;
     }
-    return maxPro;
-    }
+}
+
+// Driver class
+class Main {
     public static void main(String[] args) {
-    int arr[] = {7, 1, 5, 3, 6, 4};
-    int maxPro = maxProfit(arr);
-    System.out.println("Max profit is: " + maxPro);
+        Solution sol = new Solution();
+        int[] prices = {7, 1, 5, 3, 6, 4};
+        System.out.println("Max Profit: " + sol.stockbuySell(prices));
     }
 }
 ```
@@ -2969,25 +3335,29 @@ public class Main {
 
 **Java Code:**
 ```java
-import java.util.*;
-
+import.java.util.*;
 class Solution {
     // Function to calculate maximum profit using single pass
     public int stockbuySell(int[] prices) {
         // Initialize the minimum price to a large number
         int minPrice = Integer.MAX_VALUE;
+
         // Initialize the maximum profit to 0
         int maxProfit = 0;
+
         // Traverse each price in the array
         for (int price : prices) {
             // If current price is less than minPrice, update minPrice
             if (price < minPrice) {
                 minPrice = price;
-            } // Else calculate profit and update maxProfit if it's greater
+            }
+            // Else calculate profit and update maxProfit if it's greater
             else {
                 maxProfit = Math.max(maxProfit, price - minPrice);
             }
-        } // Return the maximum profit found
+        }
+
+        // Return the maximum profit found
         return maxProfit;
     }
 }
@@ -3070,8 +3440,8 @@ class ArrayManipulator {
 
         // Step 2: Place positives at even indices and negatives at odd indices
         for (int i = 0; i < n / 2; i++) {
-            A[2 * i] = pos.get(i); // Even index → positive
-            A[2 * i + 1] = neg.get(i); // Odd index → negative
+            A[2 * i] = pos.get(i);       // Even index → positive
+            A[2 * i + 1] = neg.get(i);   // Odd index → negative
         }
 
         return A;
@@ -3080,6 +3450,7 @@ class ArrayManipulator {
     public static void main(String[] args) {
         int[] A = {1, 2, -4, -5};
         int n = A.length;
+
         ArrayManipulator obj = new ArrayManipulator();
         int[] result = obj.rearrangeBySign(A, n);
 
@@ -3106,6 +3477,7 @@ class ArrayManipulator {
 import java.util.*;
 
 public class ArrayManipulator {
+
     // Function to rearrange elements by alternating sign
     public int[] rearrangeBySign(int[] A) {
         int n = A.length;
@@ -3118,7 +3490,6 @@ public class ArrayManipulator {
 
         // Traverse input array
         for (int i = 0; i < n; i++) {
-
             if (A[i] < 0) {
                 // Place negative number at odd index
                 ans[negIndex] = A[i];
@@ -3135,6 +3506,7 @@ public class ArrayManipulator {
 
     public static void main(String[] args) {
         int[] A = {1, 2, -4, -5};
+
         ArrayManipulator obj = new ArrayManipulator();
         int[] result = obj.rearrangeBySign(A);
 
@@ -3206,14 +3578,18 @@ class Solution {
     public List<Integer> nextPermutation(int[] nums) {
         // List to hold all permutations
         List<List<Integer>> all = new ArrayList<>();
+
         // Sort the input to start from the smallest
         Arrays.sort(nums);
+
         // Generate all permutations
         permute(nums, 0, all);
+
         // Convert array to list for comparison
         List<Integer> current = new ArrayList<>();
         for (int num : nums)
             current.add(num);
+
         // Find and return the next permutation
         for (int i = 0; i < all.size(); i++) {
             if (all.get(i).equals(current)) {
@@ -3222,6 +3598,7 @@ class Solution {
                 return all.get(i + 1);
             }
         }
+
         return current;
     }
 
@@ -3277,55 +3654,77 @@ public class Main {
 ```java
 import java.util.*;
 
-public class t u f {
-    public static List< Integer > nextGreaterPermutation(List< Integer > A) {
-        int n = A.size(); // size of the array.
+// Solution class
+class Solution {
+    // Function to find next permutation
+    public void nextPermutation(int[] nums) {
+        // Set index to -1
+        int index = -1;
 
-        // Step 1: Find the break point:
-        int ind = -1; // break point
-        for (int i = n - 2; i >= 0; i--) {
-            if (A.get(i) < A.get(i + 1)) {
-                // index i is the break point
-                ind = i;
+        // Find the first decreasing element from end
+        for (int i = nums.length - 2; i >= 0; i--) {
+            // If smaller found
+            if (nums[i] < nums[i + 1]) {
+                // Store index
+                index = i;
                 break;
             }
         }
 
-        // If break point does not exist:
-        if (ind == -1) {
-            // reverse the whole array:
-            Collections.reverse(A);
-            return A;
+        // If no index found
+        if (index == -1) {
+            // Reverse the entire array
+            reverse(nums, 0, nums.length - 1);
+            return;
         }
 
-        // Step 2: Find the next greater element
-        //         and swap it with ind:
-
-        for (int i = n - 1; i > ind; i--) {
-            if (A.get(i) > A.get(ind)) {
-                int tmp = A.get(i);
-                A.set(i, A.get(ind));
-                A.set(ind, tmp);
+        // Find just larger element
+        for (int i = nums.length - 1; i > index; i--) {
+            // Swap them
+            if (nums[i] > nums[index]) {
+                swap(nums, i, index);
                 break;
             }
         }
 
-        // Step 3: reverse the right half:
-        List<Integer> sublist = A.subList(ind + 1, n);
-        Collections.reverse(sublist);
-
-        return A;
+        // Reverse part after index
+        reverse(nums, index + 1, nums.length - 1);
     }
 
-    public static void main(String args[]) {
-        List<Integer> A = Arrays.asList(new Integer[] {2, 1, 5, 4, 3, 0, 0});
-        List<Integer> ans = nextGreaterPermutation(A);
-
-        System.out.print("The next permutation is: [");
-        for (int i = 0; i < ans.size(); i++) {
-            System.out.print(ans.get(i) + " ");
+    // Helper to reverse array
+    private void reverse(int[] arr, int start, int end) {
+        while (start < end) {
+            swap(arr, start, end);
+            start++;
+            end--;
         }
-        System.out.println("]");
+    }
+
+    // Helper to swap
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        // Input array
+        int[] nums = {1, 2, 3};
+
+        // Create object
+        Solution sol = new Solution();
+
+        // Call function
+        sol.nextPermutation(nums);
+
+        // Print result
+        for (int num : nums) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
     }
 }
 ```
@@ -3383,45 +3782,52 @@ Given an array, find all the **Leaders**. An element is considered a Leader if i
 import java.util.*;
 
 class Solution {
-  public static ArrayList<Integer> 
-  printLeadersBruteForce(int[] arr, int n) {
+    //Function to find leaders in an array.
+    public ArrayList<Integer> leaders(int[] nums) {
+        ArrayList<Integer> ans = new ArrayList<>();
 
-    ArrayList<Integer> ans = new ArrayList<>();
+        // Iterate through each element in nums
+        for (int i = 0; i < nums.length; i++) {
+            boolean leader = true;
 
-    for (int i = 0; i < n; i++) {
-      boolean leader = true;
+            /* Check whether nums[i] is greater
+            than all elements to its right */
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] >= nums[i]) {
+                    /* If any element to the right is greater 
+                    or equal, nums[i] is not a leader */
+                    leader = false;
+                    break;
+                }
+            }
 
-      //Checking whether arr[i] is greater than all 
-      //the elements in its right side
-      for (int j = i + 1; j < n; j++)
-        if (arr[j] > arr[i]) {
-
-          // If any element found is greater than current leader
-          // curr element is not the leader.
-          leader = false;
-          break;
+            // If nums[i] is a leader, add it to the ans list
+            if (leader) {
+                ans.add(nums[i]);
+            }
         }
 
-      // Push all the leaders in the ans array.
-      if (leader)
-        ans.add(arr[i]);
-
+        // Return the leaders 
+        return ans;
     }
+}
 
-    return ans;
-  }
+class Main {
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 5, 3, 1, 2};
 
-  public static void main(String[] args) {
-    int n = 6;
-    int arr[] = {10, 22, 12, 3, 0, 6};
+        // Create an instance of the Solution class
+        Solution finder = new Solution();
 
-    ArrayList<Integer> ans = printLeadersBruteForce(arr, n);
+        // Get leaders using class method
+        ArrayList<Integer> ans = finder.leaders(nums);
 
-    for (int i = 0; i < ans.size(); i++) {
-      System.out.print(ans.get(i) + " ");
+        System.out.print("Leaders in the array are: ");
+        for (int leader : ans) {
+            System.out.print(leader + " ");
+        }
+        System.out.println();
     }
-
-  }
 }
 ```
 
@@ -3442,24 +3848,31 @@ class Solution {
 import java.util.*;
 
 class Solution {
+    // Function to find the leaders in an array.
     public ArrayList<Integer> leaders(int[] nums) {
         ArrayList<Integer> ans = new ArrayList<>();
-        int n = nums.length;
-
-        // The last element is always a leader
-        int max = nums[n - 1];
-        ans.add(max);
-
-        // Traverse the array from right to left
-        for (int i = n - 2; i >= 0; i--) {
-            if (nums[i] >= max) {
+        
+        if (nums.length == 0) {
+            return ans;
+        }
+        
+        // Last element of the array is always a leader
+        int max = nums[nums.length - 1];
+        ans.add(nums[nums.length - 1]);
+        
+        // Check elements from right to left
+        for (int i = nums.length - 2; i >= 0; i--) {
+            if (nums[i] > max) {
                 ans.add(nums[i]);
                 max = nums[i];
             }
         }
-
-        // Reverse the list to maintain original order
+        
+        /* Reverse the list to match
+        the required output order */
         Collections.reverse(ans);
+        
+        // Return the leaders
         return ans;
     }
 }
@@ -3467,13 +3880,13 @@ class Solution {
 class Main {
     public static void main(String[] args) {
         int[] nums = {10, 22, 12, 3, 0, 6};
-
+        
         // Create an instance of the Solution class
         Solution finder = new Solution();
-
+        
         // Get leaders using class method
         ArrayList<Integer> ans = finder.leaders(nums);
-
+        
         System.out.print("Leaders in the array are: ");
         for (int leader : ans) {
             System.out.print(leader + " ");
@@ -3534,40 +3947,70 @@ Given an array of $n$ integers, find the length of the longest sequence of conse
 ```java
 import java.util.*;
 
-public class Main {
-    public static boolean linearSearch(int[] a, int num) {
-        int n = a.length; //size of array
+class Solution {
+    // Function to search for a given number in the array
+    private boolean linearSearch(int[] a, int num) {
+        // Get length of the array
+        int n = a.length;
+        // Traverse through the array to check if the number exists
         for (int i = 0; i < n; i++) {
+            // If element matches the number, return true
             if (a[i] == num)
                 return true;
         }
+        // Number not found
         return false;
     }
-    public static int longestSuccessiveElements(int[] a) {
-        int n = a.length; //size of array
-        if (n == 0) return 0;
 
+    // Function to find the length of the longest consecutive sequence
+    public int longestConsecutive(int[] nums) {
+        // If the array is empty, no sequence exists
+        if (nums.length == 0) {
+            return 0;
+        }
+        
+        // Get length of the array
+        int n = nums.length;
+        
+        // Initialize the longest sequence length to 1 (minimum possible)
         int longest = 1;
-        //pick a element and search for its
-        //consecutive numbers:
+
+        // Iterate over each element of the array
         for (int i = 0; i < n; i++) {
-            int x = a[i];
+            // Store the current number
+            int x = nums[i];
+            
+            // Start sequence length count from 1
             int cnt = 1;
-            //search for consecutive numbers
-            //using linear search:
-            while (linearSearch(a, x + 1) == true) {
+
+            // Search for consecutive numbers starting from x + 1
+            while (linearSearch(nums, x + 1) == true) {
+                // Move to the next consecutive number
                 x += 1;
+                
+                // Increase the count of the current sequence
                 cnt += 1;
             }
 
+            // Update the longest sequence length if the current is longer
             longest = Math.max(longest, cnt);
         }
+        
+        // Return the longest consecutive sequence length found
         return longest;
     }
 
     public static void main(String[] args) {
+        // Input array of integers
         int[] a = {100, 4, 200, 1, 3, 2};
-        int ans = longestSuccessiveElements(a);
+
+        // Create an instance of Solution class
+        Solution solution = new Solution();
+
+        // Call the function and store the result
+        int ans = solution.longestConsecutive(a);
+        
+        // Output the result
         System.out.println("The longest consecutive sequence is " + ans);
     }
 }
@@ -3586,36 +4029,61 @@ public class Main {
 ```java
 import java.util.*;
 
-public class Main {
-    public static int longestSuccessiveElements(int[] a) {
-        int n = a.length;
-        if (n == 0) return 0;
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        // Store the size of the array
+        int n = nums.length;
 
-        //sort the array:
-        Arrays.sort(a);
-        int lastSmaller = Integer.MIN_VALUE;
-        int cnt = 0;
-        int longest = 1;
+        // Return 0 if array is empty
+        if (n == 0) return 0; 
 
-        //find longest sequence:
+        // Sort the array to bring consecutive numbers together
+        Arrays.sort(nums); 
+
+        // Variable to track the last smaller element in sequence
+        int lastSmaller = Integer.MIN_VALUE; 
+
+        // Variable to store the current sequence length
+        int cnt = 0; 
+
+        // Variable to store the longest sequence length found
+        int longest = 1; 
+
+        // Iterate through the sorted array
         for (int i = 0; i < n; i++) {
-            if (a[i] - 1 == lastSmaller) {
-                //a[i] is the next element of the
-                //current sequence.
-                cnt += 1;
-                lastSmaller = a[i];
-            } else if (a[i] != lastSmaller) {
-                cnt = 1;
-                lastSmaller = a[i];
+            // Case 1: Current element is exactly one greater than lastSmaller → part of sequence
+            if (nums[i] - 1 == lastSmaller) {
+                // Increment the sequence length
+                cnt += 1; 
+                // Update the last smaller element
+                lastSmaller = nums[i]; 
+            } 
+            // Case 2: Current element is not consecutive and not a duplicate
+            else if (nums[i] != lastSmaller) {
+                // Reset the sequence length count to 1
+                cnt = 1; 
+                // Update the last smaller element
+                lastSmaller = nums[i]; 
             }
-            longest = Math.max(longest, cnt);
+            // Update the longest sequence length if the current sequence is longer
+            longest = Math.max(longest, cnt); 
         }
+        
+        // Return the length of the longest consecutive sequence
         return longest;
     }
 
     public static void main(String[] args) {
-        int[] a = {100, 4, 200, 1, 3, 2};
-        int ans = longestSuccessiveElements(a);
+        // Input array
+        int[] a = {100, 4, 200, 1, 3, 2}; 
+
+        // Create an instance of Solution class
+        Solution solution = new Solution(); 
+        
+        // Function call for finding longest consecutive sequence
+        int ans = solution.longestConsecutive(a); 
+        
+        // Output the result
         System.out.println("The longest consecutive sequence is " + ans);
     }
 }
@@ -3638,41 +4106,64 @@ public class Main {
 ```java
 import java.util.*;
 
-public class Main {
-    public static int longestSuccessiveElements(int[] a) {
-        int n = a.length;
-        if (n == 0)
-            return 0;
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        // Get the length of the array
+        int n = nums.length;
 
-        int longest = 1;
-        Set<Integer> set = new HashSet<>();
+        // If the array is empty, no sequence exists
+        if (n == 0) return 0;
 
-        // put all the array elements into set
+        // Variable to store the longest sequence length found
+        int longest = 1; 
+
+        // HashSet to store unique elements for O(1) lookup
+        Set<Integer> st = new HashSet<>();
+
+        // Add all elements to the set to remove duplicates
         for (int i = 0; i < n; i++) {
-            set.add(a[i]);
+            st.add(nums[i]);
         }
 
-        // Find the longest sequence
-        for (int it : set) {
-            // if 'it' is a starting number
-            if (!set.contains(it - 1)) {
-                // find consecutive numbers
-                int cnt = 1;
-                int x = it;
-                while (set.contains(x + 1)) {
-                    x = x + 1;
-                    cnt = cnt + 1;
+        /* Loop through each element in the set to find 
+           the starting point of consecutive sequences */
+        for (int it : st) {
+            // If there is no number before 'it', it’s the start of a sequence
+            if (!st.contains(it - 1)) {
+                // Start the count for this sequence
+                int cnt = 1; 
+                // Store the current number
+                int x = it; 
+
+                // Keep checking for the next consecutive number
+                while (st.contains(x + 1)) {
+                    // Move to the next number in sequence
+                    x = x + 1; 
+                    // Increment the length of current sequence
+                    cnt = cnt + 1; 
                 }
+
+                // Update the longest sequence length if needed
                 longest = Math.max(longest, cnt);
             }
         }
+
+        // Return the length of the longest sequence
         return longest;
     }
 
     public static void main(String[] args) {
-        int[] a = {100, 4, 200, 1, 3, 2};
-        int ans = longestSuccessiveElements(a);
-        System.out.println("The longest consecutive sequence is " + ans);
+        // Input array
+        int[] a = {100, 4, 200, 1, 3, 2}; 
+
+        // Create an instance of Solution class
+        Solution solution = new Solution(); 
+        
+        // Call the function to get the longest consecutive sequence length
+        int ans = solution.longestConsecutive(a); 
+        
+        // Print the result
+        System.out.println("The longest consecutive sequence is " + ans); 
     }
 }
 ```
@@ -3729,52 +4220,58 @@ Given an $m \times n$ integer matrix, if an element is **0**, set its entire row
 **Java Code:**
 ```java
 import java.util.*;
+
 class Solution {
     // Function to set entire row and column to 0 if an element in the matrix is 0
-    public void setZeroes ( int [][] matrix) {
+    public void setZeroes(int[][] matrix) {
         // Get number of rows
         int m = matrix.length;
         // Get number of columns
-        int n = matrix[ 0 ].length;
+        int n = matrix[0].length;
+
         // First pass: mark rows and columns
-        for ( int i = 0 ; i < m; i++) {
-            for ( int j = 0 ; j < n; j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 // If the cell is zero
-                if (matrix[i][j] == 0 ) {
+                if (matrix[i][j] == 0) {
                     // Mark entire row as -1 (except zeros)
-                    for ( int col = 0 ; col < n; col++) {
-                        if (matrix[i][col] != 0 )
-                            matrix[i][col] = - 1 ;
+                    for (int col = 0; col < n; col++) {
+                        if (matrix[i][col] != 0)
+                            matrix[i][col] = -1;
                     }
                     // Mark entire column as -1 (except zeros)
-                    for ( int row = 0 ; row < m; row++) {
-                        if (matrix[row][j] != 0 )
-                            matrix[row][j] = - 1 ;
+                    for (int row = 0; row < m; row++) {
+                        if (matrix[row][j] != 0)
+                            matrix[row][j] = -1;
                     }
                 }
             }
         }
+
         // Second pass: replace -1 with 0
-        for ( int i = 0 ; i < m; i++) {
-            for ( int j = 0 ; j < n; j++) {
-                if (matrix[i][j] == - 1 )
-                    matrix[i][j] = 0 ;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == -1)
+                    matrix[i][j] = 0;
             }
         }
     }
 }
+
 public class Main {
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         // Example matrix
-        int [][] matrix = {{ 1 , 1 , 1 },{ 1 , 0 , 1 },{ 1 , 1 , 1 }};
+        int[][] matrix = {{1,1,1},{1,0,1},{1,1,1}};
+        
         // Create Solution object
-        Solution sol = new Solution ();
+        Solution sol = new Solution();
         // Modify matrix
         sol.setZeroes(matrix);
+        
         // Print result
-        for ( int [] row : matrix) {
-            for ( int val : row) {
-                System.out.print(val + " " );
+        for (int[] row : matrix) {
+            for (int val : row) {
+                System.out.print(val + " ");
             }
             System.out.println();
         }
@@ -3793,50 +4290,57 @@ public class Main {
 **Java Code:**
 ```java
 import java.util.*;
+
 class Solution {
     // Function to set entire row and column to 0 if an element in the matrix is 0
-    public void setZeroes ( int [][] matrix) {
+    public void setZeroes(int[][] matrix) {
         // Get number of rows
         int m = matrix.length;
         // Get number of columns
-        int n = matrix[ 0 ].length;
+        int n = matrix[0].length;
+
         // Create row marker array
-        boolean [] row = new boolean [m];
+        boolean[] row = new boolean[m];
         // Create column marker array
-        boolean [] col = new boolean [n];
+        boolean[] col = new boolean[n];
+
         // First pass: mark rows and columns that need to be zeroed
-        for ( int i = 0 ; i < m; i++) {
-            for ( int j = 0 ; j < n; j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 // If element is zero, mark its row and column
-                if (matrix[i][j] == 0 ) {
-                    row[i] = true ;
-                    col[j] = true ;
+                if (matrix[i][j] == 0) {
+                    row[i] = true;
+                    col[j] = true;
                 }
             }
         }
+
         // Second pass: set cells to zero based on markers
-        for ( int i = 0 ; i < m; i++) {
-            for ( int j = 0 ; j < n; j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 // If the row or column is marked, set cell to zero
                 if (row[i] || col[j]) {
-                    matrix[i][j] = 0 ;
+                    matrix[i][j] = 0;
                 }
             }
         }
     }
 }
+
 public class Main {
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         // Create the matrix
-        int [][] matrix = {{ 1 , 1 , 1 },{ 1 , 0 , 1 },{ 1 , 1 , 1 }};
+        int[][] matrix = {{1,1,1},{1,0,1},{1,1,1}};
+        
         // Create Solution object
-        Solution obj = new Solution ();
+        Solution obj = new Solution();
         // Call function
         obj.setZeroes(matrix);
+        
         // Print the updated matrix
-        for ( int [] row : matrix) {
-            for ( int val : row) {
-                System.out.print(val + " " );
+        for (int[] row : matrix) {
+            for (int val : row) {
+                System.out.print(val + " ");
             }
             System.out.println();
         }
@@ -3857,69 +4361,79 @@ public class Main {
 
 **Java Code:**
 ```java
-import java.util.*;
+import.java.util.*;
+class Solution {
+    // Function to set entire row and column to 0 if an element in the matrix 
+    public void setZeroes(int[][] matrix) {
+        // Get dimensions of matrix
+        int m = matrix.length;
+        int n = matrix[0].length;
 
-public class Main {
-    static void setZeroes(int[][] matrix) {
-        int n = matrix.length;
-        int m = matrix[0].length;
+        // Flag to track if first row should be zeroed
+        boolean firstRowZero = false;
+        // Flag to track if first column should be zeroed
+        boolean firstColZero = false;
 
-        // int[] row = new int[n]; --> matrix[..][0]
-        // int[] col = new int[m]; --> matrix[0][..]
+        // Check if first row has any zero
+        for (int j = 0; j < n; j++) {
+            if (matrix[0][j] == 0) {
+                firstRowZero = true;
+                break;
+            }
+        }
 
-        int col0 = 1;
-        // step 1: Traverse the matrix and
-        // mark 1st row & col accordingly:
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+        // Check if first column has any zero
+        for (int i = 0; i < m; i++) {
+            if (matrix[i][0] == 0) {
+                firstColZero = true;
+                break;
+            }
+        }
+
+        // Use first row/column as markers
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
                 if (matrix[i][j] == 0) {
-                    // mark i-th row:
                     matrix[i][0] = 0;
-
-                    // mark j-th column:
-                    if (j != 0)
-                        matrix[0][j] = 0;
-                    else
-                        col0 = 0;
+                    matrix[0][j] = 0;
                 }
             }
         }
 
-        // Step 2: Mark with 0 from (1,1) to (n-1, m-1):
-        for (int i = 1; i < n; i++) {
-            for (int j = 1; j < m; j++) {
-                if (matrix[i][j] != 0) {
-                    // check for col & row:
-                    if (matrix[i][0] == 0 || matrix[0][j] == 0) {
-                        matrix[i][j] = 0;
-                    }
+        // Set cells to zero based on markers
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
                 }
             }
         }
 
-        //step 3: Finally mark the 1st col & then 1st row:
-        if (matrix[0][0] == 0) {
-            for (int j = 0; j < m; j++) {
+        // Zero the first row if needed
+        if (firstRowZero) {
+            for (int j = 0; j < n; j++) {
                 matrix[0][j] = 0;
             }
         }
-        if (col0 == 0) {
-            for (int i = 0; i < n; i++) {
+
+        // Zero the first column if needed
+        if (firstColZero) {
+            for (int i = 0; i < m; i++) {
                 matrix[i][0] = 0;
             }
         }
-
     }
+}
 
+// Main class to run the program
+public class Main {
     public static void main(String[] args) {
-        int[][] matrix = {{1, 1, 1}, {1, 0, 1}, {1, 1, 1}};
-        int n = matrix.length;
-        int m = matrix[0].length;
-        setZeroes(matrix);
-        System.out.println("The Final Matrix is ");
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                System.out.print(matrix[i][j] + " ");
+        Solution obj = new Solution();
+        int[][] matrix = {{0,1,2,0},{3,4,5,2},{1,3,1,5}};
+        obj.setZeroes(matrix);
+        for (int[] row : matrix) {
+            for (int val : row) {
+                System.out.print(val + " ");
             }
             System.out.println();
         }
@@ -3977,27 +4491,45 @@ Given an $N \times N$ 2D integer matrix, rotate the matrix by **90 degrees clock
 
 **Java Code:**
 ```java
-import java.util.*;
-class TUF {
-    static int[][] rotate(int[][] matrix) {
+import.java.util.*;
+class Solution {
+    // Function to rotate the matrix 90 degrees clockwise using extra space
+    public int[][] rotateClockwise(int[][] matrix) {
+        // Get the size of the square matrix
         int n = matrix.length;
-        int rotated[][] = new int[n][n];
+
+        // Create a new matrix of same size to store rotated result
+        int[][] rotated = new int[n][n];
+
+        // Traverse each element of original matrix
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
+                // Place the element at its new rotated position
                 rotated[j][n - i - 1] = matrix[i][j];
             }
         }
+
+        // Return the rotated matrix
         return rotated;
     }
+}
 
-    public static void main(String args[]) {
-        int arr[][] =  {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        int rotated[][] = rotate(arr);
-        System.out.println("Rotated Image");
-        for (int i = 0; i < rotated.length; i++) {
-            for (int j = 0; j < rotated.length; j++) {
-                System.out.print(rotated[i][j] + " ");
-            }
+// Driver class
+class Main {
+    public static void main(String[] args) {
+        int[][] mat = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+
+        Solution obj = new Solution();
+        int[][] rotated = obj.rotateClockwise(mat);
+
+        // Print the rotated matrix
+        for (int[] row : rotated) {
+            for (int val : row)
+                System.out.print(val + " ");
             System.out.println();
         }
     }
@@ -4017,35 +4549,54 @@ class TUF {
 
 **Java Code:**
 ```java
-import java.util.*;
-class TUF {
-    static void rotate(int[][] matrix) {
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = i; j < matrix[0].length; j++) {
-                int temp = 0;
-                temp = matrix[i][j];
+import.java.util.*;
+class Solution {
+    // Function to rotate matrix 90 degrees clockwise in-place
+    public void rotateClockwise(int[][] matrix) {
+        int n = matrix.length;
+
+        // Step 1: Transpose the matrix
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                // Swap element at (i, j) with (j, i)
+                int temp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
                 matrix[j][i] = temp;
             }
         }
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix.length / 2; j++) {
-                int temp = 0;
-                temp = matrix[i][j];
-                matrix[i][j] = matrix[i][matrix.length - 1 - j];
-                matrix[i][matrix.length - 1 - j] = temp;
+
+        // Step 2: Reverse each row
+        for (int i = 0; i < n; i++) {
+            int left = 0, right = n - 1;
+
+            // Swap elements from both ends moving toward center
+            while (left < right) {
+                int temp = matrix[i][left];
+                matrix[i][left] = matrix[i][right];
+                matrix[i][right] = temp;
+                left++;
+                right--;
             }
         }
     }
+}
 
-    public static void main(String args[]) {
-        int arr[][] =  {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        rotate(arr);
-        System.out.println("Rotated Image");
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr.length; j++) {
-                System.out.print(arr[i][j] + " ");
-            }
+// Driver class
+class Main {
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+
+        Solution obj = new Solution();
+        obj.rotateClockwise(matrix);
+
+        // Print rotated matrix
+        for (int[] row : matrix) {
+            for (int val : row)
+                System.out.print(val + " ");
             System.out.println();
         }
     }
@@ -4113,65 +4664,73 @@ Given an $m \times n$ 2D matrix, return all elements of the matrix in **spiral o
 ```java
 import java.util.*;
 
-public class Main {
-    public static List<Integer> printSpiral(int[][] mat) {
-        // Define ans list to store the result.
-        List<Integer> ans = new ArrayList<Integer>();
+class Solution {
+    // Function to return matrix in spiral order
+    public List spiralOrder(int[][] matrix) {
+        // Result list to store the spiral order
+        List result = new ArrayList<>();
 
-        int n = mat.length; // no. of rows
-        int m = mat[0].length; // no. of columns
+        // Initialize boundaries
+        int top = 0;                        // Starting row
+        int bottom = matrix.length - 1;     // Ending row
+        int left = 0;                       // Starting column
+        int right = matrix[0].length - 1;   // Ending column
 
-        // Initialize the pointers req. for traversal.
-        int top = 0, left = 0, bottom = n - 1, right = m - 1;
-
-        // Loop until all elements are not traversed.
+        // Loop until all elements are traversed
         while (top <= bottom && left <= right) {
 
-            // For moving left to right
-            for (int i = left; i <= right; i++)
-                ans.add(mat[top][i]);
+            // Traverse the top row from left to right
+            for (int i = left; i <= right; i++) {
+                result.add(matrix[top][i]);
+            }
+            top++; // Move the top boundary downward
 
-            top++;
+            // Traverse the right column from top to bottom
+            for (int i = top; i <= bottom; i++) {
+                result.add(matrix[i][right]);
+            }
+            right--; // Move the right boundary leftward
 
-            // For moving top to bottom
-            for (int i = top; i <= bottom; i++)
-                ans.add(mat[i][right]);
-
-            right--;
-
-            // For moving right to left.
+            // Traverse the bottom row from right to left (only if rows remain)
             if (top <= bottom) {
-                for (int i = right; i >= left; i--)
-                    ans.add(mat[bottom][i]);
-
-                bottom--;
+                for (int i = right; i >= left; i--) {
+                    result.add(matrix[bottom][i]);
+                }
+                bottom--; // Move the bottom boundary upward
             }
 
-            // For moving bottom to top.
+            // Traverse the left column from bottom to top (only if columns remain)
             if (left <= right) {
-                for (int i = bottom; i >= top; i--)
-                    ans.add(mat[i][left]);
-
-                left++;
+                for (int i = bottom; i >= top; i--) {
+                    result.add(matrix[i][left]);
+                }
+                left++; // Move the left boundary rightward
             }
         }
-        return ans;
+
+        // Return the spiral order result
+        return result;
     }
+}
 
+// Driver code
+class Main {
     public static void main(String[] args) {
-        // Matrix initialization.
-        int[][] mat = {{1, 2, 3, 4},
-                       {5, 6, 7, 8},
-                       {9, 10, 11, 12},
-                       {13, 14, 15, 16}};
+        Solution obj = new Solution();
 
-        List<Integer> ans = printSpiral(mat);
+        // Input matrix
+        int[][] matrix = {
+            { 1,  2,  3,  4 },
+            { 5,  6,  7,  8 },
+            { 9, 10, 11, 12 },
+            { 13,14, 15, 16 }
+        };
 
-        for (int i = 0; i < ans.size(); i++) {
-            System.out.print(ans.get(i) + " ");
-        }
+        // Call spiralOrder function
+        List ans = obj.spiralOrder(matrix);
 
-        System.out.println();
+        // Print result
+        System.out.println(ans);
     }
 }
 ```
@@ -4226,34 +4785,56 @@ Given an array of integers `arr[]` and an integer `k`, return the total number o
 
 **Java Code:**
 ```java
-import java.util.*;
+import.java.util.*;
+class Solution {
+    // Function to find count of subarrays with sum equal to k
+    public int subarraySum(int[] arr, int k) {
+        // Size of the array
+        int n = arr.length;
 
-public class Main {
-    public static int findAllSubarraysWithGivenSum(int arr[], int k) {
-        int n = arr.length; // size of the given array.
-        int cnt = 0; // count
+        // Initialize count of subarrays
+        int count = 0;
 
-        for (int i = 0; i < n; i++) { // starting index i
-            for (int j = i; j < n; j++) { // ending index j
-
-                // calculate the sum of subarray [i...j]
+        // Traverse all possible start indices
+        for (int i = 0; i < n; i++) {
+            // Traverse all possible end indices from start
+            for (int j = i; j < n; j++) {
+                // Initialize sum for current subarray
                 int sum = 0;
-                for (int K = i; K <= j; K++)
-                    sum += arr[K];
 
-                // Increase the count if sum == k:
-                if (sum == k)
-                    cnt++;
+                // Calculate sum of subarray from i to j
+                for (int m = i; m <= j; m++) {
+                    sum += arr[m];
+                }
+
+                // If sum equals k, increment count
+                if (sum == k) {
+                    count++;
+                }
             }
         }
-        return cnt;
-    }
 
+        // Return total count of subarrays
+        return count;
+    }
+}
+
+public class Main {
     public static void main(String[] args) {
+        // Input array
         int[] arr = {3, 1, 2, 4};
+
+        // Target sum
         int k = 6;
-        int cnt = findAllSubarraysWithGivenSum(arr, k);
-        System.out.println("The number of subarrays is: " + cnt);
+
+        // Create Solution object
+        Solution sol = new Solution();
+
+        // Call function and store result
+        int result = sol.subarraySum(arr, k);
+
+        // Print the count of subarrays
+        System.out.println("The number of subarrays is: " + result);
     }
 }
 ```
@@ -4269,33 +4850,54 @@ public class Main {
 
 **Java Code:**
 ```java
-import java.util.*;
+import.java.util.*;
+class Solution {
+    // Function to find count of subarrays with sum equal to k
+    public int subarraySum(int[] arr, int k) {
+        // Size of the array
+        int n = arr.length;
 
-public class Main {
-    public static int findAllSubarraysWithGivenSum(int arr[], int k) {
-        int n = arr.length; // size of the given array.
-        int cnt = 0; // count
+        // Initialize count of subarrays
+        int count = 0;
 
-        for (int i = 0; i < n; i++) { // starting index i
+        // Traverse all possible start indices
+        for (int i = 0; i < n; i++) {
+            // Initialize sum for current subarray
             int sum = 0;
-            for (int j = i; j < n; j++) { // ending index j
-                // calculate the sum of subarray [i...j]
-                // sum of [i..j-1] + arr[j]
+
+            // Traverse all possible end indices from start
+            for (int j = i; j < n; j++) {
+                // Add current element to sum
                 sum += arr[j];
 
-                // Increase the count if sum == k:
-                if (sum == k)
-                    cnt++;
+                // If sum equals k, increment count
+                if (sum == k) {
+                    count++;
+                }
             }
         }
-        return cnt;
-    }
 
+        // Return total count of subarrays
+        return count;
+    }
+}
+
+public class Main {
     public static void main(String[] args) {
+        // Input array
         int[] arr = {3, 1, 2, 4};
+
+        // Target sum
         int k = 6;
-        int cnt = findAllSubarraysWithGivenSum(arr, k);
-        System.out.println("The number of subarrays is: " + cnt);
+
+        // Create Solution object
+        Solution sol = new Solution();
+
+        // Call function and store result
+        int result = sol.subarraySum(arr, k);
+
+        // Print the count of subarrays
+        System.out.println("The number of subarrays is: " + result);
     }
 }
 ```
