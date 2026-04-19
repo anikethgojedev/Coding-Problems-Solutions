@@ -1,0 +1,44 @@
+I am studying DSA using Striver’s A2Z Sheet and want to create high-quality, structured revision notes.
+
+From the currently visible problem, generate clear and well-organized notes in the following format:
+
+Problem Title in H1
+1. 🔹 Problem Summary
+Explain the problem in simple and concise terms
+2. 🔹 Key Observations & Intuition
+Core patterns, insights, and thought process
+Any tricks or important realizations
+3. 🔹 Approaches
+
+Cover ALL approaches mentioned on the website without skipping anything:
+for example - {
+➤ Brute Force
+Idea
+Time & Space Complexity
+Java Code (exactly as given on the website, including comments — do not modify)
+➤ Better Approach (if available)
+Idea
+Improvement over brute force
+Time & Space Complexity
+Java Code (exactly as given on the website, including comments — do not modify)
+➤ Optimal Approach
+Detailed explanation
+Why this approach is optimal
+Time & Space Complexity
+Java Code (exactly as given on the website, including comments — do not modify)
+}
+4. 🔹 Edge Cases
+List all important corner cases
+5. 🔹 Important Notes / Takeaways
+Key learnings, patterns, and interview insights
+6. 🔹 Complexity Summary Table
+Approach	Time Complexity	Space Complexity
+
+Important Instructions - 
+Do NOT skip any approach from the website
+Keep Java code exactly the same as on the website, dont even change comments or anything else (no modifications)
+Maintain clean formatting and readability
+Focus on interview-oriented understanding and revision
+
+Dont change anything in code you will take, not even the comments, take as it is in the website.
+

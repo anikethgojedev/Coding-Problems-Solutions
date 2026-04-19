@@ -1,3 +1,5 @@
+Sorting Techniques - 
+Q1
 # Selection Sort 
 
 ## 🔹 Problem Summary
@@ -94,7 +96,7 @@ public class Main {
 | **Worst Case** | $O(N^2)$ | $O(1)$ |
 
 ---
-
+Q2
 # Bubble Sort
 
 ## 🔹 Problem Summary
@@ -231,6 +233,8 @@ public class Main {
 
 
 ---
+
+Q3
 # Insertion sort 
 
 ## 🔹 Problem Summary
@@ -369,6 +373,8 @@ public class Main {
 | **Recursive** | $O(N)$ | $O(N^2)$ | $O(N^2)$ | $O(N)$ |
 
 ---
+
+Q4
 # Merge Sort 
 
 These notes are based on the **Merge Sort Algorithm** tutorial from [takeuforward](https://takeuforward.org/data-structure/merge-sort-algorithm).
@@ -502,6 +508,8 @@ public class Main {
 | **Recursive Merge Sort** | $O(N \log N)$ | $O(N \log N)$ | $O(N \log N)$ | $O(N)$ |
 
 ---
+
+Q5
 # Recursive Bubble Sort
 
 ## 🔹 Problem Summary
@@ -654,6 +662,7 @@ public class Main {
 | **Recursive Insertion** | $O(N)$ | $O(N^2)$ | $O(N)$ |
 
 ---
+Q6
 
 # Recursive Insertion Sort 
 
@@ -753,7 +762,7 @@ public class Main {
 | **Worst Case** | $O(N^2)$ | $O(N)$ (Stack) |
 
 ---
-
+Q7
 # Quick Sort 
 
 ## 🔹 Problem Summary

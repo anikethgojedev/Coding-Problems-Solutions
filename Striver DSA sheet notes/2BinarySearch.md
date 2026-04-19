@@ -1902,6 +1902,2267 @@ public class Main {
 | **Optimal (Binary Search)** | $O(\log N)$ | $O(1)$ |
 
 ---
-
+...
 # Binary Search on Answers
+Q1
+# Finding Sqrt of a number using Binary Search
+
+1. 🔹 **Problem Summary**
+Given a positive integer `n`, find its square root. If `n` is not a perfect square, return the **floor value** of the square root (the largest integer $x$ such that $x^2 \le n$).
+
+---
+
+2. 🔹 **Key Observations & Intuition**
+* **Search Space:** The square root of a number `n` will always reside in the range $[1, n]$.
+* **Monotonicity:** The values in our search space are sorted. If $x^2 > n$, then for any $y > x$, $y^2$ will also be $> n$. This property allows us to use **Binary Search** to find the threshold where the condition $x^2 \le n$ is last satisfied.
+* **Integer Overflow:** When calculating $i \times i$ or $mid \times mid$, the result can exceed the range of a standard 32-bit integer. Using `long` for these calculations is essential.
+
+---
+
+3. 🔹 **Approaches**
+
+### ➤ Brute-Force Approach
+**Idea**
+The idea is that the square root of a number n will always lie between 1 and n. So, we can linearly search in this range to find the largest integer x such that square of x is less than or equal to number n.
+* Start by creating a variable called `ans` to hold the result and run a loop from 1 up to n.
+* While the square of the current number is less than or equal to n, keep updating `ans` with that number.
+* As soon as the square of the number becomes greater than n, stop the loop because no bigger number can be the answer.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N)$, we check for every number from 1 to $N$.
+* **Space Complexity:** $O(1)$, since the algorithm does not use any additional space or data structures.
+
+**Java Code**
+```java
+class Solution {
+    // Function to find floor of square root using linear search
+    public int floorSqrt ( int n) {
+        // Variable to store answer
+        int ans = 0 ;
+        // Run loop from 1 to n
+        for ( int i = 1 ; i <= n; i++) {
+            // Check if i*i <= n
+            if (( long )(i) * i <= n) {
+                // Update answer
+                ans = i;
+            } else {
+                // Break when i*i > n
+                break ;
+            }
+        }
+        // Return final answer
+        return ans;
+    }
+}
+public class Main {
+    public static void main (String[] args) {
+        // Example input
+        int n = 27 ;
+        // Create object of Solution
+        Solution sol = new Solution ();
+        // Call function and print result
+        System.out.println(sol.floorSqrt(n));
+    }
+}
+```
+
+---
+
+### ➤ Optimal Approach
+**Detailed Explanation**
+The naive method tries every number, which is slow when n is large. But our possible answer space (from 1 to n) is sorted, meaning if a certain number squared is less than or equal to n, then all smaller numbers will also work. This allows us to apply Binary Search on the answer space to efficiently find the largest number whose square is less than or equal to n.
+* Set the search range with the smallest value as 1 and the largest value as n.
+* Use binary search within this range to test possible numbers.
+* At each step, take the middle number (`mid`) and check if `mid * mid <= n`.
+* If it is, record `mid` as a candidate (`ans`) and move **right** (`left = mid + 1`) to check for a larger number.
+* If the square is greater than n, move **left** (`right = mid - 1`) to check smaller numbers.
+
+**Why this approach is optimal**
+By using Binary Search, we reduce the search operations from $N$ to $\log_2(N)$, which is significantly faster for large values of $n$.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(\log N)$, we apply binary search on our search space to reduce it into half at every step.
+* **Space Complexity:** $O(1)$, since the algorithm does not use any additional space or data structures.
+
+**Java Code**
+```java
+class Solution {
+    // This function returns the floor value of the square root of a number
+    public int mySqrt ( int x) {
+        // Handle small numbers directly
+        if (x < 2 ) return x;
+        // Initialize binary search range
+        int left = 1 , right = x / 2 , ans = 0 ;
+        // Perform binary search
+        while (left <= right) {
+            // Find middle point
+            long mid = left + (right - left) / 2 ;
+            // Check if mid*mid is less than or equal to x
+            if (mid * mid <= x) {
+                // Store mid as potential answer
+                ans = ( int ) mid;
+                // Move to right half
+                left = ( int ) mid + 1 ;
+            } else {
+                // Move to left half
+                right = ( int ) mid - 1 ;
+            }
+        }
+        // Return final answer
+        return ans;
+    }
+}
+public class Main {
+    public static void main (String[] args) {
+        Solution s = new Solution ();
+        System.out.println(s.mySqrt( 8 ));
+    }
+}
+```
+
+---
+
+4. 🔹 **Edge Cases**
+* **n = 0 or n = 1:** The square root is the number itself.
+* **Perfect Squares:** The algorithm should return the exact integer root (e.g., `sqrt(36) = 6`).
+* **Non-Perfect Squares:** The algorithm must return the floor value (e.g., `sqrt(28) = 5`).
+* **Large Input:** When `n` is near `Integer.MAX_VALUE`, `mid * mid` will overflow if calculated as an `int`.
+
+---
+
+5. 🔹 **Important Notes / Takeaways**
+* **Binary Search on Answers:** This problem is a classic example of applying Binary Search not on an array, but on a range of possible answers (Search Space).
+* **Integer Overflow Tip:** Always use `long` for intermediate product calculations like `mid * mid` in square root or power problems.
+* **Floor vs. Ceil:** By updating `ans` only when `mid * mid <= n`, we naturally capture the floor value.
+
+---
+
+6. 🔹 **Complexity Summary Table**
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(N)$ | $O(1)$ |
+| **Optimal (Binary Search)** | $O(\log N)$ | $O(1)$ |
+
+---
+Q2
+# Nth Root of a Number using Binary Search
+
+1. 🔹 **Problem Summary**
+Given two numbers **N** and **M**, find the **Nth root of M**. The Nth root of a number $M$ is a value $X$ such that $X^N = M$. If the Nth root is an integer, return it; otherwise, return **-1**.
+
+---
+
+2. 🔹 **Key Observations & Intuition**
+* **Monotonicity:** The function $f(X) = X^N$ is monotonically increasing. As $X$ increases, $X^N$ also increases. This property makes the problem suitable for **Binary Search**.
+* **Search Space:** Since we are looking for an integer root of $M$, our potential answer must lie in the range $[1, M]$.
+* **Overflow Handling:** When calculating $mid^N$, the value can quickly exceed the limits of a `long`. A crucial trick is to stop the multiplication loop as soon as the product exceeds $M$ to prevent overflow and save time.
+
+---
+
+3. 🔹 **Approaches**
+
+### ➤ Brute-Force Approach
+**Idea**
+To find the nth root of a number m, we want to find a number x such that x^n = m. The naive approach to solve this is to linearly search for every possible number. Using linear search, we start from 1 and gradually try increasing values, checking if raising them to the power n gets us close to or exactly equals m.
+* Start a loop from 1 to m for linear search.
+* For each value in the loop, compute the value raised to power n.
+* If the result equals m, return that value.
+* If the result exceeds m, break the loop as the nth root does not exist as an integer.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(M)$, we search for every possible number from 1 to $M$ to check if it is the Nth root.
+* **Space Complexity:** $O(1)$, constant additional space is used.
+
+**Java Code**
+```java
+class Solution {
+    // Function to find Nth root of M
+    public int nthRoot ( int n, int m) {
+        // Loop from 1 to m
+        for ( int i = 1 ; i <= m; i++) {
+            // Compute i^n
+            long power = ( long ) Math.pow(i, n);
+            // If equal to m, return i
+            if (power == m) return i;
+            // If exceeds m, break
+            if (power > m) break ;
+        }
+        // If not found, return -1
+        return - 1 ;
+    }
+}
+// Main class
+public class Main {
+    public static void main (String[] args) {
+        Solution sol = new Solution ();
+        int n = 3 , m = 27 ;
+        // Find nth root
+        System.out.println( "Nth Root: " + sol.nthRoot(n, m));
+    }
+}
+```
+
+---
+
+### ➤ Optimal Approach
+**Detailed Explanation**
+To find the N-th root of a number M, instead of checking every number from 1 to M (which is inefficient), we use binary search to efficiently reduce the search space. Since the N-th root lies between 1 and M, we start with a search range from 1 to M. For each middle value in this range, we compute its N-th power by multiplying it with itself N times, without using built-in power functions (to avoid integer overflow). During this multiplication, if the result exceeds M, we stop early to save time. If the final result equals M, we’ve found the N-th root. Otherwise, we adjust our search range accordingly to continue the binary search.
+
+**Why this approach is optimal**
+This method significantly speeds up the process by halving the range at each step, moving from a linear time complexity to a logarithmic one ($O(\log M)$).
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(\log M)$, we search for every possible number from 1 to $M$ to check if it is the Nth root.
+* **Space Complexity:** $O(1)$, constant additional space is used.
+
+**Java Code**
+```java
+class Solution {
+    // Function to find N-th root of M using binary search
+    public int nthRoot ( int n, int m) {
+        // Set low and high for binary search
+        int low = 1 , high = m;
+        // Start binary search
+        while (low <= high) {
+            // Calculate mid
+            int mid = (low + high) / 2 ;
+            // Store result of mid^n
+            long ans = 1 ;
+            for ( int i = 0 ; i < n; i++) {
+                ans *= mid;
+                if (ans > m) break ;
+            }
+            // If mid^n equals m
+            if (ans == m) return mid;
+            // If mid^n is less than m
+            if (ans < m) low = mid + 1 ;
+            // If mid^n is more than m
+            else high = mid - 1 ;
+        }
+        // Return -1 if not found
+        return - 1 ;
+    }
+}
+// Main class
+public class Main {
+    public static void main (String[] args) {
+        Solution obj = new Solution ();
+        int result = obj.nthRoot( 3 , 27 );
+    }
+}
+```
+
+---
+
+4. 🔹 **Edge Cases**
+* **$M = 1$:** The Nth root of 1 is always 1.
+* **$N = 1$:** The 1st root of $M$ is $M$ itself.
+* **Non-existent Integer Root:** For example, $N=4, M=69$. The algorithm should return -1 correctly.
+* **Large $N$ and $M$:** Handled by the manual multiplication loop with an early `break` to avoid `long` overflow.
+
+---
+
+5. 🔹 **Important Notes / Takeaways**
+* **Binary Search on Answers:** This is a classic example of searching within a value range rather than an array index.
+* **Avoid Built-in `pow`:** In the optimal approach, manual multiplication is preferred to control overflow and performance by stopping early.
+* **Interview Insight:** When asked for a "root" or "square root," always check if the search space is sorted to apply Binary Search.
+
+---
+
+6. 🔹 **Complexity Summary Table**
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute-Force** | $O(M)$ | $O(1)$ |
+| **Optimal (Binary Search)** | $O(\log M)$ | $O(1)$ |
+
+---
+Q3
+# Koko Eating Bananas
+
+1. 🔹 **Problem Summary**
+Koko is given `n` piles of bananas, where the $i^{th}$ pile has `a[i]` bananas. She has `h` hours to eat all of them. Each hour, she chooses a pile and eats `k` bananas. If the pile has fewer than `k` bananas, she eats the whole pile and stops for that hour. The goal is to find the **minimum integer eating speed `k`** such that she can finish all the bananas within `h` hours.
+
+---
+
+2. 🔹 **Key Observations & Intuition**
+* **Search Space:** The minimum speed Koko can have is **1** banana/hr. The maximum speed she would ever need is **max(a[])** (the size of the largest pile), because eating faster than the largest pile still requires at least 1 hour per pile.
+* **Monotonicity:** If Koko can finish all bananas at speed $k$, she can also finish them at any speed $> k$. If she cannot finish at speed $k$, she won't be able to finish at any speed $< k$. This "True/False" transition point is the classic indicator for **Binary Search on Answers**.
+* **The Hour Calculation:** For each pile, the time taken is calculated as $\lceil \text{pile} / \text{speed} \rceil$. In programming, this is effectively `(pile + speed - 1) / speed` or `Math.ceil((double)pile / speed)`.
+
+---
+
+3. 🔹 **Approaches**
+
+### ➤ Brute-Force Approach
+**Idea**
+The problem is about finding the minimum eating speed such that Koko can finish all bananas within h hours. The extremely naive approach is to check all possible answers from 1 to max(a[]). The minimum number for which the required time is less than or equal to h is our answer.
+- Find the largest pile size (max of the array).
+- Loop through all possible speeds from 1 to this maximum value.
+- For each speed, calculate the total hours needed. For each pile, compute the time as ceil(pile / speed).
+- Sum up the hours for all piles.
+- If the total hours is less than or equal to the allowed hours, return this speed as the answer.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(n \times \max(a[]))$, since for each possible speed we go through all the piles.
+* **Space Complexity:** $O(1)$, since the algorithm does not use any additional space or data structures.
+
+**Java Code**
+```java
+import java.util.*;
+
+class Solution {
+    // Function to calculate total hours for given speed
+    public int calculateTotalHours ( int [] a, int hourly) {
+        int totalHours = 0 ;
+        for ( int pile : a) {
+            // Add hours using ceil
+            totalHours += ( int )Math.ceil(( double )pile / hourly);
+        }
+        return totalHours;
+    }
+
+    // Function to find minimum eating speed
+    public int minEatingSpeed ( int [] a, int h) {
+        // Find maximum pile size
+        int maxVal = Arrays.stream(a).max().getAsInt();
+
+        // Try every possible speed
+        for ( int i = 1 ; i <= maxVal; i++) {
+            int hours = calculateTotalHours(a, i);
+            // If hours fit within h
+            if (hours <= h) {
+                return i;
+            }
+        }
+        return maxVal;
+    }
+}
+
+public class Main {
+    public static void main (String[] args) {
+        // Input array
+        int [] a = { 3 , 6 , 7 , 11 };
+        // Hours allowed
+        int h = 8 ;
+        Solution obj = new Solution ();
+        System.out.println(obj.minEatingSpeed(a, h));
+    }
+}
+```
+
+---
+
+### ➤ Optimal Approach
+**Detailed Explanation**
+The naive method checks every speed, which is slow if the piles are large. But the possible answer space (from 1 to the maximum pile size) is sorted, meaning if a certain speed works, then all higher speeds will also work. This allows us to apply Binary Search on the answer space to efficiently find the minimum speed at which Koko can finish the bananas within the given hours.
+- First, identify the largest pile size since the eating speed cannot be more than that.
+- Set the search range with the lowest speed as 1 and the highest speed as the maximum pile size.
+- Use binary search within this range to check possible speeds.
+- At each step, take the middle value as the current speed and calculate how many hours it would take to finish all piles at this speed.
+- If the total hours are less than or equal to the allowed hours, this speed is a candidate, so try to see if a smaller speed also works by moving left.
+- If the total hours exceed the allowed hours, then the speed is too slow, so move right to try higher speeds.
+- Continue this process until the range closes, and the smallest valid speed found will be the answer.
+
+**Why this approach is optimal**
+Instead of checking every speed linearly, we use Binary Search to find the threshold speed in logarithmic time relative to the maximum pile size.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N \times \log(\max(a[])))$, we apply binary search on our search space to reduce it into half at every step.
+* **Space Complexity:** $O(1)$, since the algorithm does not use any additional space or data structures.
+
+**Java Code**
+```java
+import java.util.*;
+
+class Solution {
+    // Function to calculate total hours at given speed
+    private int calculateTotalHours ( int [] piles, int speed) {
+        int totalH = 0 ;
+        for ( int bananas : piles) {
+            totalH += ( int )Math.ceil(( double )bananas / speed);
+        }
+        return totalH;
+    }
+
+    // Function to find minimum eating speed
+    public int minEatingSpeed ( int [] piles, int h) {
+        // Find maximum element
+        int maxPile = Arrays.stream(piles).max().getAsInt();
+
+        // Initialize low and high pointers
+        int low = 1 , high = maxPile;
+        int ans = maxPile;
+
+        // Binary search on answer space
+        while (low <= high) {
+            int mid = (low + high) / 2 ;
+            int totalH = calculateTotalHours(piles, mid);
+            // If possible, try smaller speed
+            if (totalH <= h) {
+                ans = mid;
+                high = mid - 1 ;
+            }
+            // Otherwise, try larger speed
+            else {
+                low = mid + 1 ;
+            }
+        }
+        return ans;
+    }
+}
+
+public class Main {
+    public static void main (String[] args) {
+        int [] piles = { 3 , 6 , 7 , 11 };
+        int h = 8 ;
+        Solution obj = new Solution ();
+        System.out.println(obj.minEatingSpeed(piles, h));
+    }
+}
+```
+
+---
+
+4. 🔹 **Edge Cases**
+* **h == n:** Koko must eat at least at the speed of the largest pile to finish each pile in exactly 1 hour.
+* **h is very large:** If `h` is much larger than the total number of bananas, the answer will likely be 1.
+* **Large pile values:** If piles have bananas up to $10^9$, ensure `totalHours` is stored in a `long` to prevent overflow (though the editorial uses `int`, in many competitive platforms `long` is safer).
+* **All piles are the same size:** The speed will simply be the value that satisfies $\lceil \text{size} / \text{speed} \rceil \times n \le h$.
+
+---
+
+5. 🔹 **Important Notes / Takeaways**
+* **Pattern:** This is a classic "Binary Search on Answer" problem. Look for a range of possible answers and a monotonic condition.
+* **Math Trick:** Using `Math.ceil((double)bananas / speed)` is fine, but in interviews, you can also use `(bananas + speed - 1) / speed` for integer-only division to avoid precision issues.
+* **Range:** Always identify your `low` and `high` carefully. Here, `low = 1` and `high = max(piles)`.
+
+---
+
+6. 🔹 **Complexity Summary Table**
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(N \times \max(a[]))$ | $O(1)$ |
+| **Optimal (Binary Search)** | $O(N \times \log(\max(a[])))$ | $O(1)$ |
+
+---
+Q4
+# Minimum days to make M bouquets
+
+1. 🔹 **Problem Summary**
+You are given $N$ roses and an array `bloomDays[]` where `bloomDays[i]` is the day the $i^{th}$ rose blooms. To make one bouquet, you need exactly $k$ **adjacent** bloomed roses. Your task is to find the **minimum number of days** required to make at least $m$ bouquets. If it is impossible to make $m$ bouquets even after all roses have bloomed, return -1.
+
+---
+
+2. 🔹 **Key Observations & Intuition**
+* **Total Flowers Needed:** To make $m$ bouquets of $k$ flowers each, you need at least $m \times k$ flowers. if $m \times k > N$, it's immediately impossible.
+* **Search Space:** The answer must lie between the minimum bloom day and the maximum bloom day in the array.
+* **Monotonicity:** If it is possible to make $m$ bouquets on day $D$, it will definitely be possible on any day $> D$. If it's impossible on day $D$, it's impossible on any day $< D$. This "step-function" property indicates that the search space is monotonic, making **Binary Search** the optimal choice.
+* **Adjacency Constraint:** When counting flowers on a specific day, you must count consecutive flowers. If a flower hasn't bloomed yet, it breaks the current streak.
+
+---
+
+3. 🔹 **Approaches**
+
+### ➤ Brute Force Approach
+**Idea**
+* If the total number of flowers required to make all bouquets is more than the flowers available, it is not possible to make the bouquets. So, return -1.
+* Loop through each day starting from the earliest bloom day to the latest bloom day to test all possible answers.
+* For each day, check if it's possible to make the required number of bouquets using the flowers that have bloomed by that day. If yes, return that day as the answer.
+* If no suitable day is found after checking all possibilities, it means it's impossible to make the bouquets. So, return -1.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O((\max(arr[])-\min(arr[])+1) * N)$, where $\max(arr[])$ is the maximum element, $\min(arr[])$ is the minimum, and $N$ is the size of the array.
+* **Space Complexity:** $O(1)$ as we are not using any extra space.
+
+**Java Code**
+```java
+import java.util.*;
+
+public class RoseGarden {
+    // Function to check if it's possible to make 'm' bouquets on 'day'
+    public boolean isPossible(int[] bloomDays, int day, int m, int k) {
+        int count = 0; // count of consecutive bloomed flowers
+        int bouquets = 0;
+        for (int bloom : bloomDays) {
+            if (bloom <= day) {
+                count++;
+                if (count == k) {
+                    bouquets++;
+                    count = 0;
+                }
+            } else {
+                count = 0;
+            }
+        }
+        return bouquets >= m;
+    }
+
+    // Main function to return minimum day to make 'm' bouquets
+    public int minDaysToMakeBouquets(int[] bloomDays, int m, int k) {
+        long totalFlowers = (long) m * k;
+        if (totalFlowers > bloomDays.length) return -1;
+        int min = Arrays.stream(bloomDays).min().getAsInt();
+        int max = Arrays.stream(bloomDays).max().getAsInt();
+
+        for (int day = min; day <= max; day++) {
+            if (isPossible(bloomDays, day, m, k)) {
+                return day;
+            }
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        int[] bloomDays = {7, 7, 7, 7, 13, 11, 12, 7};
+        int k = 3;
+        int m = 2;
+        RoseGarden garden = new RoseGarden();
+        int result = garden.minDaysToMakeBouquets(bloomDays, m, k);
+        if (result == -1)
+            System.out.println("We cannot make m bouquets.");
+        else
+            System.out.println("We can make bouquets on day " + result);
+    }
+}
+```
+
+---
+
+### ➤ Optimal Approach
+**Detailed Explanation**
+The brute force checks every single day, which is inefficient. Since the "possibility" of making bouquets increases as days pass, we can use Binary Search.
+* Define `low` as the minimum bloom day and `high` as the maximum bloom day.
+* Calculate `mid` day and use the `isPossible` function.
+* If `isPossible` is true for `mid`, it might be our answer, but we look for a smaller (minimum) day by moving `high = mid - 1`.
+* If `isPossible` is false, we need more days, so move `low = mid + 1`.
+
+**Why this approach is optimal**
+It reduces the search space logarithmically ($O(\log(\text{Range}))$) instead of checking every day linearly, making it much faster for large bloom day values.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N \times \log(\max(arr[]) - \min(arr[]) + 1))$, where $N$ is the size of the array.
+* **Space Complexity:** $O(1)$ as we are not using any extra space.
+
+**Java Code**
+```java
+import java.util.*;
+
+public class RoseGarden {
+    // Function to check if it's possible to make m bouquets on or before 'day'
+    public static boolean isPossible(int[] bloomDays, int day, int m, int k) {
+        int count = 0; // counts consecutive flowers that bloomed on or before 'day'
+        int bouquets = 0; // number of bouquets made
+        for (int bloom : bloomDays) {
+            if (bloom <= day) {
+                count++; // flower is ready
+                if (count == k) {
+                    bouquets++; // form one bouquet
+                    count = 0; // reset count for next bouquet
+                }
+            } else {
+                count = 0; // break in consecutive flowers
+            }
+        }
+        return bouquets >= m; // check if required bouquets can be made
+    }
+
+    // Main function to find minimum day to make m bouquets
+    public static int roseGarden(int[] bloomDays, int k, int m) {
+        long required = (long) m * k;
+        if (required > bloomDays.length) return -1; // not enough flowers
+
+        int minDay = Integer.MAX_VALUE;
+        int maxDay = Integer.MIN_VALUE;
+        // Find the minimum and maximum bloom day
+        for (int bloom : bloomDays) {
+            minDay = Math.min(minDay, bloom);
+            maxDay = Math.max(maxDay, bloom);
+        }
+
+        // Binary search between minDay and maxDay
+        int low = minDay, high = maxDay, result = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (isPossible(bloomDays, mid, m, k)) {
+                result = mid; // possible to form bouquets, try earlier
+                high = mid - 1;
+            } else {
+                low = mid + 1; // need more days
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] bloomDays = {7, 7, 7, 7, 13, 11, 12, 7};
+        int k = 3;
+        int m = 2;
+        int result = roseGarden(bloomDays, k, m);
+        if (result == -1)
+            System.out.println("We cannot make m bouquets.");
+        else
+            System.out.println("We can make bouquets on day " + result);
+    }
+}
+```
+
+---
+
+4. 🔹 **Edge Cases**
+* **Insufficient Flowers:** If $m \times k > bloomDays.length$, return -1.
+* **$k=1$:** Every bloomed flower can be a bouquet.
+* **All bloom days are the same:** The answer will be that specific day (if $m \times k \le N$).
+* **$m=1$:** Just need $k$ consecutive bloomed flowers.
+
+---
+
+5. 🔹 **Important Notes / Takeaways**
+* **Binary Search on Answer:** This is a classic pattern. When the answer has a range and a clear "Yes/No" threshold, use Binary Search.
+* **Long for Multiplication:** When checking $m \times k$, always cast to `long` to avoid integer overflow in languages like Java/C++.
+* **Adjacency Logic:** The `count = 0` inside the `else` block is the crucial part of checking adjacency.
+
+---
+
+6. 🔹 **Complexity Summary Table**
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(N \times (\text{Max Day} - \text{Min Day}))$ | $O(1)$ |
+| **Optimal (Binary Search)** | $O(N \times \log(\text{Max Day} - \text{Min Day}))$ | $O(1)$ |
+
+---
+Q5
+# Find the Smallest Divisor Given a Threshold
+
+1. 🔹 **Problem Summary**
+You are given an array of integers `arr` and a threshold value `limit`. You need to find the **smallest positive integer divisor** such that when every element in the array is divided by it (and the result is rounded up to the nearest integer), the **sum** of these results is less than or equal to the `limit`.
+
+---
+
+2. 🔹 **Key Observations & Intuition**
+* **Ceiling Division:** The problem requires the ceiling of the division ($\lceil arr[i] / d \rceil$).
+* **Range of Divisors:** The smallest possible divisor is **1** (yielding the maximum sum), and the largest effective divisor is the **maximum element in the array** (yielding a sum equal to the number of elements, as each division results in 1).
+* **Monotonicity:** As the divisor increases, the sum of the divisions decreases or stays the same. This inverse relationship between the divisor and the sum allows us to use **Binary Search on Answers**.
+* **Impossible Case:** If the number of elements in the array is greater than the limit, it's impossible to find a divisor because even with the largest possible divisor, each element results in at least 1, making the minimum sum equal to the array length.
+
+---
+
+3. 🔹 **Approaches**
+
+### ➤ Brute Force
+**Idea**
+* We will run a loop from 1 to max element of the array to check all possible divisors.
+* To calculate the result, we will iterate over the given array using a loop. Within this loop, we will divide each element in the array by the current divisor, and sum up the obtained ceiling values.
+* Inside the outer loop, If result <= threshold: We will return d as our answer.
+* Finally, if we are outside the nested loops, we will return -1.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(\max(arr[]) \times N)$, where $\max(arr[])$ is the maximum element in the array and $N$ is the size of the array.
+* **Space Complexity:** $O(1)$. No extra space used.
+
+**Java Code**
+```java
+class Solution {
+    // Method to find the smallest divisor such that the sum of ceiling divisions <= limit
+    public int smallestDivisor ( int [] arr, int limit) {
+        int n = arr.length;
+        // Find the maximum element in the array
+        int max = Integer.MIN_VALUE;
+        for ( int num : arr) {
+            max = Math.max(max, num);
+        }
+        // Try all possible divisors from 1 to max
+        for ( int d = 1 ; d <= max; d++) {
+            int sum = 0 ;
+            for ( int i = 0 ; i < n; i++) {
+                // Divide each number by d and take the ceiling
+                sum += ( int ) Math.ceil(( double ) arr[i] / d);
+            }
+            // If the total sum is within the limit, return this divisor
+            if (sum <= limit) {
+                return d;
+            }
+        }
+        return - 1 ; // No valid divisor found
+    }
+}
+public class Main {
+    public static void main (String[] args) {
+        int [] arr = { 1 , 2 , 3 , 4 , 5 };
+        int limit = 8 ;
+        Solution obj = new Solution ();
+        int ans = obj.smallestDivisor(arr, limit);
+        System.out.println( "The minimum divisor is: " + ans);
+    }
+}
+```
+
+---
+
+### ➤ Optimal Approach
+**Detailed Explanation**
+We use the **Binary Search** algorithm to optimize the search for the divisor. Since the sum changes monotonically with the divisor, we don't need to check every single value.
+* First, check if the number of elements is already greater than the allowed limit. If so, return -1.
+* Identify the search range: `low = 1` and `high = max(arr)`.
+* In each step of binary search, calculate `mid`.
+* Calculate the sum of ceiling divisions using `mid`.
+* If `sum <= limit`, then `mid` is a possible answer, but we look for a **smaller** one in the left half (`high = mid - 1`).
+* If `sum > limit`, the divisor is too small, so we look in the right half (`low = mid + 1`).
+
+**Why this approach is optimal**
+It reduces the search space from linear ($O(M)$) to logarithmic ($O(\log M)$), significantly speeding up the process for large arrays and large values.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(\log(\max(arr[])) \times N)$.
+* **Space Complexity:** $O(1)$, no extra space is used.
+
+**Java Code**
+```java
+import java.util.*;
+
+class SmallestDivisorFinder {
+    // Helper method to calculate sum by divisor
+    private int sumByD ( int [] arr, int div) {
+        int sum = 0 ;
+        for ( int num : arr) {
+            sum += Math.ceil(( double ) num / div);
+        }
+        return sum;
+    }
+    // Method to find the smallest divisor using binary search
+    public int smallestDivisor ( int [] arr, int limit) {
+        if (arr.length > limit) return - 1 ;
+        int low = 1 ;
+        int high = Arrays.stream(arr).max().getAsInt();
+        while (low <= high) {
+            int mid = (low + high) / 2 ;
+            if (sumByD(arr, mid) <= limit) {
+                high = mid - 1 ; // Try smaller divisor
+            } else {
+                low = mid + 1 ; // Try larger divisor
+            }
+        }
+        return low;
+    }
+    public static void main (String[] args) {
+        SmallestDivisorFinder solver = new SmallestDivisorFinder ();
+        int [] arr = { 1 , 2 , 3 , 4 , 5 };
+        int limit = 8 ;
+        int result = solver.smallestDivisor(arr, limit);
+        System.out.println( "The minimum divisor is: " + result);
+    }
+}
+```
+
+---
+
+4. 🔹 **Edge Cases**
+* **limit < arr.length:** Impossible to satisfy, returns -1.
+* **limit == arr.length:** The divisor will be the maximum element in the array.
+* **Array with all identical elements:** The divisor will be determined by the ceiling of the threshold division.
+* **Maximum limit:** If the limit is very high, the smallest divisor will be 1.
+
+---
+
+5. 🔹 **Important Notes / Takeaways**
+* **Binary Search on Answers:** This is a core pattern in DSA where you search for a value that satisfies a condition within a known range.
+* **Ceiling Function Trick:** In interviews, you can also compute the ceiling as `(num + div - 1) / div` using integer arithmetic to avoid `double` precision issues.
+* **Range Identification:** Always pick the tightest possible range (`low` and `high`) to make the search efficient.
+
+---
+
+6. 🔹 **Complexity Summary Table**
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(\max(arr[]) \times N)$ | $O(1)$ |
+| **Optimal Approach** | $O(\log(\max(arr[])) \times N)$ | $O(1)$ |
+
+---
+
+Q6 
+# Capacity to Ship Packages within D Days
+
+1. 🔹 **Problem Summary**
+You own a shipment company and need to transport packages of various weights across a conveyor belt within a specific number of days ($d$). The packages must be loaded in the exact order they appear in the array. You need to find the **minimum weight capacity** of the ship required to ensure all packages are delivered within the $d$-day deadline.
+
+---
+
+2. 🔹 **Key Observations & Intuition**
+* **Minimum Possible Capacity:** The ship must be able to carry the heaviest single package. Therefore, the minimum capacity is $\max(weights)$.
+* **Maximum Possible Capacity:** If you ship all packages in exactly one day, the capacity would be $\sum weights$.
+* **Monotonicity:** If a capacity $C$ allows you to ship everything within $d$ days, any capacity greater than $C$ will also work. If capacity $C$ fails, any capacity less than $C$ will also fail. This allows us to use **Binary Search on the Answer Space** $[ \max(weights), \sum weights ]$.
+* **Order Constraint:** You cannot sort the weights because they must be loaded in the given order.
+
+---
+
+3. 🔹 **Approaches**
+
+### ➤ Brute Force Approach
+**Idea**
+The problem asks to find the minimum capacity of the ship such that all packages can be shipped within d days. A brute force way is to check every capacity starting from the maximum single package weight (since capacity can't be less than the heaviest package) up to the sum of all package weights (which guarantees all packages shipped in one day). For each capacity, simulate the shipping process day by day. The smallest capacity that ships all packages in ≤ d days is the answer.
+* Find the maximum weight in the array (minimum capacity possible).
+* Calculate the sum of all weights (maximum capacity possible).
+* For each capacity from max weight to sum:
+    * Simulate shipping: load packages one by one until capacity is reached, then move to next day.
+    * If total days used is ≤ d, return that capacity.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O((\text{sum\_weights} - \text{max\_weight}) \times N)$, where $N$ is the number of packages.
+* **Space Complexity:** $O(1)$, only constant extra space is used.
+
+**Java Code**
+```java
+import java.util.*;
+
+class Solution {
+    // Function to check how many days needed for given capacity
+    int daysNeeded ( int [] weights, int capacity) {
+        // Initialize day count to 1
+        int days = 1 ;
+        // Current load for the day
+        int currentLoad = 0 ;
+        // Iterate over all package weights
+        for ( int w : weights) {
+            // If adding weight exceeds capacity
+            if (currentLoad + w > capacity) {
+                // Increase day count and reset load
+                days++;
+                currentLoad = w;
+            } else {
+                // Otherwise, add weight to current load
+                currentLoad += w;
+            }
+        }
+        // Return total days needed
+        return days;
+    }
+
+    // Function to find minimum ship capacity to ship in d days
+    int shipWithinDays ( int [] weights, int d) {
+        // Find maximum weight as minimum capacity
+        int left = Arrays.stream(weights).max().getAsInt();
+        // Find total sum as maximum capacity
+        int right = Arrays.stream(weights).sum();
+
+        // Iterate from minimum to maximum capacity
+        for ( int capacity = left; capacity <= right; capacity++) {
+            // Calculate days needed for current capacity
+            int needed = daysNeeded(weights, capacity);
+            // If days needed are less than or equal to d, return capacity
+            if (needed <= d) {
+                return capacity;
+            }
+        }
+        // Should never reach here given constraints
+        return right;
+    }
+}
+
+public class Main {
+    public static void main (String[] args) {
+        // Input weights
+        int [] weights = { 5 , 4 , 5 , 2 , 3 , 4 , 5 , 6 };
+        // Days to ship
+        int d = 5 ;
+        // Create Solution instance
+        Solution sol = new Solution ();
+        // Call the function and print result
+        System.out.println(sol.shipWithinDays(weights, d));
+    }
+}
+```
+
+---
+
+### ➤ Optimal Approach
+**Detailed Explanation**
+We want to find the minimum ship capacity that allows shipping all packages within the given number of days. The capacity must be at least the heaviest package because you can’t split a package. At the same time, the capacity can be at most the sum of all packages (if you ship everything in one day). So the answer lies between these two extremes.
+
+Using binary search on this range lets us efficiently find the smallest capacity that works. For each candidate capacity, we check if it’s possible to ship all packages within the given days by greedily accumulating package weights until we reach capacity, then moving to the next day.
+* Set the lower bound as the maximum weight in the packages.
+* Set the upper bound as the sum of all package weights.
+* While the lower bound is less than or equal to the upper bound, do:
+    * Pick the middle value as the candidate capacity.
+    * Simulate shipping: if the number of days used is within the allowed days, move the upper bound down to try smaller capacities.
+    * Otherwise, increase the lower bound to try larger capacities.
+
+**Why this approach is optimal**
+Instead of a linear search through the capacity range, Binary Search reduces the number of checks to logarithmic time ($O(\log(\text{Sum} - \text{Max}))$, making it significantly faster for large weight sums.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N \times \log(\text{sum\_weights} - \text{max\_weight}))$, where $N$ is the number of packages.
+* **Space Complexity:** $O(1)$, constant extra space used.
+
+**Java Code**
+```java
+import java.util.*;
+
+class Solution {
+    // Function to calculate how many days are needed to ship
+    // all packages with the given ship capacity
+    int daysNeeded ( int [] weights, int capacity) {
+        // Initialize count of days to 1
+        int days = 1 ;
+        // Initialize current load on ship to 0
+        int currentLoad = 0 ;
+        // Iterate over all package weights
+        for ( int w : weights) {
+            // Check if adding current package exceeds capacity
+            if (currentLoad + w > capacity) {
+                // If yes, increase days count since we start a new day
+                days++;
+                // Reset current load to current package weight
+                currentLoad = w;
+            } else {
+                // Else, add current package weight to current load
+                currentLoad += w;
+            }
+        }
+        // Return total days required
+        return days;
+    }
+
+    // Function to find minimum ship capacity to ship all packages within d days
+    int shipWithinDays ( int [] weights, int d) {
+        // Calculate minimum capacity as max weight in packages
+        int left = Arrays.stream(weights).max().getAsInt();
+        // Calculate maximum capacity as sum of all weights
+        int right = Arrays.stream(weights).sum();
+
+        // Binary search between left and right capacity values
+        while (left < right) {
+            // Calculate mid value to test
+            int mid = left + (right - left) / 2 ;
+            // Calculate how many days needed for capacity mid
+            int needed = daysNeeded(weights, mid);
+            // If days needed is less or equal to allowed days,
+            // try to find smaller capacity on left side
+            if (needed <= d) {
+                right = mid;
+            } else {
+                // Else, need more capacity, search on right side
+                left = mid + 1 ;
+            }
+        }
+        // Return minimum capacity found
+        return left;
+    }
+}
+
+public class Main {
+    public static void main (String[] args) {
+        // Define array of package weights
+        int [] weights = { 5 , 4 , 5 , 2 , 3 , 4 , 5 , 6 };
+        // Define number of days allowed for shipping
+        int d = 5 ;
+        // Create Solution object
+        Solution sol = new Solution ();
+        // Print minimum capacity required to ship within d days
+        System.out.println(sol.shipWithinDays(weights, d));
+    }
+}
+```
+
+---
+
+4. 🔹 **Edge Cases**
+* **$d = 1$:** The capacity must be the sum of all weights.
+* **$d = \text{weights.length}$:** The capacity must be at least the maximum single weight in the array.
+* **All weights are the same:** The capacity will be a multiple of the weight based on $d$.
+* **Single package:** The capacity is just the weight of that package.
+
+---
+
+5. 🔹 **Important Notes / Takeaways**
+* **Binary Search on Answers:** Whenever the answer space is bounded and monotonic (if $x$ works, $x+1$ also works), think Binary Search.
+* **Range Selection:** A common mistake is starting `left` at $0$ or $1$. It must start at $\max(weights)$ because you cannot ship a package that is heavier than the ship's total capacity.
+* **Greedy Simulation:** The helper function `daysNeeded` uses a greedy approach, which works because we must ship packages in the order they appear.
+
+---
+
+6. 🔹 **Complexity Summary Table**
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O((\sum W - \max W) \times N)$ | $O(1)$ |
+| **Optimal (Binary Search)** | $O(N \times \log(\sum W - \max W))$ | $O(1)$ |
+
+---
+
+Q7 
+
+# Kth Missing Positive Number
+
+1. 🔹 **Problem Summary**
+Given a strictly increasing array `vec` of positive integers and an integer `k`, find the $k^{th}$ positive integer that is missing from the array.
+
+---
+
+2. 🔹 **Key Observations & Intuition**
+* **The "Ideal" Array:** In an array with no missing numbers, the value at index `i` should be `i + 1`.
+* **Counting Missing Numbers:** For any index `mid`, the number of missing integers before it can be calculated as: 
+  `missing = vec[mid] - (mid + 1)`.
+* **Monotonicity:** As we move right in the array, the count of missing numbers only stays the same or increases. This sorted property of "missing counts" allows us to use **Binary Search**.
+* **Relationship at the End:** After Binary Search, the $k^{th}$ missing number lies between `vec[high]` and `vec[low]`. The formula for the result simplifies to `k + high + 1` (or `k + low`).
+
+---
+
+3. 🔹 **Approaches**
+
+### ➤ Brute Force Approach
+**Idea**
+- We will use a loop to traverse the array.
+- Inside the loop,
+- If vec[i] <= k: we will simply increase the value of k by 1.
+- Otherwise, we will break out of the loop.
+- Finally, we will return the value of k.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N)$, where $N =$ size of the given array.
+* **Space Complexity:** $O(1)$, no extra space used.
+
+**Java Code**
+```java
+import java.util.*;
+
+class MissingKFinder {
+    // Method to find the k-th missing number
+    public int missingK ( int [] vec, int k) {
+        for ( int i = 0 ; i < vec.length; i++) {
+            if (vec[i] <= k) {
+                k++; // Skip current number and adjust k
+            } else {
+                break ; // Stop if current number is greater than k
+            }
+        }
+        return k;
+    }
+
+    public static void main (String[] args) {
+        int [] vec = { 4 , 7 , 9 , 10 }; // Sorted array
+        int k = 4 ; // We want the 4th missing number
+        MissingKFinder finder = new MissingKFinder ();
+        int ans = finder.missingK(vec, k); // Call method
+        System.out.println( "The missing number is: " + ans); // Output result
+    }
+}
+```
+
+---
+
+### ➤ Optimal Approach
+**Detailed Explanation**
+We cannot apply binary search on the answer space here as we cannot assure which missing number has the possibility of being the kth missing number. That is why, we will do something different here. We will try to find the closest neighbors (i.e. Present in the array) for the kth missing number by counting the number of missing numbers for each element in the given array.
+- Start by setting two markers: one at the beginning and one at the end of the list.
+- Keep checking the middle position between the two markers by taking their average.
+- Count how many numbers are missing up to that middle position by subtracting the expected number from the actual number found at that point.
+- If the number of missing values is less than the desired position, move your focus to the right side of the list by shifting the beginning marker ahead.
+- If not, move your focus to the left side by shifting the end marker backward.
+- Once you've narrowed down the search and exited the loop, return the final answer by adding the desired position to the last marker you checked (plus one).
+
+**Why this approach is optimal**
+Instead of a linear scan, Binary Search allows us to find the gap where the $k^{th}$ missing number resides in $O(\log N)$ time, making it highly efficient for large datasets.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(\log N)$, used for typical binary search.
+* **Space Complexity:** $O(1)$, no extra space used.
+
+**Java Code**
+```java
+import java.util.*;
+
+class MissingKFinder {
+    // Function to return the k-th missing number
+    public int missingK ( int [] vec, int k) {
+        int low = 0 , high = vec.length - 1 ;
+        // Binary search loop
+        while (low <= high) {
+            int mid = (low + high) / 2 ;
+            // Number of missing elements before index mid
+            int missing = vec[mid] - (mid + 1 );
+            if (missing < k) {
+                low = mid + 1 ; // Move right
+            } else {
+                high = mid - 1 ; // Move left
+            }
+        }
+        // Final result after binary search
+        return k + high + 1 ;
+    }
+
+    public static void main (String[] args) {
+        int [] vec = { 4 , 7 , 9 , 10 };
+        int k = 4 ;
+        MissingKFinder finder = new MissingKFinder ();
+        int ans = finder.missingK(vec, k);
+
+        System.out.println( "The missing number is: " + ans);
+    }
+}
+```
+
+---
+
+4. 🔹 **Edge Cases**
+* **k is smaller than the first element:** If `vec = [5, 6, 7]` and `k = 2`, the answer is 2. (Handled: loop breaks immediately or `high` stays -1).
+* **k is larger than all missing numbers within the range:** If `vec = [1, 2, 3]` and `k = 2`, the answer is 5. (Handled: `low` moves past the end of the array).
+* **Empty Array:** (Though the problem usually specifies a non-empty array).
+* **Array with no gaps:** `vec = [1, 2, 3, 4]`.
+
+---
+
+5. 🔹 **Important Notes / Takeaways**
+* **The "Shift" Logic:** In the Brute Force, we shift `k` for every number we encounter that is $\le$ current `k`. This is a very clever way to solve it linearly.
+* **Binary Search Criterion:** The key is to binary search on the **index** based on the **number of missing elements** before that index.
+* **Final Formula:** `ans = vec[high] + (k - missing_at_high)`. This simplifies mathematically to `k + high + 1`.
+
+---
+
+6. 🔹 **Complexity Summary Table**
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(N)$ | $O(1)$ |
+| **Optimal (Binary Search)** | $O(\log N)$ | $O(1)$ |
+
+---
+
+# [Aggressive Cows : Detailed Solution](https://takeuforward.org/data-structure/aggressive-cows-detailed-solution?mode=track&sheet=a2z-dsa)
+
+1. 🔹 **Problem Summary**
+You are given an array `arr` of size `n` which denotes the position of stalls. You are also given an integer `k` which denotes the number of aggressive cows. You need to assign stalls to these `k` cows such that the **minimum distance between any two of them is the maximum possible**.
+
+---
+
+2. 🔹 **Key Observations & Intuition**
+* **The Goal:** We need to maximize the minimum distance. This is a classic "Min-Max" problem frequently solved using Binary Search on the answer space.
+* **Sorting:** To easily calculate distances and place cows greedily, the stall positions must be sorted.
+* **Monotonicity:** If we can place cows with a minimum distance of $d$, we can also place them with any distance $< d$. If we cannot place them with distance $d$, we certainly cannot place them with any distance $> d$.
+* **Search Space:**
+    * **Minimum possible distance:** 1.
+    * **Maximum possible distance:** (Max stall position - Min stall position).
+
+---
+
+3. 🔹 **Approaches**
+
+### ➤ Brute Force Approach
+**Idea**
+The basic idea is to test every possible distance between 1 and the difference between the farthest and nearest stalls. The largest distance for which `canWePlace()` returns true will be our answer.
+1.  Sort the stalls array in increasing order.
+2.  Use a loop to check every possible distance one by one.
+3.  For each distance, call the `canWePlace()` function to see if all cows can be placed:
+    * If `canWePlace()` returns false for a distance, return the previous distance (current distance - 1).
+    * If the loop finishes without failure, return the largest possible distance.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N\log N) + O(N \times (\max(stalls[]) - \min(stalls[])))$
+* **Space Complexity:** $O(1)$
+
+**Java Code**
+```java
+import java.util.*; // Class to solve the Aggressive Cows problem 
+class Solution { // Function to check if cows can be placed with min distance d 
+public boolean canPlace ( int [] stalls, int cows, int d) { // Place the first cow at the first stall 
+int count = 1 ; int lastPos = stalls[ 0 ]; // Try placing the remaining cows 
+for ( int i = 1 ; i < stalls.length; i++) { // If current stall is at least 'd' away from last cow 
+if (stalls[i] - lastPos >= d) { // Place a cow here 
+count++;
+                lastPos = stalls[i];
+            } // If all cows placed, return true 
+if (count >= cows) return true ;
+        } // Not possible to place all cows 
+return false ;
+    } // Function to find maximum minimum distance using brute force 
+public int aggressiveCows ( int [] stalls, int cows) { // Step 1: Sort stall positions 
+Arrays.sort(stalls); // Step 2: Get the maximum possible distance 
+int maxDist = stalls[stalls.length - 1 ] - stalls[ 0 ]; // Step 3: Variable to store answer 
+int ans = 0 ; // Step 4: Try all possible distances 
+for ( int d = 1 ; d <= maxDist; d++) { // If cows can be placed with distance d 
+if (canPlace(stalls, cows, d)) { // Update answer 
+ans = d;
+            }
+        } // Step 5: Return the maximum valid distance 
+return ans;
+    }
+} // Driver class 
+public class Main { public static void main (String[] args) { // Example input 
+int [] stalls = { 1 , 2 , 8 , 4 , 9 }; int cows = 3 ; // Create object and call function 
+Solution obj = new Solution ();
+        System.out.println(obj.aggressiveCows(stalls, cows));
+    }
+}
+```
+
+---
+
+### ➤ Optimal Approach
+**Detailed Explanation**
+We use **Binary Search** to optimize the solution by reducing the answer space in half each time. The main idea of Binary Search is to determine which half of the search space can be eliminated based on a specific condition, thus minimizing unnecessary checks.
+* **Sort the stalls:** Arrange positions in ascending order.
+* **Set the range:** `low = 1`, `high = stalls[n-1] - stalls[0]`.
+* **Binary Search:**
+    * Pick `mid` as a potential minimum distance.
+    * **If `canPlace(mid)` is true:** It means we can achieve at least this distance. We store `mid` as a potential answer and try for a larger distance by moving `low = mid + 1`.
+    * **If `canPlace(mid)` is false:** The distance is too large to accommodate `k` cows. We try smaller distances by moving `high = mid - 1`.
+
+**Why this approach is optimal**
+Instead of a linear scan of the distance range, we use the logarithmic efficiency of Binary Search. This is essential when the coordinate range (max distance) is very large.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N\log N) + O(N \times \log(\max(stalls[]) - \min(stalls[])))$
+* **Space Complexity:** $O(1)$
+
+**Java Code**
+```java
+import java.util.*; // Class to solve Aggressive Cows 
+class Solution { // Function to check if cows can be placed with distance d 
+public boolean canPlace ( int [] stalls, int cows, int d) { // Place first cow at first stall 
+int count = 1 ; int lastPos = stalls[ 0 ]; // Loop through stalls 
+for ( int i = 1 ; i < stalls.length; i++) { // If stall is at least d away from last placed cow 
+if (stalls[i] - lastPos >= d) { // Place cow here 
+count++; // Update last position 
+lastPos = stalls[i];
+            } // If all cows are placed successfully 
+if (count >= cows) return true ;
+        } // Could not place all cows 
+return false ;
+    } // Function to maximize minimum distance 
+public int aggressiveCows ( int [] stalls, int cows) { // Sort stalls 
+Arrays.sort(stalls); // Define search space 
+int low = 1 ; int high = stalls[stalls.length - 1 ] - stalls[ 0 ]; int ans = 0 ; // Binary search 
+while (low <= high) { // Find mid distance 
+int mid = low + (high - low) / 2 ; // If placement possible 
+if (canPlace(stalls, cows, mid)) { // Store answer 
+ans = mid; // Try bigger distance 
+low = mid + 1 ;
+            } else { // Try smaller distance 
+high = mid - 1 ;
+            }
+        } // Return result 
+return ans;
+    }
+} // Driver class 
+public class Main { public static void main (String[] args) { // Input stalls 
+int [] stalls = { 1 , 2 , 8 , 4 , 9 }; // Number of cows 
+int cows = 3 ; // Create object 
+Solution obj = new Solution (); // Print result 
+System.out.println(obj.aggressiveCows(stalls, cows));
+    }
+}
+```
+
+---
+
+4. 🔹 **Edge Cases**
+* **$k=2$:** The answer is simply the maximum distance (distance between the two ends).
+* **Cows = Stalls:** The answer is the minimum distance between any two adjacent stalls in the sorted array.
+* **Large Coordinates:** Coordinates can be up to $10^9$, making the brute force $O(N \times 10^9)$ impossible; Binary Search is required.
+
+---
+
+5. 🔹 **Important Notes / Takeaways**
+* **Maximize the Minimum:** This phrasing is a huge hint for Binary Search on Answers.
+* **Greedy Placement:** In `canPlace()`, we always place the first cow at the first available stall to maximize the remaining space.
+* **Range Definition:** The `high` value of the search space can be simplified to `stalls[n-1] - stalls[0]`.
+
+---
+
+6. 🔹 **Complexity Summary Table**
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(N\log N) + O(N \times \text{Range})$ | $O(1)$ |
+| **Optimal Approach** | $O(N\log N) + O(N \times \log(\text{Range}))$ | $O(1)$ |
+
+--- 
+
+Q8
+
+# Aggressive Cows
+
+### 1. 🔹 Problem Summary
+You are given an array of stall positions and a specific number of cows ($k$). The goal is to place all $k$ cows in the available stalls such that the **minimum distance between any two cows is as large as possible**. Essentially, you are maximizing the minimum gap.
+
+---
+
+### 2. 🔹 Key Observations & Intuition
+* **Sorting is Essential:** To easily calculate distances between cows, the stall positions must be in increasing order.
+* **The Search Space:** The smallest possible "minimum distance" is **1**, and the largest possible is the distance between the first and last stall (**max - min**).
+* **Monotonicity:** If it is possible to place cows with a minimum distance of $d$, it is also possible for any distance less than $d$. If it's impossible for $d$, it's impossible for any distance greater than $d$. This "Yes/No" pattern allows us to use Binary Search.
+* **Greedy Placement:** To check if a distance $d$ is feasible, always place the first cow in the first stall and then place the next cow in the first available stall that is at least $d$ units away.
+
+---
+
+### 3. 🔹 Approaches
+
+#### ➤ Brute Force
+**Idea**
+The basic idea is to test every possible distance between 1 and the difference between the farthest and nearest stalls. The largest distance for which `canWePlace()` returns true will be our answer.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N \log N) + O(N \times (\max(stalls[]) - \min(stalls[])))$
+* **Space Complexity:** $O(1)$
+
+**Java Code**
+```java
+import java.util.*; // Class to solve the Aggressive Cows problem 
+class Solution { // Function to check if cows can be placed with min distance d 
+    public boolean canPlace ( int [] stalls, int cows, int d) { // Place the first cow at the first stall 
+        int count = 1 ; int lastPos = stalls[ 0 ]; // Try placing the remaining cows 
+        for ( int i = 1 ; i < stalls.length; i++) { // If current stall is at least 'd' away from last cow 
+            if (stalls[i] - lastPos >= d) { // Place a cow here 
+                count++;
+                lastPos = stalls[i];
+            } // If all cows placed, return true 
+            if (count >= cows) return true ;
+        } // Not possible to place all cows 
+        return false ;
+    } // Function to find maximum minimum distance using brute force 
+    public int aggressiveCows ( int [] stalls, int cows) { // Step 1: Sort stall positions 
+        Arrays.sort(stalls); // Step 2: Get the maximum possible distance 
+        int maxDist = stalls[stalls.length - 1 ] - stalls[ 0 ]; // Step 3: Variable to store answer 
+        int ans = 0 ; // Step 4: Try all possible distances 
+        for ( int d = 1 ; d <= maxDist; d++) { // If cows can be placed with distance d 
+            if (canPlace(stalls, cows, d)) { // Update answer 
+                ans = d;
+            }
+        } // Step 5: Return the maximum valid distance 
+        return ans;
+    }
+} // Driver class 
+public class Main { public static void main (String[] args) { // Example input 
+        int [] stalls = { 1 , 2 , 8 , 4 , 9 }; int cows = 3 ; // Create object and call function 
+        Solution obj = new Solution ();
+        System.out.println(obj.aggressiveCows(stalls, cows));
+    }
+}
+```
+
+---
+
+#### ➤ Optimal Approach
+**Detailed Explanation**
+We use **Binary Search** to optimize the solution by reducing the answer space in half each time. The answer space is sorted (from 1 to the max possible distance). By picking a middle distance (`mid`), we check if it's possible to place the cows. If it is, we discard the smaller half and try for a larger distance; otherwise, we search in the smaller half.
+
+**Why this approach is optimal**
+Instead of checking every single distance linearly (which could be very large), Binary Search reduces the number of checks to $\log(\text{range})$.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N \log N) + O(N \times \log(\max(stalls[]) - \min(stalls[])))$
+* **Space Complexity:** $O(1)$
+
+**Java Code**
+```java
+import java.util.*; // Class to solve Aggressive Cows 
+class Solution { // Function to check if cows can be placed with distance d 
+    public boolean canPlace ( int [] stalls, int cows, int d) { // Place first cow at first stall 
+        int count = 1 ; int lastPos = stalls[ 0 ]; // Loop through stalls 
+        for ( int i = 1 ; i < stalls.length; i++) { // If stall is at least d away from last placed cow 
+            if (stalls[i] - lastPos >= d) { // Place cow here 
+                count++; // Update last position 
+                lastPos = stalls[i];
+            } // If all cows are placed successfully 
+            if (count >= cows) return true ;
+        } // Could not place all cows 
+        return false ;
+    } // Function to maximize minimum distance 
+    public int aggressiveCows ( int [] stalls, int cows) { // Sort stalls 
+        Arrays.sort(stalls); // Define search space 
+        int low = 1 ; int high = stalls[stalls.length - 1 ] - stalls[ 0 ]; int ans = 0 ; // Binary search 
+        while (low <= high) { // Find mid distance 
+            int mid = low + (high - low) / 2 ; // If placement possible 
+            if (canPlace(stalls, cows, mid)) { // Store answer 
+                ans = mid; // Try bigger distance 
+                low = mid + 1 ;
+            } else { // Try smaller distance 
+                high = mid - 1 ;
+            }
+        } // Return result 
+        return ans;
+    }
+} // Driver class 
+public class Main { public static void main (String[] args) { // Input stalls 
+        int [] stalls = { 1 , 2 , 8 , 4 , 9 }; // Number of cows 
+        int cows = 3 ; // Create object 
+        Solution obj = new Solution (); // Print result 
+        System.out.println(obj.aggressiveCows(stalls, cows));
+    }
+}
+```
+
+---
+
+### 4. 🔹 Edge Cases
+* **$k = 2$:** The answer will always be the distance between the first and last stall after sorting.
+* **Stalls with same coordinates:** Though usually distinct, if coordinates repeat, the minimum distance could be 0.
+* **Number of cows equals number of stalls:** Each cow must be placed in exactly one stall; the answer is the minimum gap between any two adjacent stalls.
+
+---
+
+### 5. 🔹 Important Notes / Takeaways
+* **Binary Search on Answer:** This problem is a classic example of applying Binary Search not on the array itself, but on the *result space*.
+* **Pattern Recognition:** Whenever a problem asks to "Maximize the Minimum" or "Minimize the Maximum," Binary Search on Answer should be your first thought.
+* **Greedy Helper:** The `canPlace` function uses a greedy approach, which is a common helper pattern for BS on Answer problems.
+
+---
+
+### 6. 🔹 Complexity Summary Table
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(N \log N) + O(N \times \text{range})$ | $O(1)$ |
+| **Optimal (Binary Search)** | $O(N \log N) + O(N \log(\text{range}))$ | $O(1)$ |
+
+--- 
+
+Q9 
+
+# Allocate Minimum Number of Pages
+
+### 1. 🔹 Problem Summary
+Given an array `arr` where `arr[i]` represents the number of pages in the $i^{th}$ book and $m$ students, you need to allocate all books to students such that:
+* Each student gets at least one book.
+* Each book is allocated to exactly one student.
+* Book allocation must be **contiguous**.
+* The goal is to **minimize the maximum number of pages** assigned to any student.
+
+---
+
+### 2. 🔹 Key Observations & Intuition
+* **Search Space:** The minimum possible answer is the maximum element in the array (since one student must read the largest book). The maximum possible answer is the sum of all pages (if one student reads every book).
+* **Contiguous Constraint:** This is the "killer" constraint that makes the problem solvable via Binary Search on Answer. We cannot pick books randomly; they must be in a sequence.
+* **Monotonicity:** If it is possible to allocate books such that no student reads more than $X$ pages, it is also possible for any value $Y > X$. This creates a range of $[Possible, Possible, ..., Impossible, Impossible]$ which allows us to use Binary Search.
+* **Student Count vs. Pages:** As the maximum pages allowed per student increases, the number of students required decreases.
+
+---
+
+### 3. 🔹 Approaches
+
+#### ➤ Brute Force
+**Idea**
+We iterate through all possible values for the "maximum pages per student" starting from the maximum element in the array up to the total sum of pages. For each value, we check if it's possible to distribute the books within the given $m$ students using a helper function `countStudents`.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N \times (\text{sum}(arr) - \max(arr) + 1))$
+* **Space Complexity:** $O(1)$
+
+**Java Code**
+```java
+import java.util.*;
+
+public class Solution {
+    public static int countStudents(ArrayList<Integer> arr, int pages) {
+        int n = arr.size(); // size of array
+        int students = 1;
+        long pagesStudent = 0;
+        for (int i = 0; i < n; i++) {
+            if (pagesStudent + arr.get(i) <= pages) {
+                // add pages to current student
+                pagesStudent += arr.get(i);
+            } else {
+                // add pages to next student
+                students++;
+                pagesStudent = arr.get(i);
+            }
+        }
+        return students;
+    }
+
+    public static int findPages(ArrayList<Integer> arr, int n, int m) {
+        // book allocation impossible
+        if (m > n)
+            return -1;
+
+        int low = Collections.max(arr);
+        int high = arr.stream().mapToInt(Integer::intValue).sum();
+
+        for (int pages = low; pages <= high; pages++) {
+            if (countStudents(arr, pages) == m) {
+                return pages;
+            }
+        }
+        return low;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(25, 46, 28, 49, 24));
+        int n = 5;
+        int m = 4;
+        int ans = findPages(arr, n, m);
+        System.out.println("The answer is: " + ans);
+    }
+}
+```
+
+---
+
+#### ➤ Optimal Approach
+**Detailed Explanation**
+The optimal approach uses **Binary Search** on the answer space. Instead of checking every value linearly, we pick a `mid` value. If `countStudents(mid)` returns a number of students greater than $m$, it means our `mid` is too small, so we move the `low` pointer. Otherwise, if it's less than or equal to $m$, it could be a potential answer, so we move the `high` pointer to find a smaller maximum.
+
+**Why this approach is optimal**
+It drastically reduces the number of checks from a linear range to a logarithmic range ($\log(\text{Sum} - \text{Max})$), which is highly efficient for large page counts.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N \times \log(\text{sum}(arr) - \max(arr) + 1))$
+* **Space Complexity:** $O(1)$
+
+**Java Code**
+```java
+import java.util.*;
+
+public class Solution {
+    public static int countStudents(ArrayList<Integer> arr, int pages) {
+        int n = arr.size(); // size of array
+        int students = 1; //Students are initially 1
+        long pagesStudent = 0;
+        for (int i = 0; i < n; i++) {
+            if (pagesStudent + arr.get(i) <= pages) {
+                // add pages to current student
+                pagesStudent += arr.get(i);
+            } else {
+                // add pages to next student
+                students++;
+                pagesStudent = arr.get(i);
+            }
+        }
+        return students;
+    }
+
+    public static int findPages(ArrayList<Integer> arr, int n, int m) {
+        // book allocation impossible
+        if (m > n)
+            return -1;
+
+        int low = Collections.max(arr);
+        int high = arr.stream().mapToInt(Integer::intValue).sum();
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int students = countStudents(arr, mid);
+            if (students > m) {
+                low = mid + 1; //Trim down the left part of the arry
+            } else {
+                high = mid - 1; //Trim down the right part of the array
+            }
+        }
+        return low;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Integer> arr = new ArrayList<>(Arrays.asList(25, 46, 28, 49, 24));
+        int n = 5;
+        int m = 4;
+        int ans = findPages(arr, n, m);
+        System.out.println("The answer is: " + ans);
+    }
+}
+```
+
+---
+
+### 4. 🔹 Edge Cases
+* **$m > n$:** If there are more students than books, it's impossible to give at least one book to each student. Return **-1**.
+* **$m = 1$:** One student must read all books. The answer is the **sum of all elements**.
+* **$m = n$:** Each student gets exactly one book. The answer is the **maximum element** in the array.
+
+---
+
+### 5. 🔹 Important Notes / Takeaways
+* **Binary Search on Answer Pattern:** Recognizable when you need to "Minimize the Maximum" or "Maximize the Minimum."
+* **Contiguous Allocation:** This is the key difference between this and problems that can be solved with a Priority Queue (Heaps).
+* **Similar Problems:** This logic applies to *Aggressive Cows*, *Split Array Largest Sum*, and *Painter's Partition Problem*.
+
+---
+
+### 6. 🔹 Complexity Summary Table
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(N \times (\text{sum} - \text{max}))$ | $O(1)$ |
+| **Optimal (Binary Search)** | $O(N \times \log(\text{sum} - \text{max}))$ | $O(1)$ |
+
+---
+
+Q10
+
+# Split Array - Largest Sum
+
+### 1. 🔹 Problem Summary
+Given an array `A` of size `N` and an integer `K`, you need to split the array into `K` non-empty **contiguous** subarrays. The goal is to minimize the **largest sum** among these `K` subarrays.
+
+---
+
+### 2. 🔹 Key Observations & Intuition
+* **The Goal:** We want to distribute the numbers into $K$ groups such that the "heaviest" group is as light as possible.
+* **The Range of the Answer:**
+    * **Lower Bound (`low`):** The largest single element in the array. A subarray cannot have a sum smaller than its largest element.
+    * **Upper Bound (`high`):** The sum of all elements in the array (this happens if $K=1$).
+* **Contiguous Nature:** Because the subarrays must be contiguous, the problem mirrors the "Allocate Minimum Number of Pages" or "Painter's Partition" problems.
+* **Monotonicity:** If we can split the array such that the maximum sum is $X$, then we can also split it for any maximum sum $Y > X$. This allows us to use Binary Search to find the minimum possible $X$.
+
+---
+
+### 3. 🔹 Approaches
+
+#### ➤ Brute Force
+**Idea**
+Check every possible value for the "largest sum" starting from the maximum element in the array up to the total sum of all elements. For each value, use a helper function to count how many partitions are required. The first value that allows us to partition the array into $K$ (or fewer) subarrays is our answer.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N \times (\text{sum}(arr[]) - \max(arr[]) + 1))$
+* **Space Complexity:** $O(1)$
+
+**Java Code**
+```java
+import java.util.*;
+
+class SubarrayPartitioner {
+    // Counts how many partitions are needed for a given maxSum limit
+    public int countPartitions ( int [] a, int maxSum) {
+        int n = a.length; // size of array
+        int partitions = 1 ; // at least one partition
+        long subarraySum = 0 ; // sum of current subarray
+        for ( int i = 0 ; i < n; i++) {
+            // Add to current subarray if possible
+            if (subarraySum + a[i] <= maxSum) {
+                subarraySum += a[i];
+            } else {
+                // Start new subarray
+                partitions++;
+                subarraySum = a[i];
+            }
+        }
+        return partitions;
+    }
+
+    // Finds the smallest possible largest subarray sum to get exactly k partitions
+    public int largestSubarraySumMinimized ( int [] a, int k) {
+        int low = Arrays.stream(a).max().getAsInt(); // max element
+        int high = Arrays.stream(a).sum(); // sum of all elements
+
+        // Brute-force from low to high
+        for ( int maxSum = low; maxSum <= high; maxSum++) {
+            if (countPartitions(a, maxSum) == k) {
+                return maxSum;
+            }
+        }
+        return low; // fallback
+    }
+
+    public static void main (String[] args) {
+        int [] a = { 10 , 20 , 30 , 40 };
+        int k = 2 ;
+        SubarrayPartitioner sp = new SubarrayPartitioner ();
+        int ans = sp.largestSubarraySumMinimized(a, k);
+        System.out.println( "The answer is: " + ans);
+    }
+}
+```
+
+---
+
+#### ➤ Optimised Approach
+**Detailed Explanation**
+Instead of a linear search through the possible sums, we use **Binary Search**. 
+1.  Initialize `low = max(arr)` and `high = sum(arr)`.
+2.  Calculate `mid`.
+3.  Check how many partitions are needed if the maximum allowed sum is `mid`.
+4.  If `partitions > k`, it means our `mid` is too small (we need more partitions than allowed), so we increase the limit: `low = mid + 1`.
+5.  If `partitions <= k`, it means `mid` is a possible answer, but we want the minimum, so we check smaller values: `high = mid - 1`.
+
+**Why this approach is optimal**
+It reduces the search space logarithmically rather than linearly, making it significantly faster for large arrays and large sum ranges.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N \times \log(\text{sum}(arr[]) - \max(arr[]) + 1))$
+* **Space Complexity:** $O(1)$
+
+**Java Code**
+```java
+import java.util.*;
+
+class SubarrayPartitioner {
+    // Counts how many partitions are needed for a given maxSum
+    public int countPartitions ( int [] a, int maxSum) {
+        int partitions = 1 ; // at least one partition
+        long subarraySum = 0 ; // sum of current subarray
+        for ( int num : a) {
+            if (subarraySum + num <= maxSum) {
+                subarraySum += num;
+            } else {
+                partitions++;
+                subarraySum = num;
+            }
+        }
+        return partitions;
+    }
+
+    // Finds the minimum largest subarray sum possible for at most k partitions
+    public int largestSubarraySumMinimized ( int [] a, int k) {
+        int low = Arrays.stream(a).max().getAsInt(); // largest element
+        int high = Arrays.stream(a).sum(); // sum of all elements
+
+        // Binary search for the smallest maxSum
+        while (low <= high) {
+            int mid = (low + high) / 2 ;
+            int partitions = countPartitions(a, mid);
+            if (partitions > k) {
+                low = mid + 1 ; // too many partitions → increase maxSum
+            } else {
+                high = mid - 1 ; // valid but try smaller maxSum
+            }
+        }
+        return low;
+    }
+
+    public static void main (String[] args) {
+        int [] a = { 10 , 20 , 30 , 40 };
+        int k = 2 ;
+        SubarrayPartitioner sp = new SubarrayPartitioner ();
+        int ans = sp.largestSubarraySumMinimized(a, k);
+        System.out.println( "The answer is: " + ans);
+    }
+}
+```
+
+---
+
+### 4. 🔹 Edge Cases
+* **$K = 1$:** The answer is the sum of all elements.
+* **$K = N$:** Every element is its own subarray; the answer is the maximum element in the array.
+* **Array with all identical elements:** Testing if the partition logic handles equal values correctly.
+* **$K > N$:** (Technically not possible per "non-empty" constraint, but worth noting for robust code).
+
+---
+
+### 5. 🔹 Important Notes / Takeaways
+* **Standard Pattern:** This is a classic "Binary Search on Answers" problem.
+* **Equivalence:** This problem is identical to **Book Allocation** and **Painter's Partition**. Learning one solves all three.
+* **Check Function:** The `countPartitions` function is the core logic. It uses a greedy approach: keep adding elements to a subarray as long as the sum doesn't exceed the limit.
+
+---
+
+### 6. 🔹 Complexity Summary Table
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(N \times (\text{sum} - \text{max}))$ | $O(1)$ |
+| **Optimised (Binary Search)** | $O(N \times \log(\text{sum} - \text{max}))$ | $O(1)$ |
+
+---
+
+Q11
+
+# Painter's Partition Problem
+
+### 1. 🔹 Problem Summary
+Given an array representing the lengths of $N$ boards and $K$ painters, you need to paint all boards. Each unit of a board takes 1 unit of time to paint. The constraint is that a painter can only paint **continuous sections** of boards. You need to find the **minimum possible maximum time** taken to complete the job.
+
+---
+
+### 2. 🔹 Key Observations & Intuition
+* **Minimize the Maximum:** This is a classic indicator for **Binary Search on Answer**. We are looking for the smallest possible value of a "maximum limit."
+* **Contiguous Constraint:** Since painters must pick continuous boards, we cannot sort the boards or pick them randomly. This makes the problem identical in logic to the [Book Allocation Problem](https://takeuforward.org/data-structure/allocate-minimum-number-of-pages/) and [Split Array Largest Sum](https://takeuforward.org/arrays/split-array-largest-sum/).
+* **Range of Answer:** * The **minimum possible time** is the length of the longest board (since at least one painter has to paint it).
+    * The **maximum possible time** is the sum of all board lengths (if only one painter does all the work).
+* **Monotonicity:** If it is possible to paint all boards within time $T$, it is also possible for any time $> T$. If it's impossible for time $T$, it's impossible for any time $< T$.
+
+---
+
+### 3. 🔹 Approaches
+
+#### ➤ Brute Force
+**Idea**
+Check every possible time starting from the maximum element in the array up to the total sum of the array. For each "time" limit, calculate how many painters are required. The first time limit that requires $\le K$ painters is our answer.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N \times (\text{sum}(\text{arr}[]) - \max(\text{arr}[]) + 1))$
+* **Space Complexity:** $O(1)$
+
+**Java Code**
+```java
+import java.util.*;
+
+public class PainterPartition {
+    // Function to count how many painters are required if each painter paints at most 'time' units
+    public int countPainters(int[] boards, int time) {
+        int painters = 1; // Start with one painter
+        int boardsPainter = 0; // Time consumed by current painter
+        for (int board : boards) {
+            if (boardsPainter + board <= time) {
+                // Assign board to current painter
+                boardsPainter += board;
+            } else {
+                // Assign board to next painter
+                painters++;
+                boardsPainter = board;
+            }
+        }
+        return painters;
+    }
+
+    // Function to find the minimum possible maximum time to paint all boards using k painters
+    public int findLargestMinDistance(int[] boards, int k) {
+        int low = Arrays.stream(boards).max().getAsInt(); // Largest single board
+        int high = Arrays.stream(boards).sum(); // Sum of all boards
+
+        for (int time = low; time <= high; time++) {
+            if (countPainters(boards, time) <= k) {
+                return time; // Found a valid minimum time
+            }
+        }
+        return low; // Fallback (shouldn't usually reach here)
+    }
+
+    public static void main(String[] args) {
+        int[] boards = {10, 20, 30, 40}; // Length of boards
+        int k = 2; // Number of painters
+        PainterPartition pp = new PainterPartition();
+        int ans = pp.findLargestMinDistance(boards, k);
+
+        System.out.println("The answer is: " + ans); // Expected: 60
+    }
+}
+```
+
+---
+
+#### ➤ Optimal Approach
+**Detailed Explanation**
+Instead of checking linearly, use **Binary Search** on the range `[low, high]`. 
+1. Calculate `mid` (a potential maximum time).
+2. Use `countPainters(mid)` to see how many painters are needed.
+3. If `painters > k`, the time `mid` is too small. We need more time per painter, so move `low = mid + 1`.
+4. If `painters <= k`, the time `mid` is a possible answer. Try to find an even smaller maximum time by moving `high = mid - 1`.
+
+**Why this approach is optimal**
+Binary search reduces the number of checks from a linear range to a logarithmic one, making it highly efficient for large board lengths or many boards.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(N \times \log(\text{sum}(\text{arr}[]) - \max(\text{arr}[]) + 1))$
+* **Space Complexity:** $O(1)$
+
+**Java Code**
+```java
+import java.util.*;
+
+public class PainterPartition {
+    // Count how many painters are needed for a given max time
+    public int countPainters(int[] boards, int time) {
+        int painters = 1;
+        int boardsPainter = 0;
+        for (int board : boards) {
+            if (boardsPainter + board <= time) {
+                boardsPainter += board;
+            } else {
+                painters++;
+                boardsPainter = board;
+            }
+        }
+        return painters;
+    }
+
+    // Binary search to find minimum possible time to paint all boards
+    public int findLargestMinDistance(int[] boards, int k) {
+        int low = Arrays.stream(boards).max().getAsInt();
+        int high = Arrays.stream(boards).sum();
+        int result = high;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int painters = countPainters(boards, mid);
+            if (painters > k) {
+                low = mid + 1; // Too few painters → increase allowed time
+            } else {
+                result = mid; // Valid time → try to reduce it
+                high = mid - 1;
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] boards = {10, 20, 30, 40};
+        int k = 2;
+        PainterPartition pp = new PainterPartition();
+        int ans = pp.findLargestMinDistance(boards, k);
+        System.out.println("The answer is: " + ans); // Expected: 60
+    }
+}
+```
+
+---
+
+### 4. 🔹 Edge Cases
+* **$K = 1$:** One painter must do everything; answer is the sum of the array.
+* **$K \ge N$:** Every board can have its own painter; answer is the maximum element in the array.
+* **All boards are same length:** The problem becomes a simple division.
+* **Single board:** The only painter must paint it; answer is that board's length.
+
+---
+
+### 5. 🔹 Important Notes / Takeaways
+* **Pattern Identity:** The "Painter's Partition," "Book Allocation," and "Split Array Largest Sum" are essentially the same problem with different stories.
+* **Greedy Helper:** The `countPainters` function uses a greedy strategy to pack as many boards as possible for one painter before moving to the next.
+* **Interview Insight:** Always clarify if the segments must be contiguous. If not, the problem might shift toward a Heap/Greedy or DP approach (like the Partition Problem).
+
+---
+
+### 6. 🔹 Complexity Summary Table
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(N \times (\text{sum} - \text{max}))$ | $O(1)$ |
+| **Optimal (Binary Search)** | $O(N \times \log(\text{sum} - \text{max}))$ | $O(1)$ |
+
+---
+
+Q12
+
+# Minimise Maximum Distance between Gas Stations
+
+### 1. 🔹 Problem Summary
+You are given a sorted array of gas station positions on the X-axis and an integer $k$. Your task is to place $k$ new gas stations anywhere on the X-axis (even at non-integer positions) such that the **maximum distance** between any two adjacent gas stations is **minimized**.
+
+---
+
+### 2. 🔹 Key Observations & Intuition
+* **The Objective:** We are trying to "Minimise the Maximum," which often suggests Binary Search on Answer or a Greedy approach with a Priority Queue.
+* **Segment Logic:** If we have a distance $D$ between two existing stations and we place $n$ new stations between them, the original segment is divided into $n+1$ smaller segments. Each smaller segment will have a length of $D / (n+1)$.
+* **Floating Point Answer:** Unlike previous problems in the sheet, the answer here can be a decimal. This requires a different termination condition for Binary Search (using a small epsilon like $10^{-6}$).
+
+---
+
+### 3. 🔹 Approaches
+
+#### ➤ Brute Force
+**Idea**
+Keep track of how many gas stations are placed in each existing gap using an array `howMany[]`. In each of the $k$ iterations, find the gap that currently has the maximum section length and place a new station there to reduce that specific distance.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(k \times n) + O(n)$
+* **Space Complexity:** $O(n-1)$
+
+**Java Code**
+```java
+import java.util.*;
+
+class GasStationSolver {
+    public double minimiseMaxDistance(int[] arr, int k) {
+        int n = arr.length;
+        int[] howMany = new int[n - 1]; // Number of gas stations in each segment
+
+        // Place each gas station
+        for (int gasStations = 1; gasStations <= k; gasStations++) {
+            double maxSection = -1;
+            int maxInd = -1;
+
+            // Find the segment with the maximum distance
+            for (int i = 0; i < n - 1; i++) {
+                double diff = arr[i + 1] - arr[i];
+                double sectionLength = diff / (howMany[i] + 1.0);
+                if (sectionLength > maxSection) {
+                    maxSection = sectionLength;
+                    maxInd = i;
+                }
+            }
+            // Add gas station to the selected segment
+            howMany[maxInd]++;
+        }
+
+        // Find the final max section length after placing all gas stations
+        double maxAns = -1;
+        for (int i = 0; i < n - 1; i++) {
+            double diff = arr[i + 1] - arr[i];
+            double sectionLength = diff / (howMany[i] + 1.0);
+            maxAns = Math.max(maxAns, sectionLength);
+        }
+        return maxAns;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5};
+        int k = 4;
+        GasStationSolver solver = new GasStationSolver();
+        double ans = solver.minimiseMaxDistance(arr, k);
+
+        System.out.println("The answer is: " + ans);
+    }
+}
+```
+
+#### ➤ Better Approach
+**Idea**
+Instead of using a nested loop to find the maximum distance gap in every iteration, use a **Priority Queue (Max-Heap)** to store the gaps. This allows us to retrieve the largest gap in $O(\log n)$ time.
+
+**Improvement over brute force**
+Reduces the time taken to find the maximum gap from $O(n)$ to $O(\log n)$ for each of the $k$ stations.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(n \log n + k \log n)$
+* **Space Complexity:** $O(n-1) + O(n-1)$ (Array + Priority Queue)
+
+**Java Code**
+```java
+import java.util.*;
+
+class Pair {
+    double distance;
+    int index;
+
+    Pair(double distance, int index) {
+        this.distance = distance;
+        this.index = index;
+    }
+}
+
+class Solution {
+    public double minimiseMaxDistance(int[] arr, int k) {
+        int n = arr.length;
+        int[] howMany = new int[n - 1];
+
+        // Priority queue (max-heap) to store the largest segment first
+        PriorityQueue<Pair> pq = new PriorityQueue<>(
+            (a, b) -> Double.compare(b.distance, a.distance)
+        );
+
+        // Add initial segments
+        for (int i = 0; i < n - 1; i++) {
+            pq.add(new Pair(arr[i + 1] - arr[i], i));
+        }
+
+        // Place k additional gas stations
+        for (int gasStations = 1; gasStations <= k; gasStations++) {
+            Pair top = pq.poll();
+            int idx = top.index;
+            howMany[idx]++;
+
+            double totalDist = arr[idx + 1] - arr[idx];
+            double newDist = totalDist / (howMany[idx] + 1);
+            pq.add(new Pair(newDist, idx));
+        }
+
+        // Return max distance after placing k stations
+        return pq.peek().distance;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5};
+        int k = 4;
+        Solution sol = new Solution();
+        System.out.println("The answer is: " + sol.minimiseMaxDistance(arr, k));
+    }
+}
+```
+
+#### ➤ Optimal Approach
+**Detailed Explanation**
+Apply **Binary Search on the answer space**. The possible answer lies between $0$ and the initial maximum gap. For a chosen `mid` (potential max distance), we check how many stations are required to ensure no gap exceeds `mid`. If the required stations $\le k$, then `mid` is possible, and we try smaller values.
+
+**Why this approach is optimal**
+It completely bypasses the need to place stations one by one ($k$ iterations). It focuses on the distance itself, making it much faster when $k$ is large.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(n \times \log(\text{Len})) + O(n)$ (where Len is range/precision)
+* **Space Complexity:** $O(1)$
+
+**Java Code**
+```java
+import java.util.*;
+
+public class GasStationOptimizer {
+    // Method to calculate required number of gas stations
+    public int numberOfGasStationsRequired(double dist, int[] arr) {
+        int n = arr.length;
+        int count = 0;
+        for (int i = 1; i < n; i++) {
+            int numberInBetween = (int) ((arr[i] - arr[i - 1]) / dist);
+            if ((arr[i] - arr[i - 1]) == (dist * numberInBetween)) {
+                numberInBetween--;
+            }
+            count += numberInBetween; //total number of additional gas stations required
+        }
+        return count; //total number of additional gas stations required
+    }
+
+    // Method to minimize the maximum distance between gas stations
+    public double minimiseMaxDistance(int[] arr, int k) {
+        int n = arr.length;
+        double low = 0, high = 0;
+        for (int i = 0; i < n - 1; i++) {
+            high = Math.max(high, arr[i + 1] - arr[i]);
+        }
+
+        double diff = 1e-6;
+        while (high - low > diff) {
+            double mid = (low + high) / 2.0;
+            int count = numberOfGasStationsRequired(mid, arr);
+            if (count > k) {
+                low = mid;
+            } else {
+                high = mid;
+            }
+        }
+        return high;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5};
+        int k = 4;
+        GasStationOptimizer optimizer = new GasStationOptimizer();
+        double result = optimizer.minimiseMaxDistance(arr, k);
+
+        System.out.println("The answer is: " + result);
+    }
+}
+```
+
+---
+
+### 4. 🔹 Edge Cases
+* **$k=1$:** Only one station to place; find the single largest gap and bisect it.
+* **All stations initially at same distance:** Distributing $k$ stations evenly across gaps.
+* **Large $k$ small $n$:** Many stations will be placed in the same small segments.
+* **Non-integer positions:** Handled by the `double` types and precision logic in the optimal approach.
+
+---
+
+### 5. 🔹 Important Notes / Takeaways
+* **Precision Matters:** In BS for decimals, instead of `low <= high`, use `while(high - low > 10^-6)` or a fixed number of iterations (e.g., 100 loops) for high accuracy.
+* **Comparison:** The Priority Queue approach is better if $k$ is small, while the Binary Search approach is superior if $k$ is very large (since it doesn't depend on $k$).
+* **Formula Tip:** `numberInBetween = (int)(gap / dist)` handles how many stations fit in a gap to keep the sub-gaps $\le dist$.
+
+---
+
+### 6. 🔹 Complexity Summary Table
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(k \times n)$ | $O(n)$ |
+| **Better (Priority Queue)** | $O(n \log n + k \log n)$ | $O(n)$ |
+| **Optimal (Binary Search)** | $O(n \log(\text{Range}/\text{Precision}))$ | $O(1)$ |
+
+---
+
+Q13
+
+# Median of 2 sorted arrays 
+(hard problem)
+
+---
+
+Q14 
+
+# K-th Element of two sorted arrays
+
+### 1. 🔹 Problem Summary
+Given two sorted arrays `a` and `b` of size `m` and `n` respectively, find the element that would be at the **k-th position** if both arrays were merged into a single sorted array.
+
+---
+
+### 2. 🔹 Key Observations & Intuition
+* **Partitioning Logic:** This problem is an extension of the "Median of Two Sorted Arrays" logic. Instead of finding the middle, we are looking for a specific cut that places exactly `k` elements in the combined left partition.
+* **Search Space Optimization:** We always perform the binary search on the **smaller array** to minimize the number of iterations.
+* **Constraints on `low` and `high`:** * `low` cannot simply be 0 if $k$ is larger than the size of the second array (we must take at least some elements from the first array). Formula: `Math.max(0, k - n)`.
+    * `high` cannot exceed the size of the first array or $k$. Formula: `Math.min(k, m)`.
+* **The "Cut" Condition:** We find a `mid1` in array `a` and `mid2` (which is `k - mid1`) in array `b` such that all elements in the left partitions are smaller than or equal to all elements in the right partitions ($l1 \le r2$ and $l2 \le r1$).
+
+---
+
+### 3. 🔹 Approaches
+
+*(Note: The [provided page](https://takeuforward.org/data-structure/k-th-element-of-two-sorted-arrays?mode=track&sheet=a2z-dsa) focuses on the Optimal Binary Search approach. While Brute Force involves merging and Better involves a counter, only the Optimal Code is explicitly provided in the Java section of this specific tutorial page.)*
+
+#### ➤ Optimal Approach
+**Detailed Explanation**
+The optimal approach uses **Binary Search on partitions**. We try to pick `x` elements from the first array and `k - x` elements from the second array. By ensuring the boundary elements cross-verify ($l1 \le r2$ and $l2 \le r1$), we can identify the k-th element as `max(l1, l2)` without ever merging the arrays.
+
+**Why this approach is optimal**
+It achieves a logarithmic time complexity relative to the size of the smaller array, $O(\log(\min(m, n)))$, which is significantly faster than the linear $O(m+n)$ required for merging.
+
+**Time & Space Complexity**
+* **Time Complexity:** $O(\log(\min(m, n)))$
+* **Space Complexity:** $O(1)$
+
+**Java Code**
+```java
+import java.util.*;
+
+class Solution {
+    public int kthElement(int[] a, int[] b, int k) {
+        int m = a.length;
+        int n = b.length;
+
+        // Ensure 'a' is the smaller array for optimization
+        if (m > n) {
+            return kthElement(b, a, k);
+        }
+
+        int left = k; // Number of elements in the left partition
+        int low = Math.max(0, k - n), high = Math.min(k, m);
+        while (low <= high) {
+            int mid1 = (low + high) >> 1;
+            int mid2 = left - mid1;
+            int l1 = (mid1 > 0) ? a[mid1 - 1] : Integer.MIN_VALUE;
+            int l2 = (mid2 > 0) ? b[mid2 - 1] : Integer.MIN_VALUE;
+            int r1 = (mid1 < m) ? a[mid1] : Integer.MAX_VALUE;
+            int r2 = (mid2 < n) ? b[mid2] : Integer.MAX_VALUE;
+
+            if (l1 <= r2 && l2 <= r1) {
+                return Math.max(l1, l2);
+            } else if (l1 > r2) {
+                high = mid1 - 1; // Move left
+            } else {
+                low = mid1 + 1; // Move right
+            }
+        }
+        return -1; // Should never reach here if inputs are valid
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        int[] a = {2, 3, 6, 7, 9};
+        int[] b = {1, 4, 8, 10};
+        int k = 5;
+        Solution solution = new Solution();
+        System.out.println("The " + k + "-th element of two sorted arrays is: " +
+                solution.kthElement(a, b, k));
+    }
+}
+```
+
+---
+
+### 4. 🔹 Edge Cases
+* **k is small ($k < \min(m, n)$):** `low` can be 0.
+* **k is large ($k > n$):** `low` must be at least `k - n` because even if we take all elements from array `b`, we still need more from array `a`.
+* **k equals total elements ($k = m + n$):** The answer is the maximum of the last elements of both arrays.
+* **One array is empty:** Handled by the initialization of `l1/l2` to `MIN_VALUE` and `r1/r2` to `MAX_VALUE`.
+
+---
+
+### 5. 🔹 Important Notes / Takeaways
+* **Symmetry:** This is the exact same logic as [Median of Two Sorted Arrays](https://takeuforward.org/data-structure/median-of-two-sorted-arrays-of-different-sizes/), but instead of a fixed partition at $(m+n)/2$, we partition at $k$.
+* **Boundary Handling:** Using `Integer.MIN_VALUE` and `Integer.MAX_VALUE` simplifies the logic for when a partition takes zero elements or all elements from an array.
+* **Optimization:** Always Binary Search on the smaller array to ensure the fastest possible runtime.
+
+---
+
+### 6. 🔹 Complexity Summary Table
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force (Merge)** | $O(m + n)$ | $O(m + n)$ |
+| **Better (Counter)** | $O(k)$ | $O(1)$ |
+| **Optimal (Binary Search)** | $O(\log(\min(m, n)))$ | $O(1)$ |
+
+--- 
+...
+# Binary Search on 2D Arrays
 
