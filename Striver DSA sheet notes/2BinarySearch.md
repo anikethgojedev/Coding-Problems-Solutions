@@ -4166,3 +4166,412 @@ public class Main {
 ...
 # Binary Search on 2D Arrays
 
+# Find the row with maximum number of 1's
+
+### 1. 🔹 Problem Summary
+Given a non-empty 2D grid `mat` of size $n \times m$ containing only 0s and 1s, where **each row is sorted in ascending order**, find the index of the row that contains the maximum number of 1s. If multiple rows have the same maximum count, return the one with the smallest index. If no 1s exist in the entire matrix, return -1.
+
+---
+
+### 2. 🔹 Key Observations & Intuition
+* **Sorted Rows:** The most critical piece of information is that each row is sorted. This means all 0s appear before all 1s (e.g., `0, 0, 1, 1, 1`).
+* **Finding the Boundary:** Because the rows are sorted, the number of 1s in a row is determined solely by the position of the **first occurrence of 1**.
+* **Counting Strategy:** Instead of counting every 1, we can use the formula: $\text{Number of 1s} = \text{Total Columns} - \text{Index of first 1}$.
+
+---
+
+### 3. 🔹 Approaches
+
+#### ➤ Brute Force
+**Idea:**
+Traverse the entire matrix using nested loops. For every row, iterate through all columns and manually count the number of 1s. Keep track of the maximum count found so far and the corresponding row index.
+
+**Time & Space Complexity:**
+* **Time Complexity:** $O(n \times m)$, where $n$ is the number of rows and $m$ is the number of columns.
+* **Space Complexity:** $O(1)$ as no extra data structures are used.
+
+**Java Code:**
+```java
+import java.util.*;
+
+public class Main {
+    public static int rowWithMax1s(ArrayList<ArrayList<Integer>> matrix, int n, int m) {
+        int cnt_max = 0;
+        int index = -1;
+
+        // Traverse each row of the matrix
+        for (int i = 0; i < n; i++) {
+            int cnt_ones = 0;
+            // Count 1s in current row
+            for (int j = 0; j < m; j++) {
+                cnt_ones += matrix.get(i).get(j);
+            }
+            // Update if this row has more 1s
+            if (cnt_ones > cnt_max) {
+                cnt_max = cnt_ones;
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<ArrayList<Integer>> matrix = new ArrayList<>();
+        matrix.add(new ArrayList<>(Arrays.asList(1, 1, 1)));
+        matrix.add(new ArrayList<>(Arrays.asList(0, 0, 1)));
+        matrix.add(new ArrayList<>(Arrays.asList(0, 0, 0)));
+        int n = 3, m = 3;
+        System.out.println("The row with maximum no. of 1's is: " + rowWithMax1s(matrix, n, m));
+    }
+}
+```
+
+---
+
+#### ➤ Optimal Approach
+**Detailed Explanation:**
+Since each row is sorted, we don't need to check every element. We can apply **Binary Search** (specifically the `lowerBound` algorithm) on each row to find the first index where a `1` appears. 
+1. For each row `i`, find the first index `j` where `matrix[i][j] == 1`.
+2. The number of 1s in that row is `m - j`.
+3. Compare this count with `cnt_max` and update the `index` accordingly.
+
+**Why this approach is optimal:**
+It reduces the column traversal from linear ($O(m)$) to logarithmic ($O(\log m)$) by leveraging the sorted property of the rows.
+
+**Time & Space Complexity:**
+* **Time Complexity:** $O(n \times \log m)$, where $n$ is the number of rows and we perform binary search across $m$ columns for each row.
+* **Space Complexity:** $O(1)$.
+
+**Java Code:**
+```java
+import java.util.*;
+
+public class Main {
+    // Binary search to find the first index where value >= x
+    public static int lowerBound(ArrayList<Integer> arr, int n, int x) {
+        int low = 0, high = n - 1;
+        int ans = n; // Default if x not found
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (arr.get(mid) >= x) {
+                ans = mid; // Possible answer
+                high = mid - 1; // Look for smaller index
+            } else {
+                low = mid + 1; // Search right half
+            }
+        }
+        return ans;
+    }
+
+    // Find row with max number of 1s
+    public static int rowWithMax1s(ArrayList<ArrayList<Integer>> matrix, int n, int m) {
+        int cnt_max = 0;
+        int index = -1;
+
+        for (int i = 0; i < n; i++) {
+            int cnt_ones = m - lowerBound(matrix.get(i), m, 1); // 1s = total - index of first 1
+            if (cnt_ones > cnt_max) {
+                cnt_max = cnt_ones;
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<ArrayList<Integer>> matrix = new ArrayList<>();
+        matrix.add(new ArrayList<>(Arrays.asList(1, 1, 1)));
+        matrix.add(new ArrayList<>(Arrays.asList(0, 0, 1)));
+        matrix.add(new ArrayList<>(Arrays.asList(0, 0, 0)));
+        int n = 3, m = 3;
+        System.out.println("The row with maximum no. of 1's is: " + rowWithMax1s(matrix, n, m));
+    }
+}
+```
+
+---
+
+### 4. 🔹 Edge Cases
+* **All Zeros:** If the matrix contains no 1s, the code should return `-1`.
+* **All Ones:** Every element is 1; the code should return the first row (index 0).
+* **Single Row/Column:** Ensure the binary search bounds handle $1 \times m$ or $n \times 1$ matrices correctly.
+* **Empty Grid:** Though the problem states "non-empty," in interviews, it's good to check if `n` or `m` is 0.
+
+---
+
+### 5. 🔹 Important Notes / Takeaways
+* **Sorted Property:** Whenever you see a sorted array or row, **Binary Search** should be your first thought for optimization.
+* **Lower Bound Pattern:** Finding the "first occurrence" is a classic application of the `lowerBound` function.
+* **Interview Tip:** Always clarify if you should return the index of the *first* row in case of a tie. Most platforms (and this problem) require the smallest index.
+
+---
+
+### 6. 🔹 Complexity Summary Table
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(n \times m)$ | $O(1)$ |
+| **Optimal (Binary Search)** | $O(n \times \log m)$ | $O(1)$ |
+
+--- 
+# Search in a sorted 2D matrix
+
+### 1\. 🔹 Problem Summary
+
+You are given an $N \times M$ matrix where each row is sorted in non-decreasing order. Additionally, the first element of any row is greater than the last element of the previous row. Your task is to determine if a specific `target` exists within the matrix.
+
+-----
+
+### 2\. 🔹 Key Observations & Intuition
+
+  * **Sequential Sorting:** The condition that the first element of a row is greater than the last element of the previous row means that if we "unrolled" the matrix, it would form a single, perfectly sorted 1D array.
+  * **Binary Search Readiness:** Because the entire structure follows a sorted order, we can move beyond linear searching and utilize **Binary Search** to achieve logarithmic time complexity.
+  * **Index Mapping:** We can treat the 2D matrix as a 1D array of size $N \times M$. Any index `mid` in this virtual 1D array can be converted to 2D coordinates:
+      * `row = mid / m`
+      * `col = mid % m`
+
+-----
+
+### 3\. 🔹 Approaches
+
+#### ➤ Brute Force
+
+**Idea:**
+The simplest way is to traverse every element in the matrix using two nested loops and check if any element matches the target.
+
+**Time & Space Complexity:**
+
+  * **Time Complexity:** $O(N \times M)$
+  * **Space Complexity:** $O(1)$
+
+**Java Code:**
+
+```java
+import java.util.*;
+
+public class Solution {
+    // Function to search for a target value in the matrix
+    public boolean searchMatrix(int[][] matrix, int target) {
+        // Get number of rows in the matrix
+        int n = matrix.length;
+        // Get number of columns in the matrix
+        int m = matrix[0].length;
+
+        // Traverse each row
+        for (int i = 0; i < n; i++) {
+            // Traverse each column in the current row
+            for (int j = 0; j < m; j++) {
+                // Check if the current element matches the target
+                if (matrix[i][j] == target)
+                    return true;
+            }
+        }
+        // Return false if the target is not found
+        return false;
+    }
+}
+
+// Driver class
+class Main {
+    public static void main(String[] args) {
+        // Define a 2D matrix
+        int[][] matrix = {
+            {1, 2, 3, 4},
+            {5, 6, 7, 8},
+            {9, 10, 11, 12}
+        };
+
+        // Create an object of the Solution class
+        Solution obj = new Solution();
+
+        // Call the searchMatrix function and print the result
+        if (obj.searchMatrix(matrix, 8)) 
+            System.out.println("true");
+        else System.out.println("false");
+    }
+}
+```
+
+#### ➤ Better Approach
+
+**Idea:**
+Since each row is sorted, we don't need to check every element. We can iterate through each row and check if the target lies between the first and last element of that row. If it does, we perform a binary search on that specific row.
+
+**Improvement over brute force:**
+Instead of checking all $M$ elements in a row, we only check the boundaries and then use $O(\log M)$ to search within the row.
+
+**Time & Space Complexity:**
+
+  * **Time Complexity:** $O(N + \log M)$
+  * **Space Complexity:** $O(1)$
+
+**Java Code:**
+
+```java
+import java.util.*;
+
+public class Solution {
+    // Function to perform binary search on a 1D array
+    public boolean binarySearch(int[] nums, int target) {
+        // Get the length of the array
+        int n = nums.length;
+        // Initialize low and high pointers
+        int low = 0, high = n - 1;
+
+        // Perform binary search
+        while (low <= high) {
+            // Calculate the middle index
+            int mid = (low + high) / 2;
+            // If the middle element is the target, return true
+            if (nums[mid] == target)
+                return true;
+            // If target is greater, search in the right half
+            else if (target > nums[mid])
+                low = mid + 1;
+            // Otherwise, search in the left half
+            else high = mid - 1;
+        }
+        // Return false if target is not found
+        return false;
+    }
+
+    // Function to search for target in a 2D matrix
+    public boolean searchMatrix(int[][] matrix, int target) {
+        // Get the number of rows
+        int n = matrix.length;
+        // Get the number of columns
+        int m = matrix[0].length;
+
+        // Traverse each row
+        for (int i = 0; i < n; i++) {
+            // Check if target could be in this row
+            if (matrix[i][0] <= target && target <= matrix[i][m - 1]) {
+                // Perform binary search on this row
+                return binarySearch(matrix[i], target);
+            }
+        }
+        // Return false if target is not found
+        return false;
+    }
+}
+
+// Driver class
+class Main {
+    public static void main(String[] args) {
+        // Define a 2D matrix
+        int[][] matrix = {
+            {1, 2, 3, 4},
+            {5, 6, 7, 8},
+            {9, 10, 11, 12}
+        };
+
+        // Create an object of the Solution class
+        Solution obj = new Solution();
+
+        // Call the searchMatrix method and print the result
+        if (obj.searchMatrix(matrix, 8))
+            System.out.println("true");
+        else System.out.println("false");
+    }
+}
+```
+
+#### ➤ Optimal Approach
+
+**Detailed Explanation:**
+We treat the entire 2D matrix as a virtual 1D array. Since the matrix is globally sorted, we apply binary search on the range $[0, (N \times M) - 1]$. For every `mid` index, we find the corresponding element in the 2D matrix using `matrix[mid / m][mid % m]`.
+
+**Why this approach is optimal:**
+It performs a single binary search across the entire dataset, reaching the target in logarithmic time without ever needing to iterate linearly through rows.
+
+**Time & Space Complexity:**
+
+  * **Time Complexity:** $O(\log(N \times M))$
+  * **Space Complexity:** $O(1)$
+
+**Java Code:**
+
+```java
+import java.util.*;
+
+class Solution {
+    // Function to search target in 2D matrix using binary search
+    public boolean searchMatrix(int[][] matrix, int target) {
+        // Get the number of rows
+        int n = matrix.length;
+        // Get the number of columns
+        int m = matrix[0].length;
+
+        // Set initial binary search range
+        int low = 0, high = n * m - 1;
+
+        // Perform binary search
+        while (low <= high) {
+            // Calculate middle index
+            int mid = (low + high) / 2;
+            // Map 1D index to 2D coordinates
+            int row = mid / m;
+            int col = mid % m;
+
+            // Check if target is found
+            if (matrix[row][col] == target)
+                return true;
+            // Discard left half
+            else if (matrix[row][col] < target)
+                low = mid + 1;
+            // Discard right half
+            else high = mid - 1;
+        }
+        // Target not found
+        return false;
+    }
+}
+
+// Driver class
+public class Main {
+    public static void main(String[] args) {
+        // Define 2D matrix
+        int[][] matrix = {
+            {1, 2, 3, 4},
+            {5, 6, 7, 8},
+            {9, 10, 11, 12}
+        };
+
+        // Create object of Solution
+        Solution obj = new Solution();
+
+        // Call the method and print result
+        if (obj.searchMatrix(matrix, 8))
+            System.out.println("true");
+        else System.out.println("false");
+    }
+}
+```
+
+-----
+
+### 4\. 🔹 Edge Cases
+
+  * **Matrix with 1 row/column:** The mapping `mid / m` and `mid % m` handles this naturally.
+  * **Target not in range:** If the target is smaller than `matrix[0][0]` or larger than the last element, the binary search pointers will cross, and it will return `false`.
+  * **Empty Matrix:** Should be handled by checking if `n == 0` or `m == 0` (though usually not an issue in constraints).
+
+-----
+
+### 5\. 🔹 Important Notes / Takeaways
+
+  * **Virtual Flattening:** The key trick for $O(\log(N \times M))$ is simulating a 1D array using `mid / m` and `mid % m`.
+  * **Interview Tip:** Always clarify if the matrix is "globally sorted" (this problem) or just "row and column sorted" ([Search in a 2D Matrix II](https://www.google.com/search?q=https://takeuforward.org/data-structure/search-in-a-row-and-column-wise-sorted-matrix/)), as the optimal strategies differ significantly.
+
+-----
+
+### 6\. 🔹 Complexity Summary Table
+
+| Approach | Time Complexity | Space Complexity |
+| :--- | :--- | :--- |
+| Brute Force | $O(N \times M)$ | $O(1)$ |
+| Better Approach | $O(N + \log M)$ | $O(1)$ |
+| **Optimal Approach** | **$O(\log(N \times M))$** | **$O(1)$** |
+
+--- 
