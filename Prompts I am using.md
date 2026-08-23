@@ -40,5 +40,8 @@ Keep Java code exactly the same as on the website, dont even change comments or 
 Maintain clean formatting and readability
 Focus on interview-oriented understanding and revision
 
-Dont change anything in code you will take, not even the comments, take as it is in the website.
+Dont change anything in code that is explained in the website which you will eventually put in the notes, not even the comments, take as it is in the website.
+Remeber this very strictly. 
+
+--- 
 
